@@ -22,7 +22,7 @@ const Sidebar = () => {
 
   
 
-  const listItems = [
+  const listItems = [   
     {
       id: 1,
       title: "DashBoard",

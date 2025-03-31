@@ -3,17 +3,19 @@ import React from 'react'
 
 import Sidebar from './Components/Sidebar'
 import OrderTable from './Components/Table/OrderTable'
-import { Route, Routes } from 'react-router-dom'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
 // import DemoTable from './Components/Table/DemoTable'
 import ProductManagement from './Components/Table/ProductManagement'
 import CategoryManagement from './Components/Table/CategoryManagement'
 import DeliveryBoy from './Components/Table/DeliveryBoy'
+
 
 const App = () => {
   return (
     <div className='flex'>
       
      
+      <BrowserRouter>
       <Sidebar/>
 
       <Routes>
@@ -23,7 +25,7 @@ const App = () => {
         <Route path='/deliveryboys' element={<DeliveryBoy/>}/>
       </Routes>
       
-    
+      </BrowserRouter>
 
     
       
