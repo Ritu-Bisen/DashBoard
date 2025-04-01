@@ -16,18 +16,20 @@ const CategoryManagement = () => {
 
   const columns = [
     {
-      name: "id",
+      name: "Id",
       selector: (row) => row.category_id,
       width: "150px",
+    },
+    
+    {
+      name: "Icon",
+      selector: (row) => row.icon,
+      
     },
     {
       name: "Name",
       selector: (row) => row.name,
       sortable: true,
-    },
-    {
-      name: "Icon",
-      selector: (row) => row.icon,
     },
 
     {
@@ -59,7 +61,7 @@ const CategoryManagement = () => {
     },
   };
 
-  const productQuantity = 10;
+  
 
   const data = categories.map((item, index) => ({
     category_id: (item.id).slice(0,8),
@@ -69,8 +71,10 @@ const CategoryManagement = () => {
     banner_urls: <img src={item.banner_urls} className="py-1" />,
   }));
 
+ 
+
   return (
-    <div className="w-[calc(100%-300px)">
+    <div className="w-[calc(100%-300px) ml-[300px]">
       <Header />
       <div className=" mt-25">
         <div className="flex justify-between gap-3">

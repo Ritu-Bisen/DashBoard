@@ -121,58 +121,95 @@
 
 
 
-const columns =[ 
-  {
-  name: 'id',
-  selector: row => row.category_id,
-  width:'300px',
+// const columns =[ 
+//   {
+//   name: 'id',
+//   selector: row => row.category_id,
+//   width:'300px',
  
   
-},
-{
-  name: 'Name',
-  selector: row => row.name,
-  sortable: true,
+// },
+// {
+//   name: 'Name',
+//   selector: row => row.name,
+//   sortable: true,
  
-},
-{
-  name: 'Icon',
-  selector: row => row.icon,
+// },
+// {
+//   name: 'Icon',
+//   selector: row => row.icon,
  
-},
-{
-  name: 'Section',
-  selector: row => row.section,
+// },
+// {
+//   name: 'Section',
+//   selector: row => row.section,
   
-},
-{
-  name: 'Banner',
-  selector: row => row.banner_yrls,
+// },
+// {
+//   name: 'Banner',
+//   selector: row => row.banner_yrls,
   
-},
-{
-  name: 'Description',
-  selector: row => row.descriptions,
+// },
+// {
+//   name: 'Description',
+//   selector: row => row.descriptions,
   
-},
+// },
 
-{
-  name: 'Status',
-  selector: row => row.status,
-  center:'true'
+// {
+//   name: 'Status',
+//   selector: row => row.status,
+//   center:'true'
  
-},
-]
+// },
+// ]
 
 
-const data = Array(25).fill(
-  {
-    category_id: '02fc7211-9f9a-4c0c-ac18-9e0f18ab288e',
-    name:'Men',
-    icon:<img src='https://iltrrlubnqpzllzbogen.supabase.co/storage/v1/object/public/sections/salon/category_icons/02fc7211-9f9a-4c0c-ac18-9e0f18ab288e/electric-razor%20black.png'/>,
-    section:'salon',
-    banner_urls:<img src='["https://iltrrlubnqpzllzbogen.supabase.co/storage/v1/object/public/sections/mart/banners/120299e9-a35a-40bf-ba5a-3d5d38b8db85/mart%203.jpg"]'/>,
-    descriptions:'NULL',
-    status: <div className='m-auto'>{ productQuantity > 0 ? (<p className='bg-green-600 rounded-lg p-2'> Available </p>) : (<p className='bg-red-600 rounded-lg p-2'>Not Available</p>)} </div>
-},
-)
+// const data = Array(25).fill(
+//   {
+//     category_id: '02fc7211-9f9a-4c0c-ac18-9e0f18ab288e',
+//     name:'Men',
+//     icon:<img src='https://iltrrlubnqpzllzbogen.supabase.co/storage/v1/object/public/sections/salon/category_icons/02fc7211-9f9a-4c0c-ac18-9e0f18ab288e/electric-razor%20black.png'/>,
+//     section:'salon',
+//     banner_urls:<img src='["https://iltrrlubnqpzllzbogen.supabase.co/storage/v1/object/public/sections/mart/banners/120299e9-a35a-40bf-ba5a-3d5d38b8db85/mart%203.jpg"]'/>,
+//     descriptions:'NULL',
+//     status: <div className='m-auto'>{ productQuantity > 0 ? (<p className='bg-green-600 rounded-lg p-2'> Available </p>) : (<p className='bg-red-600 rounded-lg p-2'>Not Available</p>)} </div>
+// },
+// )
+
+
+import { useState, useEffect } from "react";
+
+const DemoTable = () => {
+  const menuItems = ["Home", "About", "Services", "Contact"];
+
+  // Get the stored active menu from localStorage
+  const [activeMenu, setActiveMenu] = useState(() => {
+    return localStorage.getItem("activeMenu") || "Home";
+  });
+
+  // Update localStorage when activeMenu changes
+  useEffect(() => {
+    localStorage.setItem("activeMenu", activeMenu);
+  }, [activeMenu]);
+
+  return (
+    <div className="w-64 h-screen bg-gray-800 text-white">
+      <ul className="p-4">
+        {menuItems.map((item) => (
+          <li
+            key={item}
+            className={`p-3 cursor-pointer rounded-md text-lg ${
+              activeMenu === item ? "bg-blue-500" : "hover:bg-gray-700"
+            }`}
+            onClick={() => setActiveMenu(item)}
+          >
+            {item}
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+};
+
+export default DemoTable;

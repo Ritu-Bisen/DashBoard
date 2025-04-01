@@ -21,7 +21,7 @@ const OrderTable = () => {
       selector: row => row.serialNo,
     },
     {
-      name: "id",
+      name: "Id",
       selector: (row) => row.order_id,
       width: "300px",
     },
@@ -83,6 +83,7 @@ const OrderTable = () => {
           borderRightWidth: "1px",
           borderRightColor: "gray",
           justifyContent: "center",
+          
         },
       },
     },
@@ -105,7 +106,7 @@ const OrderTable = () => {
   ))
 
   return (
-    <div className="w-[calc(100%-300px)]">
+    <div className="w-[calc(100%-300px)] ml-[300px]">
       {" "}
       <Header />
       <div className="  mt-25 ">
@@ -145,13 +146,13 @@ const OrderTable = () => {
             </label>
           </div>
         </div>
-        <div className="overflow-x mt-9">
+        <div className="overflow-x mt-9 ">
           <DataTable
             fixedHeader
             columns={columns}
             data={data}
             customStyles={customStyles}
-            fixedHeaderScrollHeight="67vh"
+            fixedHeaderScrollHeight="90vh"
             pagination
             defaultSortFieldId={1}
           />

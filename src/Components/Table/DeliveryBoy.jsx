@@ -2,7 +2,7 @@ import React from 'react'
 
 const DeliveryBoy = () => {
   return (
-    <div className="w-[calc(100%-300px)] bg-gray-300 ">
+    <div className="w-[calc(100%-300px)] ml-[300px] bg-gray-300 ">
        <div className='mt-5 flex justify-between border-b border-gray-500 py-5 '>
        <h1 className='text-3xl font-bold ml-3'> Create Delivery Boy</h1>
        <button className='bg-green-600 rounded-full h-10 w-50 mr-5  '>View Delivery Boy</button>

@@ -35,7 +35,7 @@ const ProductManagement = () => {
       selector: (row) => row.image_urls,
     },
     {
-      name: "id",
+      name: "Id",
       selector: (row) => row.product_id,
       width: "100px",
     },
@@ -65,7 +65,7 @@ const ProductManagement = () => {
       width: "130px",
     },
     {
-      name: "Stock Quantity",
+      name: "Quantity",
       selector: (row) => row.stock_quantity,
     },
 
@@ -130,7 +130,7 @@ const ProductManagement = () => {
   }));
 
   return (
-    <div className="w-[calc(100%-300px)]">
+    <div className="w-[calc(100%-300px)] ml-[300px]">
       <Header />
       <div className=" mt-25">
         <div className="flex justify-between gap-3">
