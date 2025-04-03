@@ -8,9 +8,12 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import ProductManagement from './Components/Table/ProductManagement'
 import CategoryManagement from './Components/Table/CategoryManagement'
 import DeliveryBoy from './Components/Table/DeliveryBoy'
-import DemoTable from './Components/Table/DemoTable'
+// import DemoTable from './Components/Table/DemoTable'
 import CategoryOfferTable from './Components/Table/CategoryOfferTable'
 import DeliveryBoyRequest from './Components/Table/DeliveryBoyRequest'
+import DeliveryBoyManaged from './Components/Table/DeliveryBoyManaged'
+import DeliveryBoyCash from './Components/Table/DeliveryBoyCash'
+import StockManagementForm from './Components/Table/StockManagementForm'
 
 
 
@@ -24,17 +27,20 @@ const App = () => {
 
       <Routes>
         <Route path='/order/orders' element={<OrderTable/>}/>
-        <Route path='/stockmanagement' element={<ProductManagement/>}/>
+        <Route path='/stockmanagement' element={<StockManagementForm/>}/>
+        <Route path='/product' element={<ProductManagement/>}/>
         <Route path='/category/category' element={<CategoryManagement/>}/>
         <Route path='/category/category-offer' element={<CategoryOfferTable/>}/>
         <Route path='/deliveryboy/delivery-boy-add' element={<DeliveryBoy/>}/>
         <Route path='/deliveryboy/delivery-boy-request' element={<DeliveryBoyRequest/>}/>
+        <Route path='/deliveryboy/delivery-boy-management' element={<DeliveryBoyManaged/>}/>
+        <Route path='/deliveryboy/delivery-boy-cash' element={<DeliveryBoyCash/>}/>
       </Routes>
       
       </BrowserRouter>
 
-     {/* <DemoTable/>
-    <SidebarNew/> */}
+      {/* <DemoTable/> */}
+    {/* <SidebarNew/>  */}
       
     </div>
   )

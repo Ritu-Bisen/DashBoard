@@ -16,14 +16,20 @@ const ProductManagement = () => {
     dispatch(getproduct());
   }, [dispatch]);
 
-  const searchthedata = Array.isArray(products) ? products.filter((item) => {
-    const namematch = item?.name?.toLowerCase().includes(searchQuery.toLowerCase());
-    const categorymatch = item?.categories.name?.toLowerCase().includes(searchQuery.toLowerCase());
-    const idmatch = item?.id?.toLowerCase().includes(searchQuery.toLowerCase());
-    return namematch || categorymatch || idmatch ;
-  }) : [] ;
-
-  
+  const searchthedata = Array.isArray(products)
+    ? products.filter((item) => {
+        const namematch = item?.name
+          ?.toLowerCase()
+          .includes(searchQuery.toLowerCase());
+        const categorymatch = item?.categories.name
+          ?.toLowerCase()
+          .includes(searchQuery.toLowerCase());
+        const idmatch = item?.id
+          ?.toLowerCase()
+          .includes(searchQuery.toLowerCase());
+        return namematch || categorymatch || idmatch;
+      })
+    : [];
 
   const columns = [
     {
@@ -104,7 +110,7 @@ const ProductManagement = () => {
 
   const data = searchthedata.map((item, index) => ({
     serialNo: index + 1,
-    product_id: (item.id).slice(0,8),
+    product_id: item.id.slice(0, 8),
     category_id: item.categories.name,
     name: item.name,
     description: item.description,
@@ -124,7 +130,7 @@ const ProductManagement = () => {
           <p className="bg-green-800  rounded-lg p-2"> Available </p>
         ) : (
           <p className="bg-red-600 rounded-lg p-2">Not Available</p>
-        )}{" "}
+        )}  
       </div>
     ),
   }));

@@ -1,9 +1,9 @@
 import React from 'react'
-import DataTable from 'react-data-table-component';
 import Header from '../Header';
+import DataTable from 'react-data-table-component';
 
-const DeliveryBoyRequest = () => {
 
+const DeliveryBoyManaged = () => {
     const columns = [
         {
           name: "Id",
@@ -70,8 +70,6 @@ const DeliveryBoyRequest = () => {
       };
 
 
-      
-
       const data =Array(25).fill({
         deliveryBoy_id:'8743yfie',
         name:'Rohan',
@@ -80,30 +78,25 @@ const DeliveryBoyRequest = () => {
         city:'Raipur',
         accountNo:'y4823921093100',
         drivingLicense:<img src='https://th.bing.com/th/id/OIP.E3UNwm389l_qdOdJ6zbhCAHaE8?w=275&h=184&c=7&r=0&o=5&dpr=1.3&pid=1.7'/>,
-        status:<div className='space-x-2 text-white font-semibold'><button className='bg-green-700 h-10 w-20 rounded-lg'>Approval</button><button className='bg-red-700 h-10 w-20 rounded-lg'>Reject</button></div>,
+        status:<div className='space-x-2 text-white font-semibold'><button className='bg-green-700 h-10 w-20 rounded-lg'>Edit</button><button className='bg-red-700 h-10 w-20 rounded-lg'>Delete</button></div>,
       })
 
   return (
-    <div  className="w-[calc(100%-300px)] ml-[300px]">
-        <Header/>
-        <div className='mt-25'>
-        <div className="flex justify-between gap-3">
-          <h1 className="  ml-2  text-3xl font-bold ">Delivery Boys Request</h1>
-          <input
-            className="border-2 border-gray-400 w-95 h-10 rounded-full p-3"
-            placeholder="Search"
-            type="text"
-          />
-        </div>
+    <div className="w-[calc(100%-300px) ml-[300px]">
+      <Header/>
+      <div className='mt-25'>
+        <div className='flex justify-between '> 
+        <h1 className="  ml-2  text-3xl font-bold ">Delivery Boys Management</h1>
+          <input className="border-2 border-gray-400 w-95 h-10 rounded-full p-3" type='text' placeholder='Search'/>
+          </div>
+       
         <div className='overflow-x mt-9'>
-            <DataTable fixedHeader columns={columns} data={data} pagination customStyles={customStyles} defaultSortFieldId={1} fixedHeaderScrollHeight='67vh' />
-
+          <DataTable data={data} columns={columns} customStyles={customStyles} pagination fixedHeader fixedHeaderScrollHeight='67vh' defaultSortFieldId={1} />
         </div>
-             
-             </div>
-    
+      </div>
+      
     </div>
-  ) 
+  )
 }
 
-export default DeliveryBoyRequest
+export default DeliveryBoyManaged

@@ -18,23 +18,20 @@ const CategoryManagement = () => {
     {
       name: "Id",
       selector: (row) => row.category_id,
-      width: "150px",
+      width: "400px",
     },
     
     {
       name: "Icon",
       selector: (row) => row.icon,
+      width:'400px'
       
     },
     {
       name: "Name",
       selector: (row) => row.name,
       sortable: true,
-    },
-
-    {
-      name: "Banner",
-      selector: (row) => row.banner_urls,
+      width:'400px'
     },
   ];
 
@@ -67,8 +64,6 @@ const CategoryManagement = () => {
     category_id: (item.id).slice(0,8),
     name: item.name,
     icon: <img src={item.icon} className="h-13 p-2 w-13 " />,
-
-    banner_urls: <img src={item.banner_urls} className="py-1" />,
   }));
 
  

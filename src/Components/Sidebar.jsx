@@ -34,6 +34,12 @@ const Sidebar = () => {
     },
     {
       id: 3,
+      title: "Product",
+      icon: <FaBoxOpen size={25} />,
+      path: "/product",
+    },
+    {
+      id: 4,
       title: "Order",
       icon: <MdOutlineAddShoppingCart size={25} />,
       subroute: [
@@ -43,7 +49,7 @@ const Sidebar = () => {
     },
     
     {
-      id: 4,
+      id: 5,
       title: "Category",
       icon: <TbCategoryPlus size={25} />,
       subroute: [
@@ -53,7 +59,7 @@ const Sidebar = () => {
     },
    
     {
-      id: 5,
+      id: 6,
       title: "Delivery Boys",
       icon: <TbTruckDelivery size={25} />,
       subroute: [
@@ -70,7 +76,7 @@ const Sidebar = () => {
       ],
     },
     {
-      id: 6,
+      id: 7,
       title: "Reports",
       icon: <HiOutlineClipboardDocumentList size={25} />,
       path: "/reports",

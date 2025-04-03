@@ -6,6 +6,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { getOrders } from "../../Redux/Slices/OrderSlice";
 
 const OrderTable = () => {
+ 
+
+
   const { orders } = useSelector((state) => state.order);//order=store,orders=initialstate
   console.log(orders);
 
