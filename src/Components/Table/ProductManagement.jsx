@@ -121,7 +121,7 @@ const ProductManagement = () => {
     image_urls: (
       <img
         src={item.image_urls[0]}
-        className=" h-15 w-15  items-center flex "
+        className=" h-15 w-15  items-center flex"
       />
     ),
     status: (

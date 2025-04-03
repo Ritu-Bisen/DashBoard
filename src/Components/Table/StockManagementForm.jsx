@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { getproduct } from "../../Redux/Slices/productSlice";
 import DataTable from "react-data-table-component";
 import { getStock } from "../../Redux/Slices/stockmanagementSlice";
+import { IoIosSend } from "react-icons/io";
+import { orderList } from "../../Redux/Slices/stockmanagement";
 
 const StockManagementForm = () => {
   const [selectedProducts, setSelectedProducts] = useState([]); // Selected products list
@@ -40,6 +42,12 @@ const StockManagementForm = () => {
     dispatch(getStock());
     dispatch(getproduct());
   }, [dispatch]);
+
+  //onsubmit button
+  const handlesubmit =()=>{
+    dispatch(orderList(addedItems))
+    console.log(addedItems)
+  }
 
   const columns = [
     { name: "S.no", selector: (row) => row.serialNo },
@@ -93,7 +101,7 @@ const StockManagementForm = () => {
     const stockItem = stocks.find(
       (item) => item.mart_products.name === product.name
     );
-    return {
+    return {                         
       serialNo: index + 1,
       product_id: stockItem ? stockItem.product_id.slice(0, 8) : product.id,
       image_urls: (
@@ -182,21 +190,12 @@ const StockManagementForm = () => {
       <div className="mt-10 p-4  rounded-lg shadow-lg">
         <h2 className="text-xl font-bold mb-4">Added Items</h2>
 
-        <DataTable columns={columnList} data={dataList} customStyles={customStyles} fixedHeader />
-        {/* {addedItems.length === 0 ? (
-          <p className="text-gray-500">No items added yet.</p>
-        ) : (
-          <ul className="space-y-2">
-            {addedItems.map((item, index) => (
-              <li key={index} className="p-2 gap-2 border-b">
-                <span className="font-semibold">id-{(item.id).slice(0,8)}:</span>{" "}
-                <span className="font-semibold">{item.name}:</span>{" "}
-                {item.quantity}
-              </li>
-            ))}
-          </ul>
-        )} */}
+        <DataTable columns={columnList} data={dataList} customStyles={customStyles} fixedHeader /> 
+       
       </div>
+   <div className="item-center justify-center flex mt-5">
+   <button onClick={()=>handlesubmit()} className="bg-red-600 rounded-lg p-2 font-semibold gap-2 text-white flex text-2xl">Request Now < IoIosSend className="mt-1" size={25}/></button>
+   </div> 
     </div>
   );
 };
