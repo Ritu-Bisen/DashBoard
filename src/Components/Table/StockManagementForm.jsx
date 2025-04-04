@@ -5,7 +5,7 @@ import { getproduct } from "../../Redux/Slices/productSlice";
 import DataTable from "react-data-table-component";
 import { getStock } from "../../Redux/Slices/stockmanagementSlice";
 import { IoIosSend } from "react-icons/io";
-import { orderList } from "../../Redux/Slices/stockmanagement";
+import { orderList } from "../../Redux/Slices/stockQuantitySlice";
 
 const StockManagementForm = () => {
   const [selectedProducts, setSelectedProducts] = useState([]); // Selected products list
@@ -46,11 +46,12 @@ const StockManagementForm = () => {
   //onsubmit button
   const handlesubmit =()=>{
     dispatch(orderList(addedItems))
-    console.log(addedItems)
+   
   }
 
   const columns = [
     { name: "S.no", selector: (row) => row.serialNo },
+    
     { name: "Product Id", selector: (row) => row.product_id },
     { name: "Image", selector: (row) => row.image_urls, width: "100px" },
     {
@@ -122,7 +123,7 @@ const StockManagementForm = () => {
         <div className="gap-3">
           <input
             type="number"
-            className="border-gray-300 p-2"
+            className="border-gray-300 border-2 p-2"
             value={requestInput}
             onChange={(e) => setRequestInput(e.target.value)}
           />
@@ -153,7 +154,7 @@ const StockManagementForm = () => {
    quantity: item.quantity
   }))
 
-  console.log(addedItems)
+  
 
   return (
     <div className="w-[calc(100%-300px)] ml-[300px]">

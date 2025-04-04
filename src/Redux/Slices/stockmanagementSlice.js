@@ -5,7 +5,7 @@ import { stockApi } from "../Api/stockApi";
 
 export  const orderList = createAsyncThunk ("stock/fetch",async (order)=>{
    const orders = await stockApi(order);
-   console.log("fgdtr",order);
+   console.log(order);
    
    return orders;
 

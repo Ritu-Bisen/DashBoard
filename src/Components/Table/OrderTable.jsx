@@ -25,6 +25,16 @@ const OrderTable = () => {
     },
     {
       name: "Id",
+      selector: (row) => row.id,
+      width: "300px",
+    },
+    {
+      name: "Product Id",
+      selector: (row) => row.product_id,
+      width: "300px",
+    },
+    {
+      name: "Order Id",
       selector: (row) => row.order_id,
       width: "300px",
     },
@@ -32,15 +42,47 @@ const OrderTable = () => {
       name: "User Id",
       selector: (row) => row.user_id,
       width: "300px",
+    }, {
+      name: "User Name",
+      selector: (row) => row.user_name,
+     
+    },{
+      name: "User Contact",
+      selector: (row) => row.user_contact,
+      width: "150px",
     },
     {
       name: "Order Type",
       selector: (row) => row.order_type,
     },
     {
+      name: "Price",
+      selector: (row) => row.price,
+      
+    }, {
+      name: "Quantity",
+      selector: (row) => row.quantity,
+      
+    },  {
+      name: "Product Name",
+      selector: (row) => row.product_name,
+      
+    },
+    {
+      name: " Discount %",
+      selector: (row) => row. discount_percentage,
+    
+    },
+    {
+      name: " Discount Price",
+      selector: (row) => row.discounted_price,
+      
+    },
+    {
       name: "Total Amount",
       selector: (row) => row.total_amount,
     },
+
     {
       name: "Payment Status",
       selector: (row) => row.payment_status,
@@ -52,11 +94,12 @@ const OrderTable = () => {
     {
       name: "Payment Method",
       selector: (row) => row.payment_method,
-      width: "130px",
+      
     },
     {
       name: "Address",
-      selector: (row) => row.address,
+      selector: (row) => row.address, 
+      width: "300px",
     },
     {
       name: "Placed",
@@ -96,16 +139,29 @@ const OrderTable = () => {
 
    {
    serialNo:index+1,
-    order_id: item.id,
-    user_id:item.user_id ,
-    order_type: item.order_type,
-    total_amount: item.total_amount,
-    payment_status: item.payment_status,
-    order_status: item.order_status,
-    payment_method: item.payment_method,
-    address: item.address,
-    placed_at: item.placed_at,
-    updated_at: item.updated_at,}
+   
+    id: item.id,
+    order_id:item.order_id,
+    user_id:item.orders.user_id,
+    product_id:item.mart_products.id ,
+   
+    price: item.price,
+    quantity:item.quantity,
+    user_name:item.orders.users.name,
+    user_contact:item.orders.users.phone_number,
+
+    product_name: item.mart_products.name ,
+    discount_percentage:item.mart_products.discount_percentage,
+    discounted_price:item.mart_products.discounted_price,
+
+    order_type:item.orders.order_type,
+    total_amount: item.orders.total_amount,
+    payment_status: item.orders.payment_status,
+    order_status: item.orders.order_status,
+    payment_method: item.orders.payment_method,
+    address: item.orders.address,
+    placed_at: item.orders.placed_at,
+    updated_at: item.orders.updated_at,}
   ))
 
   return (

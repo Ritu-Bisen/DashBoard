@@ -3,9 +3,9 @@ import supabase from "../../SupaBaseClient";
 export const fetchorderAPI = async () => {
   try {
     const { data, error } = await supabase
-      .from("orders")
-      .select("*")
-      .eq("order_type", "mart");
+      .from("mart_order_items")
+      .select(`* ,orders(*,users(*)),mart_products(*)`)
+     
     if (!error) {
       console.log("fetch the order data", data);
     } else {
