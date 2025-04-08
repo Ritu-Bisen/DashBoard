@@ -5,10 +5,9 @@ export const fetchProductApi = async () =>{
     try {
         const{data,error}= await supabase
         .from("mart_products")
-        .select(`*, categories(id,
-            name)`)
+        .select(`*,categories(id,name)`)
         if (!error) {
-            console.log("fetch succefully",data)
+           console.log("fetch succefully",data)
             
         } else {
            console.log("error when fetching data",error) 
@@ -19,3 +18,4 @@ export const fetchProductApi = async () =>{
         
     }
 }
+

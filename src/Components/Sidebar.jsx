@@ -13,6 +13,7 @@ import { TbCategoryPlus, TbTruckDelivery } from "react-icons/tb";
 import { FaBoxOpen } from "react-icons/fa";
 import { HiOutlineClipboardDocumentList, HiUsers } from "react-icons/hi2";
 import { CiEdit } from "react-icons/ci";
+import logo from '../assets/pictures/snba-logo-black.png';
 
 const Sidebar = () => {
   const location = useLocation();
@@ -87,9 +88,9 @@ const Sidebar = () => {
   return (
     
       <div className="fixed top-0 left-0 w-[300px] bg-[#ad011d] h-screen text-white pt-5 overflow-hidden">
-        <div className="bg-gray-300 w-44 h-10 m-auto text-2xl text-black font-bold text-center mb-5">
-          Logo
-        </div>
+       
+          <img className="bg-white w-44 h-15 m-auto object-cover text-2xl text-black font-bold text-center mb-5" src={logo}/>
+      
 
         {/* Profile Section */}
         <div className="flex flex-col items-center justify-center">

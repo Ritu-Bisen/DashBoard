@@ -1,13 +1,26 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import DataTable from "react-data-table-component";
 import { IoMdSearch } from "react-icons/io";
 import Header from "../Header";
 import { useDispatch, useSelector } from "react-redux";
 import { getOrders } from "../../Redux/Slices/OrderSlice";
+import { FaEye } from "react-icons/fa";
+import ViewDetails from "./ViewDetails";
+import ViewOrderDetails from "./ViewOrderDetails";
 
 const OrderTable = () => {
  
+const  [isShowDetail, setIsShowDetail] = useState(false);
+const  [showOrder, setShowOrder] = useState(null);
 
+const handleViewDetails =(orders)=>{
+  setIsShowDetail(true);
+  setShowOrder(orders);
+}
+
+const handleProductDetailClose = ()=>{
+  setIsShowDetail(false);
+}
 
   const { orders } = useSelector((state) => state.order);//order=store,orders=initialstate
   console.log(orders);
@@ -63,7 +76,8 @@ const OrderTable = () => {
       name: "Quantity",
       selector: (row) => row.quantity,
       
-    },  {
+    }, 
+    {
       name: "Product Name",
       selector: (row) => row.product_name,
       
@@ -109,6 +123,12 @@ const OrderTable = () => {
       name: "Update",
       selector: (row) => row.updated_at,
     },
+    {
+      name: "View",
+      selector: (row) => row.view,
+      center: "true",
+      
+    }, 
   ];
 
   const customStyles = {
@@ -161,11 +181,13 @@ const OrderTable = () => {
     payment_method: item.orders.payment_method,
     address: item.orders.address,
     placed_at: item.orders.placed_at,
-    updated_at: item.orders.updated_at,}
+    updated_at: item.orders.updated_at,
+  view:(<button onClick={()=>handleViewDetails(item)}><FaEye  size={25}/></button>),
+  }
   ))
 
   return (
-    <div className="w-[calc(100%-300px)] ml-[300px]">
+    <div className="relative w-[calc(100%-300px)] ml-[300px]">
       {" "}
       <Header />
       <div className="  mt-25 ">
@@ -216,6 +238,16 @@ const OrderTable = () => {
             defaultSortFieldId={1}
           />
         </div>
+        {
+          isShowDetail && (<>
+            <div className="fixed inset-0 z-50 bg-black/70 "
+             onClick={()=>{ setIsShowDetail(false)}}></div>
+             <div className="absolute z-1000">
+           <ViewOrderDetails orders={showOrder} onClose={handleProductDetailClose}/>
+             </div>
+             </>
+          )
+        }
       </div>
     </div>
   );

@@ -4,17 +4,27 @@ import Header from "../Header";
 import { fetchProductApi } from "../../Redux/Api/productApi";
 import { useDispatch, useSelector } from "react-redux";
 import { getproduct } from "../../Redux/Slices/productSlice";
+import { FaEye } from "react-icons/fa";
+
+import ViewDetails from "./ViewDetails";
+
 
 const ProductManagement = () => {
   const [searchQuery, setSearchQuery] = useState("");
+  const [isShowProduct,setIsShowProduct] = useState(false);
+  const [showProduct,setShowProduct] = useState(null);
 
-  // console.log(fetchProductApi());
+
+ 
+  
+
+  
   const { products } = useSelector((state) => state.product);
 
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getproduct());
-  }, [dispatch]);
+  }, []);
 
   const searchthedata = Array.isArray(products)
     ? products.filter((item) => {
@@ -30,6 +40,20 @@ const ProductManagement = () => {
         return namematch || categorymatch || idmatch;
       })
     : [];
+
+    //for view details
+    const handleViewDetails = (product)=> {
+      console.log(product);
+     
+    setIsShowProduct(true);
+    setShowProduct(product);
+    };
+
+    //for close details
+    const handleProductDetailClose = () => {
+      setIsShowProduct(false);
+      
+    };
 
   const columns = [
     {
@@ -53,10 +77,9 @@ const ProductManagement = () => {
     },
     {
       name: "Category Name",
-      selector: (row) => row.category_id,
+      selector: (row) => row.category_name,
       width: "130px",
     },
-
     {
       name: "MRP",
       selector: (row) => row.price,
@@ -80,6 +103,13 @@ const ProductManagement = () => {
       selector: (row) => row.status,
       center: "true",
       width: "150px",
+    },
+    {
+      name: "View Details",
+      selector: (row) => row.view,
+      center: "true",
+      width: "130px",
+      
     },
   ];
 
@@ -106,12 +136,12 @@ const ProductManagement = () => {
     },
   };
 
-  const productQuantity = 10;
 
   const data = searchthedata.map((item, index) => ({
     serialNo: index + 1,
     product_id: item.id.slice(0, 8),
-    category_id: item.categories.name,
+    category_name: item.categories.name,
+    
     name: item.name,
     description: item.description,
     price: item.price,
@@ -133,10 +163,17 @@ const ProductManagement = () => {
         )}  
       </div>
     ),
+    view:(
+    <button onClick={()=>handleViewDetails(item)}>
+      <FaEye   size={25}/>
+    </button>
+    ),
+
+   
   }));
 
   return (
-    <div className="w-[calc(100%-300px)] ml-[300px]">
+    <div className="relative w-[calc(100%-300px)] ml-[300px]">
       <Header />
       <div className=" mt-25">
         <div className="flex justify-between gap-3">
@@ -160,7 +197,24 @@ const ProductManagement = () => {
             defaultSortFieldId={1}
           />
         </div>
+        <div>
+       
+
+{isShowProduct && ( 
+      <>
+     
+     <div
+            className="fixed inset-0 bg-black/70 z-50"
+            onClick={() => setIsShowProduct(false)}
+          ></div>
+          <div className="absolute z-1000">
+            <ViewDetails product={showProduct} onClose= {handleProductDetailClose} />
+            </div>
+      </>
+    )}
       </div>
+      </div>
+      
     </div>
   );
 };

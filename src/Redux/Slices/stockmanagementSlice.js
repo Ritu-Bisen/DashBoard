@@ -1,15 +1,9 @@
 import { createSlice,createAsyncThunk } from "@reduxjs/toolkit";
 import { fetchStockApi } from "../Api/stockmanagementApi";
 import { fetchProductApi } from "../Api/productApi";
-import { stockApi } from "../Api/stockApi";
 
-export  const orderList = createAsyncThunk ("stock/fetch",async (order)=>{
-   const orders = await stockApi(order);
-   console.log(order);
-   
-   return orders;
 
- })
+
 
 
 export const getStock=createAsyncThunk('stock/fetch',async()=>{

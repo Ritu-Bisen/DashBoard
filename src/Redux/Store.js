@@ -3,6 +3,7 @@ import orderReducer from "./Slices/OrderSlice";
 import productreducer from "./Slices/productSlice";
 import categoriesReducer from './Slices/categoriesSlice'
 import stockReducer from './Slices/stockmanagementSlice'
+import quantityReducer from './Slices/stockQuantitySlice'
 
  
 const store = configureStore({
@@ -11,6 +12,7 @@ const store = configureStore({
         product : productreducer,
         category : categoriesReducer ,
         stock : stockReducer , 
+        quantity :quantityReducer,
 
     }
 })

@@ -6,6 +6,9 @@ import DataTable from "react-data-table-component";
 import { getStock } from "../../Redux/Slices/stockmanagementSlice";
 import { IoIosSend } from "react-icons/io";
 import { orderList } from "../../Redux/Slices/stockQuantitySlice";
+import { stockApi } from "../../Redux/Api/stockApi";
+
+export const seller_id="ada0e9bb-b12d-4dc0-9de6-9b9c1576db2b";
 
 const StockManagementForm = () => {
   const [selectedProducts, setSelectedProducts] = useState([]); // Selected products list
@@ -45,7 +48,8 @@ const StockManagementForm = () => {
 
   //onsubmit button
   const handlesubmit =()=>{
-    dispatch(orderList(addedItems))
+  
+    dispatch(orderList({addedItems, seller_id}))
    
   }
 
@@ -100,7 +104,7 @@ const StockManagementForm = () => {
   // Generate data for the table
   let data = selectedProducts.map((product, index) => {
     const stockItem = stocks.find(
-      (item) => item.mart_products.name === product.name
+      (item) => item.mart_products?.name === product.name
     );
     return {                         
       serialNo: index + 1,
@@ -162,7 +166,7 @@ const StockManagementForm = () => {
       <div className="mt-28 flex gap-10">
         <h1 className="ml-2 text-3xl font-bold">Stock Management</h1>
         <select
-          onChange={handleSelectProduct}
+          onChange={()=>{handleSelectProduct(item)}}
           className="border-gray-300 border-2 rounded-lg p-2"
         >
           <option value="">Select</option>
