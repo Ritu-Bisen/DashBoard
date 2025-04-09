@@ -371,6 +371,131 @@
 //   );
 // }
 
+import React, { useEffect, useState } from 'react';
+import supabase from '../../SupaBaseClient';
+//import { fetchorderAPI } from '../../api/OrderAPI';
+
+const DemoTable = ({ orderId }) => {
+  const [billItems, setBillItems] = useState([]);
+
+
+  const fetchorderAPI = async () => {
+    try {
+      const { data, error } = await supabase
+        .from("mart_order_items")
+        .select(`
+          *,
+          orders (
+            id,
+            order_date,
+            users (
+              id,
+              name,
+              email
+            )
+          ),
+          mart_products (
+            id,
+            name
+          )
+        `);
+  
+      if (error) {
+        console.error("Error when fetching order data:", error);
+        return [];
+      }
+  
+      console.log("Fetched order data:", data);
+      return data;
+    } catch (err) {
+      console.error("Error from Supabase:", err);
+      return [];
+    }
+  };
+  
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const allOrders = await fetchorderAPI();
+
+      // Filter only the items that match the orderId
+      const filtered = allOrders?.filter(item => item.orders?.id === orderId);
+      setBillItems(filtered || []);
+    };
+
+    fetchData();
+  }, [orderId]);
+
+  if (billItems.length === 0) return <div>Loading or No data found...</div>;
+
+  const orderInfo = billItems[0].orders;
+  const userInfo = orderInfo.users;
+
+  const calculateTotal = () =>
+    billItems.reduce((acc, item) => acc + item.quantity * item.price, 0);
+
+  return (
+    <div style={styles.container}>
+      <h2 style={styles.title}>🧾 Bill Invoice</h2>
+      <p><strong>Customer:</strong> {userInfo?.name}</p>
+      <p><strong>Order ID:</strong> {orderInfo?.id}</p>
+      <p><strong>Date:</strong> {orderInfo?.order_date}</p>
+
+      <table style={styles.table}>
+        <thead>
+          <tr>
+            <th>Product</th>
+            <th>Qty</th>
+            <th>Price</th>
+            <th>Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          {billItems.map((item, index) => (
+            <tr key={index}>
+              <td>{item.mart_products?.name}</td>
+              <td>{item.quantity}</td>
+              <td>{item.price}</td>
+              <td>{item.quantity * item.price}</td>
+            </tr>
+          ))}
+          <tr>
+            <td colSpan="3"><strong>Grand Total</strong></td>
+            <td><strong>{calculateTotal()}</strong></td>
+          </tr>
+        </tbody>
+      </table>
+      <p style={styles.thanks}>Thank you for your order!</p>
+    </div>
+  );
+};
+
+const styles = {
+  container: {
+    width: '600px',
+    margin: '30px auto',
+    padding: '20px',
+    border: '1px solid #ccc',
+    borderRadius: '12px',
+    fontFamily: 'Arial, sans-serif'
+  },
+  title: {
+    textAlign: 'center',
+    marginBottom: '20px'
+  },
+  table: {
+    width: '100%',
+    borderCollapse: 'collapse',
+    marginTop: '20px'
+  },
+  thanks: {
+    textAlign: 'center',
+    marginTop: '30px',
+    fontStyle: 'italic'
+  }
+};
+
+export default DemoTable;
 
 
 

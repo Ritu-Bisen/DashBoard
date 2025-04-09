@@ -44,7 +44,7 @@ const Sidebar = () => {
       title: "Order",
       icon: <MdOutlineAddShoppingCart size={25} />,
       subroute: [
-        { title: "Orders", path: "/order/orders" },
+        { title: "Customer Orders", path: "/order/orders" },
         { title: "Order Request ", path: "/order/orderrequest" },
       ],
     },

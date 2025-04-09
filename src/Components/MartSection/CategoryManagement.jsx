@@ -1,10 +1,11 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import DataTable from "react-data-table-component";
 import Header from "../Header";
 import { useDispatch, useSelector } from "react-redux";
 import { getCategories } from "../../Redux/Slices/categoriesSlice";
 
 const CategoryManagement = () => {
+  const [searchQuery,setSearchQuery] = useState("")
   const { categories } = useSelector((state) => state.category);
   console.log(categories);
 
@@ -13,6 +14,21 @@ const CategoryManagement = () => {
   useEffect(() => {
     dispatch(getCategories());
   }, [dispatch]);
+
+  const searchthedata = Array.isArray(categories)
+  ? categories.filter((item) => {
+      const namematch = item?.name
+        ?.toLowerCase()
+        .includes(searchQuery.toLowerCase());
+      const categorymatch = item?.name
+        ?.toLowerCase()
+        .includes(searchQuery.toLowerCase());
+      const idmatch = item?.id
+        ?.toLowerCase()
+        .includes(searchQuery.toLowerCase());
+      return namematch || categorymatch || idmatch;
+    })
+  : [];
 
   const columns = [
     {
@@ -60,7 +76,7 @@ const CategoryManagement = () => {
 
   
 
-  const data = categories.map((item, index) => ({
+  const data = searchthedata.map((item, index) => ({
     category_id: (item.id).slice(0,8),
     name: item.name,
     icon: <img src={item.icon} className="h-13 p-2 w-13 " />,
@@ -77,6 +93,8 @@ const CategoryManagement = () => {
           <input
             className="border-2 border-gray-400 w-95 h-10 rounded-full p-3  "
             placeholder="Search"
+            value={searchQuery}
+            onChange={(e)=> setSearchQuery(e.target.value)}
             type="text"
           />
         </div>

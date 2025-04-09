@@ -14,6 +14,7 @@ import DeliveryBoyRequest from './Components/Table/DeliveryBoyRequest'
 import DeliveryBoyManaged from './Components/Table/DeliveryBoyManaged'
 import DeliveryBoyCash from './Components/Table/DeliveryBoyCash'
 import StockManagementForm from './Components/Table/StockManagementForm'
+import DemoTable from './Components/Table/DemoTable'
 
 
 
@@ -39,7 +40,7 @@ const App = () => {
       
       </BrowserRouter>
 
-      {/* <DemoTable/> */}
+    {/* <DemoTable/> */}
     {/* <SidebarNew/>  */}
       
     </div>

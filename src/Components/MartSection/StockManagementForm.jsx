@@ -166,16 +166,16 @@ const StockManagementForm = () => {
       <div className="mt-28 flex gap-10">
         <h1 className="ml-2 text-3xl font-bold">Stock Management</h1>
         <select
-          onChange={()=>{handleSelectProduct(item)}}
-          className="border-gray-300 border-2 rounded-lg p-2"
-        >
-          <option value="">Select</option>
-          {products.map((item) => (
-            <option key={item.id} value={JSON.stringify(item)}>
-              {item.name}
-            </option>
-          ))}
-        </select>
+           onChange={handleSelectProduct}
+           className="border-gray-300 border-2 rounded-lg p-2"
+         >
+           <option value="">Select</option>
+           {products.map((item) => (
+             <option key={item.id} value={JSON.stringify(item)}>
+               {item.name}
+             </option>
+           ))}
+         </select>
       </div>
 
       <div className="mt-10">

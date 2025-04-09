@@ -7,44 +7,34 @@ import { getOrders } from "../../Redux/Slices/OrderSlice";
 import { FaEye } from "react-icons/fa";
 import ViewDetails from "./ViewDetails";
 import ViewOrderDetails from "./ViewOrderDetails";
+import supabase from "../../SupaBaseClient";
 
 const OrderTable = () => {
- 
-const  [isShowDetail, setIsShowDetail] = useState(false);
-const  [showOrder, setShowOrder] = useState(null);
+  const [isShowDetail, setIsShowDetail] = useState(false);
+  const [showOrder, setShowOrder] = useState(null);
 
-const handleViewDetails =(orders)=>{
-  setIsShowDetail(true);
-  setShowOrder(orders);
-}
+  const handleViewDetails = (orders) => {
+    setIsShowDetail(true);
+    setShowOrder(orders);
+  };
 
-const handleProductDetailClose = ()=>{
-  setIsShowDetail(false);
-}
+  const handleProductDetailClose = () => {
+    setIsShowDetail(false);
+  };
 
-  const { orders } = useSelector((state) => state.order);//order=store,orders=initialstate
+  const { orders } = useSelector((state) => state.order); //order=store,orders=initialstate
   console.log(orders);
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
-  useEffect( () => {
-    dispatch(getOrders())
-  }, [dispatch])
+  useEffect(() => {
+    dispatch(getOrders());
+  }, [dispatch]);
 
   const columns = [
     {
-      name: 'S.no',
-      selector: row => row.serialNo,
-    },
-    {
-      name: "Id",
-      selector: (row) => row.id,
-      width: "300px",
-    },
-    {
-      name: "Product Id",
-      selector: (row) => row.product_id,
-      width: "300px",
+      name: "S.no",
+      selector: (row) => row.serialNo,
     },
     {
       name: "Order Id",
@@ -52,14 +42,10 @@ const handleProductDetailClose = ()=>{
       width: "300px",
     },
     {
-      name: "User Id",
-      selector: (row) => row.user_id,
-      width: "300px",
-    }, {
       name: "User Name",
       selector: (row) => row.user_name,
-     
-    },{
+    },
+    {
       name: "User Contact",
       selector: (row) => row.user_contact,
       width: "150px",
@@ -69,66 +55,47 @@ const handleProductDetailClose = ()=>{
       selector: (row) => row.order_type,
     },
     {
-      name: "Price",
-      selector: (row) => row.price,
-      
-    }, {
       name: "Quantity",
       selector: (row) => row.quantity,
-      
-    }, 
+    },
     {
       name: "Product Name",
       selector: (row) => row.product_name,
-      
+      width: "150px",
     },
-    {
-      name: " Discount %",
-      selector: (row) => row. discount_percentage,
-    
-    },
-    {
-      name: " Discount Price",
-      selector: (row) => row.discounted_price,
-      
-    },
+
     {
       name: "Total Amount",
       selector: (row) => row.total_amount,
+      width: "120px",
     },
 
     {
       name: "Payment Status",
       selector: (row) => row.payment_status,
+      width: "150px",
     },
     {
       name: "Order Status",
       selector: (row) => row.order_status,
+      width: "120px",
     },
     {
       name: "Payment Method",
       selector: (row) => row.payment_method,
-      
+      width: "150px",
     },
     {
       name: "Address",
-      selector: (row) => row.address, 
+      selector: (row) => row.address,
       width: "300px",
     },
-    {
-      name: "Placed",
-      selector: (row) => row.placed_at,
-    },
-    {
-      name: "Update",
-      selector: (row) => row.updated_at,
-    },
+
     {
       name: "View",
       selector: (row) => row.view,
       center: "true",
-      
-    }, 
+    },
   ];
 
   const customStyles = {
@@ -149,42 +116,35 @@ const handleProductDetailClose = ()=>{
           borderRightWidth: "1px",
           borderRightColor: "gray",
           justifyContent: "center",
-          
         },
       },
     },
   };
 
-  const data = orders.map((item,index)=>(
+  const data = orders.map((item, index) => ({
+    serialNo: index + 1,
 
-   {
-   serialNo:index+1,
-   
-    id: item.id,
-    order_id:item.order_id,
-    user_id:item.orders.user_id,
-    product_id:item.mart_products.id ,
-   
-    price: item.price,
-    quantity:item.quantity,
-    user_name:item.orders.users.name,
-    user_contact:item.orders.users.phone_number,
+    order_id: item.order_id,
 
-    product_name: item.mart_products.name ,
-    discount_percentage:item.mart_products.discount_percentage,
-    discounted_price:item.mart_products.discounted_price,
+    quantity: item.quantity,
+    user_name: item.orders.users.name,
+    user_contact: item.orders.users.phone_number,
 
-    order_type:item.orders.order_type,
+    product_name: item.mart_products.name,
+
+    order_type: item.orders.order_type,
     total_amount: item.orders.total_amount,
     payment_status: item.orders.payment_status,
     order_status: item.orders.order_status,
     payment_method: item.orders.payment_method,
     address: item.orders.address,
-    placed_at: item.orders.placed_at,
-    updated_at: item.orders.updated_at,
-  view:(<button onClick={()=>handleViewDetails(item)}><FaEye  size={25}/></button>),
-  }
-  ))
+
+    view: (
+      <button onClick={() => handleViewDetails(item)}>
+        <FaEye size={25} />
+      </button>
+    ),
+  }));
 
   return (
     <div className="relative w-[calc(100%-300px)] ml-[300px]">
@@ -238,16 +198,22 @@ const handleProductDetailClose = ()=>{
             defaultSortFieldId={1}
           />
         </div>
-        {
-          isShowDetail && (<>
-            <div className="fixed inset-0 z-50 bg-black/70 "
-             onClick={()=>{ setIsShowDetail(false)}}></div>
-             <div className="absolute z-1000">
-           <ViewOrderDetails orders={showOrder} onClose={handleProductDetailClose}/>
-             </div>
-             </>
-          )
-        }
+        {isShowDetail && (
+          <>
+            <div
+              className="fixed inset-0 z-50 bg-black/70 "
+              onClick={() => {
+                setIsShowDetail(false);
+              }}
+            ></div>
+            <div className="absolute z-1000">
+              <ViewOrderDetails
+                orders={showOrder}
+                onClose={handleProductDetailClose}
+              />
+            </div>
+          </>
+        )}
       </div>
     </div>
   );
