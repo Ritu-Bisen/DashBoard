@@ -20,43 +20,31 @@ import LoginPage from './Components/LoginPage'
 
 
 const App = () => {
-// const [seller,seSeller]=useState(null)
-//   const handleLogin =(email,password)=>{
-//     if(email== "admin@me.com" && password=="123"){
-//       setUser('admin')
-//       localStorage.setItem('loggedInUser',JSON.stringify({role:'admin'}))
-      
-//     }else if(authData){
-//       const employee=authData.employees.find((e)=>email == e.email && e.password == password)
-//       if(employee){
-//       setUser('employee')
-//       setLoggedInUserData(employee)
-//       localStorage.setItem('loggedInUser',JSON.stringify({role:'employee'}))
-//       }
-//     }
-//     else{
-//       alert("invalid credentials")
-//     }
-//    }
+
+
+
   return (
     <div className='flex'>
       
      
       <BrowserRouter>
-      {/* <LoginPage handleLogin={handleLogin}/> */}
-      <Sidebar/>
+     
+     
+       <Sidebar/>
 
-      <Routes>
+       <Routes>
+        
         <Route path='/order/orders' element={<OrderTable/>}/>
-        <Route path='/stockmanagement' element={<StockManagementForm/>}/>
-        <Route path='/product' element={<ProductManagement/>}/>
-        <Route path='/category/category' element={<CategoryManagement/>}/>
-        <Route path='/category/category-offer' element={<CategoryOfferTable/>}/>
-        <Route path='/deliveryboy/delivery-boy-add' element={<DeliveryBoy/>}/>
-        <Route path='/deliveryboy/delivery-boy-request' element={<DeliveryBoyRequest/>}/>
-        <Route path='/deliveryboy/delivery-boy-management' element={<DeliveryBoyManaged/>}/>
-        <Route path='/deliveryboy/delivery-boy-cash' element={<DeliveryBoyCash/>}/>
-      </Routes>
+         <Route path='/stockmanagement' element={<StockManagementForm/>}/>
+         <Route path='/product' element={<ProductManagement/>}/>
+         <Route path='/category/category' element={<CategoryManagement/>}/>
+         <Route path='/category/category-offer' element={<CategoryOfferTable/>}/>
+         <Route path='/deliveryboy/delivery-boy-add' element={<DeliveryBoy/>}/>
+         <Route path='/deliveryboy/delivery-boy-request' element={<DeliveryBoyRequest/>}/>
+         <Route path='/deliveryboy/delivery-boy-management' element={<DeliveryBoyManaged/>}/>
+         <Route path='/deliveryboy/delivery-boy-cash' element={<DeliveryBoyCash/>}/>
+         
+       </Routes>
       
       </BrowserRouter>
 
