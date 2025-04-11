@@ -1,27 +1,6 @@
-export const salon=[ {
-    "id": 1,
-    "email": "admin@example.com",
-    "password": "123"}];
-
-    export const mart = [
-        {
-          "id": 1,
-          
-          "email": "employee1@example.com",
-          "password": "123",
-        }
-          ]
-
-          export  const setLocalStorage=()=>{
-            localStorage.setItem('mart', JSON.stringify(mart));
-            localStorage.setItem('salon', JSON.stringify(salon));
-        }
-    
-        export  const getLocalStorage=()=>{
-           const salon= JSON.parse(localStorage.getItem('salon'))
-           const mart= JSON.parse(localStorage.getItem('mart'))
-    
-          return{salon,mart}
-           
-            
-        }
+export const users =[
+  { email: "salon@example.com", password: "1234", segment: "salon" , phone_no:"3546546434"},
+  { email: "gym@example.com", password: "1234", segment: "gym",phone_no:"3546546434" },
+  { email: "mart@example.com", password: "1234", segment: "mart",phone_no:"3546546434" },
+  { email: "restaurant@example.com", password: "1234", segment: "restaurant",phone_no:"3546546434" },
+];

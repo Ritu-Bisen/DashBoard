@@ -25,65 +25,56 @@ const Sidebar = () => {
   };
 
   const listItems = [
-    { id: 1, title: "DashBoard", icon: <MdDashboard size={25} />, path: "/" },
-     
+    { id: 1, title: "DashBoard", icon: <MdDashboard size={25} />, path: "/mart" },
     {
       id: 2,
       title: "Stock Management",
       icon: <GiProgression size={25} />,
-      path: "/stockmanagement",
+      path: "/mart/stockmanagement",
     },
     {
       id: 3,
       title: "Product",
       icon: <FaBoxOpen size={25} />,
-      path: "/product",
+      path: "/mart/product",
     },
     {
       id: 4,
       title: "Order",
       icon: <MdOutlineAddShoppingCart size={25} />,
       subroute: [
-        { title: "Customer Orders", path: "/order/orders" },
-        { title: "Order Request ", path: "/order/orderrequest" },
+        { title: "Customer Orders", path: "/mart/order/orders" },
+        { title: "Order Request ", path: "/mart/order/order-request" },
       ],
     },
-    
     {
       id: 5,
       title: "Category",
       icon: <TbCategoryPlus size={25} />,
       subroute: [
-        { title: "Category", path: "/category/category" },
-        { title: "Category Offer", path: "/category/category-offer" },
+        { title: "Category", path: "/mart/category/category" },
+        { title: "Category Offer", path: "/mart/category/category-offer" },
       ],
     },
-   
     {
       id: 6,
       title: "Delivery Boys",
       icon: <TbTruckDelivery size={25} />,
       subroute: [
-        { title: "Delivery Boy Add", path: "/deliveryboy/delivery-boy-add" }, {
-          title: "Delivery Boy Request",
-          path: "/deliveryboy/delivery-boy-request",
-        },
-        {
-          title: "Delivery Boy Managed",
-          path: "/deliveryboy/delivery-boy-management",
-        },
-        { title: "Delivery Boy Cash", path: "/deliveryboy/delivery-boy-cash" },
-       
+        { title: "Delivery Boy Add", path: "/mart/deliveryboy/delivery-boy-add" },
+        { title: "Delivery Boy Request", path: "/mart/deliveryboy/delivery-boy-request" },
+        { title: "Delivery Boy Managed", path: "/mart/deliveryboy/delivery-boy-management" },
+        { title: "Delivery Boy Cash", path: "/mart/deliveryboy/delivery-boy-cash" },
       ],
     },
     {
       id: 7,
       title: "Reports",
       icon: <HiOutlineClipboardDocumentList size={25} />,
-      path: "/reports",
+      path: "/mart/reports",
     },
-    
   ];
+  
 
   return (
     
@@ -99,6 +90,7 @@ const Sidebar = () => {
           <button className="text-sm flex gap-2">
             Edit Profile <CiEdit className="mt-1" size={15} />
           </button>
+          <h1>Mart Section</h1>
         </div>
 
         {/* Sidebar Menu */}
