@@ -1,5 +1,5 @@
 import React from 'react'
-import Sidebar from '../Components/Sidebar'
+import Sidebar from '../Components/MartSection/Sidebar'
 import OrderTable from '../Components/MartSection/OrderTable'
 import StockManagementForm from '../Components/MartSection/StockManagementForm'
 import ProductManagement from '../Components/MartSection/ProductManagement'
@@ -10,15 +10,17 @@ import DeliveryBoyRequest from '../Components/MartSection/DeliveryBoyRequest'
 import DeliveryBoyManaged from '../Components/MartSection/DeliveryBoyManaged'
 import DeliveryBoyCash from '../Components/MartSection/DeliveryBoyCash'
 import { Outlet, Route, Routes } from 'react-router-dom'
-import Dashboard from '../Components/Dashboard'
+
 import OderRequest from '../Components/MartSection/OderRequest'
 import Reports from '../Components/MartSection/Reports'
+import Dashboard from '../Components/MartSection/Dashboard'
 
 
 const MartLayout = () => {
     return (
       <div >
-        <Sidebar />
+        <Sidebar/>
+        
         <div >
           <Outlet />
         </div>
@@ -31,7 +33,6 @@ const MartRoutes = () => {
     <Routes >
       <Route element={<MartLayout />}>
         <Route index element={<Dashboard />} /> {/* Default page at /mart */}
-        
         <Route path="stockmanagement" element={<StockManagementForm />} />
         <Route path="product" element={<ProductManagement />} />
         <Route path='order/order-request' element={<OderRequest/>}/>

@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
-import { users } from '../LocalStorage';
+import { users } from '../../src/LocalStorage';
 
 const LoginPage = () => {
    
@@ -14,7 +14,7 @@ const LoginPage = () => {
       );
       if (user) {
         localStorage.setItem("user", JSON.stringify(user));
-        navigate(`/${user.role}`);
+        navigate(`/${user.segment}`);
       } else {
         alert("Invalid credentials");
       }

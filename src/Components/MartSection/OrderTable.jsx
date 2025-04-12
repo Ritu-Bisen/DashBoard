@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import DataTable from "react-data-table-component";
 import { IoMdSearch } from "react-icons/io";
-import Header from "../Header";
+import Header from "../MartSection/Header";
 import { useDispatch, useSelector } from "react-redux";
 import { getOrders } from "../../Redux/Slices/OrderSlice";
 import { FaEye } from "react-icons/fa";

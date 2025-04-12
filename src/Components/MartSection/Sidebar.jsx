@@ -7,13 +7,14 @@ import {
   MdExpandLess,
   MdExpandMore,
 } from "react-icons/md";
+import { RiUserSettingsFill } from "react-icons/ri";
 import { Link, useLocation } from "react-router-dom";
 import { GiProgression } from "react-icons/gi";
 import { TbCategoryPlus, TbTruckDelivery } from "react-icons/tb";
 import { FaBoxOpen } from "react-icons/fa";
 import { HiOutlineClipboardDocumentList, HiUsers } from "react-icons/hi2";
 import { CiEdit } from "react-icons/ci";
-import logo from '../assets/pictures/snba-logo-black.png';
+import logo from '../../assets/pictures/snba-logo-black.png';
 
 const Sidebar = () => {
   const location = useLocation();
@@ -72,6 +73,12 @@ const Sidebar = () => {
       title: "Reports",
       icon: <HiOutlineClipboardDocumentList size={25} />,
       path: "/mart/reports",
+    },
+    {
+      id: 8,
+      title: "Employee",
+      icon: <RiUserSettingsFill size={25} />,
+      path: "/mart/employee",
     },
   ];
   

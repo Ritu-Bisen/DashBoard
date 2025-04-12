@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import DataTable from "react-data-table-component";
-import Header from "../Header";
+import Header from "../MartSection/Header";
 import { fetchProductApi } from "../../Redux/Api/productApi";
 import { useDispatch, useSelector } from "react-redux";
 import { getproduct } from "../../Redux/Slices/productSlice";
