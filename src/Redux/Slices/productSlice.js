@@ -4,6 +4,8 @@ import { fetchProductApi } from "../Api/productApi";
 
 export const getproduct=createAsyncThunk("product/fetch",async () =>{
     const products = await fetchProductApi();
+    console.log(products);
+    
      return products;
 })
 
