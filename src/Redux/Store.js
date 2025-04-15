@@ -5,6 +5,7 @@ import categoriesReducer from './Slices/categoriesSlice'
 import stockReducer from './Slices/stockmanagementSlice'
 import quantityReducer from './Slices/stockQuantitySlice'
 import salonReducer from './Slices/salonSlicees/salonServicesSlice'
+import employeeDetail from './Slices/salonSlicees/salonEmployeeDataSlice'
  
 const store = configureStore({
     reducer:{
@@ -14,6 +15,7 @@ const store = configureStore({
         stock : stockReducer , 
         quantity :quantityReducer,
         service : salonReducer,
+       employeeDetails : employeeDetail 
 
     }
 })

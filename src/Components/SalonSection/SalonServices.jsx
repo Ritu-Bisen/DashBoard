@@ -1,31 +1,40 @@
-import React, { useEffect } from 'react'
-import DataTable from 'react-data-table-component';
+import React, { useEffect, useState } from "react";
+import DataTable from "react-data-table-component";
 import { FaEye } from "react-icons/fa";
-import { fetchSalonServicesApi } from '../../Redux/Api/salonApi/salonServicesApi';
-import { useDispatch, useSelector } from 'react-redux';
-import { getServices } from '../../Redux/Slices/salonSlicees/salonServicesSlice';
-
-// console.log(fetchSalonServicesApi());
-// //console.log(getServices());
-
-
-// const {services} = useSelector((state)=> state.service);
-// console.log(services);
-
-
-// const dispatch = useDispatch();
-// useEffect(()=>{
-//   dispatch(getServices())
-// },[dispatch]);
+import { useDispatch, useSelector } from "react-redux";
+import { getServices } from "../../Redux/Slices/salonSlicees/salonServicesSlice";
+import ViewSalonDetails from "./ViewSalonDetails";
 
 const SalonServices = () => {
-    const columns = [ {
+  const [isShowDetails, setIsShowDetails] = useState(false);
+  const [showDetails, setShowDetails] = useState(null);
+
+  const handleShowDetails = (services) => {
+    setIsShowDetails(true);
+    setShowDetails(services);
+  };
+
+  const handleCloseDetails = () => {
+    setIsShowDetails(false);
+  };
+
+  const { services } = useSelector((state) => state.service);
+  console.log(services);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getServices());
+  }, [dispatch]);
+
+  const columns = [
+    {
       name: "S.no",
       selector: (row) => row.serialNo,
     },
     {
-      name: "Order Id",
-      selector: (row) => row.order_id,
+      name: "Service Id",
+      selector: (row) => row.service_id,
     },
     {
       name: "Image",
@@ -36,8 +45,8 @@ const SalonServices = () => {
       selector: (row) => row.name,
     },
     {
-      name: "MRP",
-      selector: (row) => row.mrp,
+      name: "Price",
+      selector: (row) => row.price,
     },
     {
       name: "Discount %",
@@ -48,25 +57,17 @@ const SalonServices = () => {
       selector: (row) => row.discounted_price,
     },
     {
-      name: "Category",
-      selector: (row) => row.category,
+      name: "Duration",
+      selector: (row) => row.duration,
     },
-    {
-      name: "Final Price",
-      selector: (row) => row.final_price,
-    },
-    {
-      name: "Status",
-      selector: (row) => row.status,
-      width:"150px"
-    },
+    
+
     {
       name: "View",
       selector: (row) => row.view,
-      center:"true",
+      center: "true",
     },
-  ]
-
+  ];
 
   const customStyles = {
     headCells: {
@@ -91,37 +92,58 @@ const SalonServices = () => {
     },
   };
 
+ const data = services.map((item,index)=>({
+  serialNo: index + 1,
+     service_id: item.category_id.slice(0, 8),
+     image: <img src={item.image_urls[0]} />,
+     name: item.name,
+     price: item.price,
+    discounted_price: item.discounted_price,
+     discount_percentage: item.discount_percentage,
+     duration: item.duration,
+    
 
-
- const quantity = 10;
-
-  const data = Array(25).fill({
-    serialNo:'1',
-    order_id:'5767t7gugh',
-    image:(<img src='https://th.bing.com/th/id/OIP.E3UNwm389l_qdOdJ6zbhCAHaE8?w=275&h=184&c=7&r=0&o=5&dpr=1.3&pid=1.7'/>),
-    name:"name",
-    mrp:'100',
-    discounted_price:"discounted_price",
-    discount_percentage:"discount_percentage",
-    category:"Haircut",
-    final_price:"200",
-    status:(quantity>0?<p className='bg-green-800  rounded-lg p-3'>Available</p>:<p className='bg-red-700 rounded-lg p-3'>Not Available</p>),
-    view:(<FaEye size={25}/>)
-  })
-
-  
-
- 
+    view: (
+      <button onClick={()=>handleShowDetails(item)}>
+        <FaEye size={25} />
+      </button>
+    ),
+ }))
 
   
   return (
-    <div className='fixed w-[calc(100%-300px)] ml-[300px]  pt-30'>
-      <h1 className=' font-bold text-3xl ml-5'>Services</h1>
-      <div className='overflow-x mt-9'>
-      <DataTable data={data} fixedHeaderScrollHeight='67vh' defaultSortFieldId={1} customStyles={customStyles} pagination fixedHeader columns={columns}/>
+    <div className="fixed w-[calc(100%-300px)] ml-[300px]  pt-30">
+      <h1 className=" font-bold text-3xl ml-5">Services</h1>
+      <div className="overflow-x mt-9">
+        <DataTable
+           data={data}
+          fixedHeaderScrollHeight="67vh"
+          defaultSortFieldId={1}
+          customStyles={customStyles}
+          pagination
+          fixedHeader
+          columns={columns}
+        />
       </div>
-    </div>
-  )
-}
 
-export default SalonServices
+      {isShowDetails && (
+        <>
+          <div
+            className="inset-0  z-50 bg-black/70 fixed"
+            onClick={() => {
+              setIsShowDetails(false);
+            }}
+          ></div>
+          <div className="absolute z-[10000]">
+            <ViewSalonDetails
+              services={showDetails}
+              onClose={handleCloseDetails}
+            />
+          </div>
+        </>
+      )}
+    </div>
+  );
+};
+
+export default SalonServices;

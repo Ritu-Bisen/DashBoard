@@ -1,75 +1,176 @@
-import React from 'react'
+import React, { useState } from "react";
+import { seller_id } from "../MartSection/StockManagementForm";
 
 const SalonAddEmployee = () => {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    role: "",
+    phone: "",
+    address:"",
+    active:"",
+    seller_id:"",
+    section:"",
+    image: null,
+  });
+  
+  const [imagePreview, setImagePreview] = useState(null);
+
+ const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    setFormData(prev => ({
+      ...prev,
+      image: file,
+    }));  
+
+  // Show image preview
+  if (file) {
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setImagePreview(reader.result);
+    };
+    reader.readAsDataURL(file);
+  } else {
+    setImagePreview(null);
+  }
+};
+
+  const onhandleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const onHandleSubmit =(e)=>{
+    
+    dispatch(employeedetail({formData}))
+    console.log(formData);
+ 
+  }
+
+ 
+
   return (
-    <div className='fixed w-[calc(100%-300px)] ml-[300px] h-screen pt-35  '>
-      <div className=' px-35'>
-      <div className='grid grid-cols-2 space-y-3'>
-        <div className='flex flex-col'>
-        <label className='font-semibold'>Name</label>
-        <input className='bg-gray-300 rounded-full h-10 w-90' />
-      </div>
-      <div className='flex flex-col'>
-        <label className='font-semibold'>Email</label>
-        <input className='bg-gray-300 rounded-full h-10 w-90' />
-      </div>
-      <div className='flex flex-col'>
-        <label className='font-semibold'>Mobile</label>
-        <input className='bg-gray-300 rounded-full h-10 w-90' />
-      </div>
-      <div className='flex flex-col'>
-        <label className='font-semibold'>Address</label>
-        <input className='bg-gray-300 rounded-full h-10 w-90' />
-      </div>
-      </div>
+    <div className="fixed w-[calc(100%-300px)] ml-[300px] h-screen pt-35  ">
+      <div className=" px-35">
+       <form onSubmit={onHandleSubmit} className="grid grid-cols-2 space-y-3">
+    
+          <div className="flex flex-col">
+            <label className="font-semibold">Name</label>
+            <input
+              className="bg-gray-300 rounded-full h-10 w-90 p-2"
+              type="text"
+              name="name"
+              value={formData.name}
+              onChange={onhandleChange}
+            />
+          </div>
+          <div className="flex flex-col">
+            <label className="font-semibold">Email</label>
+            <input
+              className="bg-gray-300 rounded-full h-10 w-90 p-2"
+              type="email"
+              name="email"
+              onChange={onhandleChange}
+              value={formData.email}
+            />
+          </div>
+          <div className="flex flex-col">
+            <label className="font-semibold">Mobile No.</label>
+            <input
+              className="bg-gray-300 rounded-full h-10 w-90 p-2"
+              type="number"
+              name="phone"
+              onChange={onhandleChange}
+              value={formData.phone}
+            />
+          </div>
+          <div className="flex flex-col">
+            <label className="font-semibold">Role</label>
+            <input
+              className="bg-gray-300 rounded-full h-10 w-90 p-2"
+              type="text"
+              name="role"
+              onChange={onhandleChange}
+              value={formData.role}
+            />
+          </div>
+          <div className="flex flex-col">
+            <label className="font-semibold">Section</label>
+            <input
+              className="bg-gray-300 rounded-full h-10 w-90 p-2"
+              type="text"
+              name="section"
+              onChange={onhandleChange}
+              value={formData.section}
+            />
+          </div>
+          <div className="flex flex-col">
+            <label className="font-semibold">Seller Id</label>
+            <input
+              className="bg-gray-300 rounded-full h-10 w-90 p-2"
+              type="text"
+              name="seller_id"
+              onChange={onhandleChange}
+              value={formData.seller_id}
+            />
+          </div>
 
-      <h1 className='font-bold text-xl mt-5'>Information</h1>
-      <div className='grid grid-cols-2 space-y-3 mt-5'>
-        <div className='flex flex-col'>
-        <label className='font-semibold'>Designation</label>
-        <input className='bg-gray-300 rounded-full h-10 w-90' />
-      </div>
-      <div className='flex flex-col'>
-        <label className='font-semibold'>Aadhar No</label>
-        <input className='bg-gray-300 rounded-full h-10 w-90' />
-      </div>
-      <div className='flex flex-col'>
-        <label className='font-semibold'>PAN Number</label>
-        <input className='bg-gray-300 rounded-full h-10 w-90' />
-      </div>
-      <div className='flex flex-col'>
-        <label className='font-semibold'>Address Proof</label>
-        <input className='bg-gray-300 rounded-full h-10 w-90 p-3' placeholder='Drop Files here or click to upload'/>
-      </div>
-      </div>
+          
+          <div className="flex flex-col ">
+            <label className="font-semibold">Address</label>
+            <textarea
+              className="bg-gray-300 rounded-lg h-40 w-90 p-2"
+              type="text"
+              name="address"
+              onChange={onhandleChange}
+              value={formData.address}
+            />
+          </div>
 
+          {/* image upload */}
+          <div className="flex flex-col">
+  <label className="font-semibold">Upload Image</label>
+  <div className="relative bg-gray-100 border-2 border-dashed border-gray-400 rounded-lg h-40 w-90 flex items-center justify-center overflow-hidden object-cover">
+    {imagePreview ? (
+      <img
+        src={imagePreview}
+        alt="Preview"
+        className="h-full w-full object-cover"
+      />
+    ) : (
+      <span className="text-gray-500">No image selected</span>
+    )}
+    <input
+      type="file"
+      accept="image/*"
+      onChange={handleImageChange}
+      className="absolute inset-0 opacity-0 cursor-pointer"
+    />
+  </div>
+</div>
+<div className="flex flex-col">
+            <label className="font-semibold">Active</label>
+            <input
+              className="bg-gray-300 rounded-full h-10 w-90 p-2"
+              type="text"
+              name="active"
+              onChange={onhandleChange}
+              value={formData.active}
+            />
+          </div>
 
-      <h1 className='font-bold text-xl mt-5'>Bank Information</h1>
-      <div className='grid grid-cols-2 space-y-3 mt-5'>
-        <div className='flex flex-col'>
-        <label className='font-semibold'>Bank Name</label>
-        <input className='bg-gray-300 rounded-full h-10 w-90' />
-      </div>
-      <div className='flex flex-col'>
-        <label className='font-semibold'>Account Number</label>
-        <input className='bg-gray-300 rounded-full h-10 w-90' />
-      </div>
-      <div className='flex flex-col'>
-        <label className='font-semibold'>Bank's IFSC code</label>
-        <input className='bg-gray-300 rounded-full h-10 w-90' />
-      </div>
-      <div className='flex flex-col'>
-        <label className='font-semibold'>Bank Account Name</label>
-        <input className='bg-gray-300 rounded-full h-10 w-90' />
-      </div>
-      </div>
-      <div className='grid grid-cols-2 mt-5'>
-        <button className='rounded-full h-10 w-90 bg-red-800'>Clear</button>
-        <button className='rounded-full h-10  w-90 bg-green-800'>Submit</button>
-      </div>
+         
+      <div className="flex mt-40 gap-10 fixed bottom-20 right-70">
+      <button type="Submit"  className="bg-red-500 h-10 w-90 p-1 rounded-full text-white">Submit</button>
+      <button type="Clear"  className="bg-green-500 h-10 w-90 p-1 rounded-full text-white">Clear</button>
+      </div>  
+       </form>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default SalonAddEmployee
+export default SalonAddEmployee;

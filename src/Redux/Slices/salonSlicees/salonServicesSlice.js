@@ -2,9 +2,9 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { fetchSalonServicesApi } from "../../Api/salonApi/salonServicesApi";
 
 
-export const getServices = createAsyncThunk("service/fetch", async () => {
+export const getServices = createAsyncThunk("service/fetch", async() => {
         const services = await fetchSalonServicesApi();
-         console.log(services);
+      //  console.log(services);
         return services ;
 });
 
@@ -23,11 +23,9 @@ const serviceSlice = createSlice({
                 state.error = null;
             })
             .addCase(getServices.fulfilled, (state, action) => {
-               
                 state.services = action.payload;
             })
-            .addCase(getServices.rejected, (state, action) => {
-                
+            .addCase(getServices.rejected, (state, action) => {  
                 state.error = action.payload ;
             });
     },

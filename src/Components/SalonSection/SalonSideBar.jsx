@@ -6,6 +6,7 @@ import { FaBoxOpen } from "react-icons/fa";
 import { PiUserSwitchBold } from "react-icons/pi";
 import { Link, useLocation } from "react-router-dom";
 import { MdExpandLess, MdExpandMore } from "react-icons/md";
+import { HiOutlineClipboardDocumentList, HiUsers } from "react-icons/hi2";
 
 const SalonSideBar = () => {
   const location = useLocation();
@@ -59,21 +60,21 @@ const SalonSideBar = () => {
       id: 7,
       name: "Employee",
       icon: <RiUserSettingsFill size={30} />,
-      subroute: [
+      subroute: [  
+          { title: "Add Employee", path: "/salon/employee/add-employee" },
         { title: "Employee List", path: "/salon/employee/employee-list" },
-        { title: "Add Employee", path: "/salon/employee/add-employee" },
       ],
     },
     {
       id: 8,
       name: "Reports",
-      icon: <RiUserSettingsFill size={30} />,
+      icon: <HiOutlineClipboardDocumentList size={30} />,
       path: "/salon/reports",
     },
   ];
 
   return (
-    <div className="fixed w-[300px] h-screen mt-30 rounded-tr-4xl rounded-br-4xl shadow-gray-900 shadow-lg z-50 bg-white">
+    <div className="fixed w-[300px] h-screen mt-30 rounded-tr-4xl rounded-br-4xl shadow-gray-900 shadow-lg  bg-white">
       <div className="pt-10">
         {itemList.map((item) => (
           <div key={item.id}>
@@ -90,7 +91,7 @@ const SalonSideBar = () => {
                 >
                   <div className="flex items-center gap-5">
                     {item.icon}
-                    <span className="font-bold text-xl">{item.name}</span>
+                    <span className="font-semibold text-xl">{item.name}</span>
                   </div>
                   <div>
                     {openMenu === item.id ? <MdExpandLess /> : <MdExpandMore />}
@@ -125,7 +126,7 @@ const SalonSideBar = () => {
                 }`}
               >
                 {item.icon}
-                <span className="font-bold text-xl">{item.name}</span>
+                <span className="font-semibold text-xl">{item.name}</span>
               </Link>
             )}
           </div>

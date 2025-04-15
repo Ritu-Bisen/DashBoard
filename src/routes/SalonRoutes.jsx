@@ -20,7 +20,7 @@ const SalonLayout = () => {
         <SalonHeader/>
         <SalonSideBar/>
         
-        <div >
+        <div className='ml-2' >
           <Outlet />
         </div>
       </div>
