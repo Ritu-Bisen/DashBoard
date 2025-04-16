@@ -1,8 +1,11 @@
 import supabase from "../../../SupaBaseClient"
 
-export const employeeDataApi = async (fromData)=>{
-    try {
-        const employee_data=FormData.map((item,index)=>({
+export const employeeDataApi = async (formData)=>{
+   
+    
+    try { console.log(formData);
+       
+        const employee_data=formData.map((item,index)=>({
             seller_id:item.seller_id,
             name:item.name,
             phone:item.phone,
@@ -10,11 +13,11 @@ export const employeeDataApi = async (fromData)=>{
             section:item.section,
             role:item.role,
             active:item.active,
-            profile_image_url:item.image,
+            //profile_image_url:item.image,
             address:item.address
         }))
         const {data,error}=await supabase
-        .from('employee')
+        .from('employees')
         .insert(employee_data)
         if (!error) {
             console.log("post successfully",data)

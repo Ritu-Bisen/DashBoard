@@ -3,13 +3,15 @@ import { employeeDataApi } from "../../Api/salonApi/salonEmployeeDetailsApi";
 
 export const employeeDetails = createAsyncThunk ("employeedata/fetch",async({formData})=>{
     const employeeDetails = await employeeDataApi(formData);
+    console.log(formData);
+    
     return employeeDetails;
 })
 
 const EmployeeDataSlice = createSlice({
     name:"employeeDetails",
     initialState:{
-        employeeDetails:[],
+        employeeDetail:[],
         loading:false,
         error:null,
     },
@@ -21,7 +23,7 @@ const EmployeeDataSlice = createSlice({
            state.error=null
            })
            .addCase(employeeDetails.fulfilled,(state,action)=>{
-             state.employeeDetails.push(action.payload);
+             state.employeeDetail.push(action.payload);
            })
            .addCase(employeeDetails.rejected,(state,action)=>{
              state.error=action.payload

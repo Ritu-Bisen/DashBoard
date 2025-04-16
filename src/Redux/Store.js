@@ -15,7 +15,7 @@ const store = configureStore({
         stock : stockReducer , 
         quantity :quantityReducer,
         service : salonReducer,
-       employeeDetails : employeeDetail 
+       employeeDetails : employeeDetail ,
 
     }
 })

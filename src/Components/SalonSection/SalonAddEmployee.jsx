@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { seller_id } from "../MartSection/StockManagementForm";
+import { employeeDetails } from "../../Redux/Slices/salonSlicees/salonEmployeeDataSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 const SalonAddEmployee = () => {
   const [formData, setFormData] = useState({
@@ -43,10 +45,14 @@ const SalonAddEmployee = () => {
     }));
   };
 
+  //const { employeeDetail } = useSelector((state) => state.employeeDetails);
+  const dispatch =useDispatch();
+
   const onHandleSubmit =(e)=>{
+    e.preventDefault();
     
-    dispatch(employeedetail({formData}))
     console.log(formData);
+    dispatch(employeeDetails({formData}))
  
   }
 
@@ -165,7 +171,7 @@ const SalonAddEmployee = () => {
          
       <div className="flex mt-40 gap-10 fixed bottom-20 right-70">
       <button type="Submit"  className="bg-red-500 h-10 w-90 p-1 rounded-full text-white">Submit</button>
-      <button type="Clear"  className="bg-green-500 h-10 w-90 p-1 rounded-full text-white">Clear</button>
+      <button   className="bg-green-500 h-10 w-90 p-1 rounded-full text-white">Clear</button>
       </div>  
        </form>
       </div>
