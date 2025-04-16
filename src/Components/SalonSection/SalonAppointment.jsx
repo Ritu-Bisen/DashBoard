@@ -1,7 +1,20 @@
-import React from "react";
+import React, { useEffect } from "react";
 import DataTable from "react-data-table-component";
+import { useDispatch, useSelector } from "react-redux";
+import { getAppointment } from "../../Redux/Slices/salonSlicees/salonAappointmentSlice";
 
 const SalonAppointment = () => {
+
+  const {appointmentList} = useSelector((state)=>state.appointmentList)
+  console.log(appointmentList);
+  
+const dispatch =useDispatch();
+
+useEffect(() => {
+dispatch(getAppointment())
+}, dispatch)
+
+
   const columns = [
     {
       name: "S.no",

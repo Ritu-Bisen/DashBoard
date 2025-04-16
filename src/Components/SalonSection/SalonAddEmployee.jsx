@@ -1,7 +1,10 @@
 import React, { useState } from "react";
-import { seller_id } from "../MartSection/StockManagementForm";
-import { employeeDetails } from "../../Redux/Slices/salonSlicees/salonEmployeeDataSlice";
+
+import { employeeDetailsList } from "../../Redux/Slices/salonSlicees/salonEmployeeDataSlice";
 import { useDispatch, useSelector } from "react-redux";
+import { seller_id } from "../MartSection/StockManagementForm";
+
+
 
 const SalonAddEmployee = () => {
   const [formData, setFormData] = useState({
@@ -10,9 +13,9 @@ const SalonAddEmployee = () => {
     role: "",
     phone: "",
     address:"",
-    active:"",
-    seller_id:"",
-    section:"",
+    active: true,
+    
+    section:"salon",
     image: null,
   });
   
@@ -45,18 +48,33 @@ const SalonAddEmployee = () => {
     }));
   };
 
-  //const { employeeDetail } = useSelector((state) => state.employeeDetails);
+  const { employeeData } = useSelector((state) => state.employeeDetail);
   const dispatch =useDispatch();
+
+  
 
   const onHandleSubmit =(e)=>{
     e.preventDefault();
     
     console.log(formData);
-    dispatch(employeeDetails({formData}))
+    dispatch(employeeDetailsList({formData,seller_id}))
  
   }
 
- 
+   
+
+  const handleClear = () => {
+    setFormData({
+      name: '',
+      phone: '',
+      email: '',
+      section: "",
+      role: '',
+      active: true,
+      address: '',
+      image: null,
+    });
+  };
 
   return (
     <div className="fixed w-[calc(100%-300px)] ml-[300px] h-screen pt-35  ">
@@ -106,14 +124,14 @@ const SalonAddEmployee = () => {
           <div className="flex flex-col">
             <label className="font-semibold">Section</label>
             <input
-              className="bg-gray-300 rounded-full h-10 w-90 p-2"
+              className="bg-gray-300 rounded-full h-10 w-90 p-3"
               type="text"
               name="section"
               onChange={onhandleChange}
               value={formData.section}
             />
           </div>
-          <div className="flex flex-col">
+          {/* <div className="flex flex-col">
             <label className="font-semibold">Seller Id</label>
             <input
               className="bg-gray-300 rounded-full h-10 w-90 p-2"
@@ -121,6 +139,16 @@ const SalonAddEmployee = () => {
               name="seller_id"
               onChange={onhandleChange}
               value={formData.seller_id}
+            />
+          </div> */}
+<div className="flex flex-col">
+            <label className="font-semibold">Active</label>
+            <input
+              className="bg-gray-300 rounded-full h-10 w-90 p-3"
+              type="text"
+              name="active"
+              onChange={onhandleChange}
+              value={formData.active}
             />
           </div>
 
@@ -139,7 +167,7 @@ const SalonAddEmployee = () => {
           {/* image upload */}
           <div className="flex flex-col">
   <label className="font-semibold">Upload Image</label>
-  <div className="relative bg-gray-100 border-2 border-dashed border-gray-400 rounded-lg h-40 w-90 flex items-center justify-center overflow-hidden object-cover">
+  <div className="relative bg-gray-100 border-2 border-dashed border-gray-400 rounded-lg h-60 w-60 flex items-center justify-center overflow-hidden object-cover">
     {imagePreview ? (
       <img
         src={imagePreview}
@@ -157,21 +185,12 @@ const SalonAddEmployee = () => {
     />
   </div>
 </div>
-<div className="flex flex-col">
-            <label className="font-semibold">Active</label>
-            <input
-              className="bg-gray-300 rounded-full h-10 w-90 p-2"
-              type="text"
-              name="active"
-              onChange={onhandleChange}
-              value={formData.active}
-            />
-          </div>
+
 
          
       <div className="flex mt-40 gap-10 fixed bottom-20 right-70">
-      <button type="Submit"  className="bg-red-500 h-10 w-90 p-1 rounded-full text-white">Submit</button>
-      <button   className="bg-green-500 h-10 w-90 p-1 rounded-full text-white">Clear</button>
+      <button type="Submit"  className="bg-green-500 h-10 w-90 p-1 rounded-full text-white">Submit</button>
+      <button onClick={handleClear}  className=" bg-red-500 h-10 w-90 p-1 rounded-full text-white">Clear</button>
       </div>  
        </form>
       </div>

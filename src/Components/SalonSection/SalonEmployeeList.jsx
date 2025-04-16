@@ -1,52 +1,58 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import DataTable from 'react-data-table-component';
+import { useDispatch, useSelector } from 'react-redux';
+import { getemployeeList } from '../../Redux/Slices/salonSlicees/salonEmployeeDataSlice';
 
 const SalonEmployeeList = () => {
+
+const {employeeData} =useSelector((state)=>state.employeeDetail)
+console.log(employeeData);
+
+const dispatch =useDispatch();
+
+useEffect(() => {
+  dispatch(getemployeeList())
+}, [dispatch])
+
+
     const columns = [ {
         name: "S.no",
-        selector: (row) => row.serialNo,
+        selector: (row) => row.serial_no,
       },
       {
-        name: "Order Id",
-        selector: (row) => row.order_id,
-      },
-      {
-        name: "Date,Time",
-        selector: (row) => row.date_time,
+        name: "Employee Id",
+        selector: (row) => row.employee_id,
       },
       {
         name: "Name",
         selector: (row) => row.name,
       },
       {
-        name: "MRP",
-        selector: (row) => row.mrp,
+        name: "Email",
+        selector: (row) => row.email,
       },
       {
-        name: "Discount %",
-        selector: (row) => row.discount_percentage,
+        name: "Phone No",
+        selector: (row) => row.phone,
       },
       {
-        name: "Discounted Price",
-        selector: (row) => row.discounted_price,
+        name: "Role",
+        selector: (row) => row.role,
       },
+     
       {
-        name: "Category",
-        selector: (row) => row.category,
+        name: "Address",
+        selector: (row) => row.address,
       },
+      
       {
-        name: "Final Price",
-        selector: (row) => row.final_price,
-      },
-      {
-        name: "Status",
-        selector: (row) => row.status,
-        width:"150px"
-      },
-      {
-        name: "View",
-        selector: (row) => row.view,
+        name: "Profile",
+        selector: (row) => row.image,
         center:"true",
+      },
+       {
+        name: "Active",
+        selector: (row) => row.active,
       },
     ]
   
@@ -73,26 +79,20 @@ const SalonEmployeeList = () => {
         },
       },
     };
-
-    const quantity = 10;
     
-      const data = Array(25).fill({
-        serialNo:'1',
-        order_id:'5767t7gugh',
-        date_time: (
-            <p className="flex flex-col">
-              12/03/2025<span>12:40 pm</span>
-            </p>
-          ),
-           name:"name",
-        mrp:'100',
-        discounted_price:"discounted_price",
-        discount_percentage:"discount_percentage",
-        category:"Haircut",
-        final_price:"200",
-        status:(quantity>0?<p className='bg-green-800  rounded-lg p-3'>Available</p>:<p className='bg-red-700 rounded-lg p-3'>Not Available</p>),
-        
-      })
+      const data = employeeData.map((item,index)=>({
+        serial_no:index+1,
+        employee_id:item.id,
+        name:item.name,
+        phone:item.phone,
+        email:item.email,
+        role:item.role,
+        active:item.active,
+        image:<img src={item.profile_image_url }/>,
+        address:item.address,
+
+
+      }))
   return (
     <div className='fixed w-[calc(100%-300px)] ml-[300px]  pt-30'>
     <h1 className=' font-bold text-3xl ml-5'>Services</h1>
