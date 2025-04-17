@@ -1,7 +1,7 @@
 import React from 'react'
 import { FaUsers } from "react-icons/fa";
 import { HiUsers } from "react-icons/hi";
-import { MdOutlineMiscellaneousServices } from "react-icons/md";import { FaCut } from "react-icons/fa";
+import { MdOutlineMiscellaneousServices } from "react-icons/md";
 import { FaRegCalendarCheck } from "react-icons/fa";
 
 const SalonDashboard = () => {

@@ -1,8 +1,34 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import DataTable from 'react-data-table-component';
+import { useDispatch, useSelector } from 'react-redux';
+import { getBillingData } from '../../Redux/Slices/salonSlicees/salonBillingSlice';
+import { FaEye } from "react-icons/fa";
+import SalonBillingInvoice from './SalonBillingInvoice';
 
 const SalonBillingList = () => {
-     const [isOn, setIsOn] = useState(false);
+     const [isShowDetails,setIsShowDetails]=useState(false);
+     const [showDetails,setShowDetails]=useState(null)
+
+
+     const {billingList} = useSelector((state)=>state.billing);
+ //console.log(billingList);
+ 
+
+     const dispatch = useDispatch();
+     useEffect(() => {
+       dispatch(getBillingData())
+      
+     }, [dispatch])
+     
+const onhandleViewInvoice =(billing)=>{
+  setIsShowDetails(true);
+  setShowDetails(billing);
+
+}
+
+const handleCloseInvoice =()=>{
+  setIsShowDetails(false)
+}
 
     const columns = [ {
         name: "S.no",
@@ -17,32 +43,48 @@ const SalonBillingList = () => {
         selector: (row) => row.date_time,
       },
       {
-        name: "Name",
-        selector: (row) => row.name,
+        name: "User Name",
+        selector: (row) => row.user_name,
       },
       {
-        name: "MRP",
-        selector: (row) => row.mrp,
+        name: "User Contact",
+        selector: (row) => row.contact,
       },
       {
-        name: "Discount %",
-        selector: (row) => row.discount_percentage,
+        name: "Order Type",
+        selector: (row) => row.order_type,
       },
       {
-        name: "Discounted Price",
-        selector: (row) => row.discounted_price,
+        name: "Service Name",
+        selector: (row) => row.service_name,
       },
       {
-        name: "Category",
-        selector: (row) => row.category,
+        name: "Quantity",
+        selector: (row) => row.quantity,
+      },
+      
+      {
+        name: "Total Amount",
+        selector: (row) => row.total_amount,
       },
       {
-        name: "Final Price",
-        selector: (row) => row.final_price,
+        name: "Pay Status",
+        selector: (row) => row.pay_status,
+        width:"150px"
       },
       {
-        name: "Status",
-        selector: (row) => row.status,
+        name: "Order Status",
+        selector: (row) => row.order_status,
+        width:"150px"
+      },
+      {
+        name: "Payment Method",
+        selector: (row) => row.payment_method,
+        width:"150px"
+      },
+      {
+        name: "Address",
+        selector: (row) => row.address,
         width:"150px"
       },
       {
@@ -78,41 +120,48 @@ const SalonBillingList = () => {
 
     const quantity = 10;
     
-      const data = Array(25).fill({
-        serialNo:'1',
-        order_id:'5767t7gugh',
-        date_time: (
-            <p className="flex flex-col">
-              12/03/2025<span>12:40 pm</span>
-            </p>
-          ),
-        name:"name",
-        mrp:'100',
-        discounted_price:"discounted_price",
-        discount_percentage:"discount_percentage",
-        category:"Haircut",
-        final_price:"200",
-        status:(<div
-            onClick={() => setIsOn(!isOn)}
-            className={`w-12 h-6 flex items-center rounded-full cursor-pointer px-1 transition-colors duration-300 ${
-              isOn ? "bg-green-200" : "bg-red-200"
-            }`}
-          >
-            <div
-              className={`w-4 h-4 rounded-full shadow-md transform duration-300 ${
-                isOn
-                  ? "translate-x-6 bg-green-700"
-                  : "translate-x-0 bg-red-600"
-              }`}
-            ></div>
-          </div>)
-      })
+      const data =billingList.map((item,index)=>({
+        serialNo:index+1,
+        order_id:item.order_id,
+        date_time: item.booked_for,
+        user_name:item.orders.users.name,
+        contact:item.orders.users.phone_number,
+        order_type:item.orders.order_type,
+        service_name:item.salon_services.name,
+        quantity:item.quantity,
+        total_amount:item.price,
+        pay_status:item.orders.payment_status,
+        order_status:item.orders.order_status,
+        payment_method:item.orders.payment_method,
+        address:item.orders.address,
+        view: (
+              <button  onClick={()=>onhandleViewInvoice(item)}>
+                <FaEye size={25} />
+              </button>
+            ),
+      }))
   return (
     <div className='w-[calc(100%-300px)] ml-[300px]  pt-30'>
      <h1 className=' font-bold text-3xl ml-5'>Services</h1>
       <div className='overflow-x mt-9'>
       <DataTable data={data} fixedHeaderScrollHeight='67vh' defaultSortFieldId={1} customStyles={customStyles} pagination fixedHeader columns={columns}/>
       </div>
+      {isShowDetails && (
+        <>
+          <div
+            className="inset-0  z-50 bg-black/70 fixed"
+            onClick={() => {
+              setIsShowDetails(false);
+            }}
+          ></div>
+          <div className="absolute z-[10000]">
+            <SalonBillingInvoice
+              billing={showDetails}
+              onClose={handleCloseInvoice}
+            />
+          </div>
+        </>
+      )}
     </div>
   )
 }

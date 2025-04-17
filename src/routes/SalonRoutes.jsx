@@ -37,8 +37,8 @@ const SalonRoutes = () => {
         <Route path='product' element={<SalonProduct_kit/>}/>
         <Route path='kit-request' element={<SalonKitRequest/>}/>
         <Route path='appointment' element={<SalonAppointment/>}/>
-        <Route path='billing/billing-list' element={<SalonBillingList/>}/>
-        <Route path='billing/billing-invoice' element={<SalonBillingInvoice/>}/>
+        <Route path='billing' element={<SalonBillingList/>}/>
+        
         <Route path='employee/employee-list' element={<SalonEmployeeList/>}/>
         <Route path='employee/add-employee' element={<SalonAddEmployee/>}/>
         <Route path='reports' element={<SalonReport/>}/>

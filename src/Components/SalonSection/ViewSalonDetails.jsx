@@ -5,7 +5,7 @@ const ViewSalonDetails = ({ services, onClose }) => {
     <div className="fixed top-35 right-55 rounded-4xl h-150 w-200 bg-white z-[1000]  p-5">
      <div className="flex justify-between p-5 border-b ">
         <h1 className="text-2xl font-bold">View Details</h1>
-        <button className="bg-red-600 text-white py-2 px-10 rounded-full ">Clear</button>
+        <button className="bg-red-600 text-white py-2 px-10 rounded-full " onClick={onClose}>Clear</button>
         </div>
       <div className="flex">
         <img className="h-80 w-80 object-cover" src={services.image_urls[0]} />

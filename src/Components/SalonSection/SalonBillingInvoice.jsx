@@ -1,102 +1,93 @@
 import React from "react";
 import logo from "../../assets/pictures/snba-logo-black.png";
 
-const SalonBillingInvoice = () => {
-  return (
-    <div className="w-[calc(100%-300px)] ml-[300px] h-screen pt-30 ">
-      <div className="ml-10 ">
-        <h1 className="font-semibold text-xl">Invoice #2020-05-0001</h1>
-        <p className="text-sm">paid on June 27,2023</p>
+const SalonBillingInvoice = ({ billing, onClose }) => {
+  console.log(billing);
 
-        <div className="h-150 mt-5 w-220 ml-35 shadow-gray-400 shadow-lg rounded-4xl pl-5">
+  return (
+    <div className="fixed top-25 right-55 rounded-4xl h-180 w-230 bg-white z-[1000]  p-5">
+      <div className="ml-5 ">
+       <div className="flex justify-between p-5">
+        <div>
+       <h1 className="font-semibold text-xl">Invoice #2020-05-0001</h1>
+       <p className="text-sm">paid on {billing.booked_for} </p>
+       </div>
+       <div><button onClick={onClose} className=" rounded-full bg-red-500 h-10 w-40 p-2 text-white">Clear</button></div></div>
+
+        <div className="h-140 mt-5 w-210  shadow-gray-400 shadow-lg rounded-4xl p-5">
           <div className="flex">
             <img className=" w-44 h-15  object-cover text-black " src={logo} />
-         
-           <div className="text-sm ml-5">
+
+            <div className="text-sm ml-5">
               <h1 className="">SNBA Consumer</h1>
-              <p>John Brandon</p>
-              <p>789/1 Sector-2c, 38200 GandhiNagar, France</p>
-              <p>2983743487 | contact@vetao.se</p>
+              <p>{billing.orders.users.name}</p>
+              <p>{billing.orders.address}</p>
+              <p>
+                {billing.orders.users.phone_number} |{" "}
+                {billing.orders.users.email}
+              </p>
               <p>GSTIN: 365 438 457 83447 </p>
             </div>
             <div className="text-sm ml-50 ">
               <p>Invoice Number</p>
               <p className=" font-semibold">#2020-50-0001</p>
               <p>Total Amount</p>
-              <p className=" font-semibold">₹ 630.00</p>
+              <p className=" font-semibold">₹ {billing.price}</p>
             </div>
-          
           </div>
 
-        <div className="w-200 h-115 mt-5  rounded-4xl shadow-sm shadow-gray-400 text-sm ">
-         <div className="flex justify-between px-5 py-2">
-         <div className="bg-gray-200 p-2 rounded-xl">
-            <p>Bill Date</p>
-            <p className=" font-semibold">03/05/2020</p>
-            <p>Order ID</p>
-            <p className=" font-semibold">OD1234354567675674</p>
+          <div className="w-200 h-95 mt-5  rounded-4xl shadow-sm shadow-gray-400 text-sm p-5 ">
+            <div className="flex justify-between px-5 py-2">
+              <div className="bg-gray-200 p-2 rounded-xl">
+                <p>Bill Date</p>
+                <p className=" font-semibold">{billing.booked_for}</p>
+                <p>Order ID</p>
+                <p className=" font-semibold">{(billing.order_id).slice(0,8)}</p>
+              </div>
+              <div className="text-sm">
+                <p>Billing Address</p>
+                <p className="text-lg font-semibold">
+                  {billing.orders.users.name}
+                </p>
+                <p>{billing.orders.address}</p>
+                <p>
+                  {billing.orders.users.phone_number} |{" "}
+                  {billing.orders.users.email}
+                </p>
+              </div>
+            </div>
+            <table className="text-sm ml-5 h-40 w-150 mt-5">
+              <tbody>
+                <tr>
+                  {" "}
+                  <th className="border-gray-300 border  px-2">S.No</th>
+                  <td className="border-gray-300 border  px-2">1</td>
+                </tr>
+
+                <tr>
+                  {" "}
+                  <th className="border-gray-300 border  px-2">SERVICES</th>
+                  <td className="border-gray-300 border  px-2">{billing.salon_services.name}</td>
+                </tr>
+                <tr>
+                  <th className="border-gray-300 border  px-2">DISCOUNT PERCENTAGE</th>
+                  <td className="border-gray-300 border  px-2">{billing.salon_services.discount_percentage}</td>
+                </tr>
+                <tr>
+                  <th className="border-gray-300 border  px-2">DISCOUNT PRICE</th>
+                  <td className="border-gray-300 border  px-2">₹ {billing.salon_services.discounted_price}</td>
+                </tr>
+
+                <tr>
+                  {" "}
+                  <th className="border-gray-300 border  px-2">TOTAL AMOUNT</th>
+                  <td className="border-gray-300 border  px-2">₹  {billing.price}</td>
+                </tr>
+
+              </tbody>
+            </table>
+           
           </div>
-          <div className="text-sm">
-            <p>Billing Address</p>
-            <p className="text-lg font-semibold">Nitesh</p>
-            <p>1445 West Norwood Avenue,itasca,llinois,USA</p>
-            <p>939864683| om@om.com</p>
-          </div>
-         </div>
-         <table className="text-sm ml-5">
-          <tr>
-            <th className="border-gray-300 border  px-2">S.No</th>
-            <th className="border-gray-300 border  px-2">SERVICES</th>
-            <th className="border-gray-300 border  px-2">UNIT PRICE</th>
-            <th className="border-gray-300 border  px-2">DISCOUNT</th>
-            <th className="border-gray-300 border  px-2">AMOUNT</th>
-            <th className="border-gray-300 border  px-2">FINAL AMOUNT</th>
-          </tr>
-           <tr>
-            <td className="border-gray-300 border  px-5">1</td>
-            <td className="border-gray-300 border px-5 flex-col flex">Hair Cut<span>Product Description</span></td>
-             <td className="border-gray-300 border  px-5">₹ 200</td> 
-             <td className="border-gray-300 border  px-5">0 %</td>
-              <td className="border-gray-300 border  px-5">₹ 200</td>
-              <td className="border-gray-300 border  px-5">₹ 200</td>
-           </tr>
-           <tr>
-            <td className="border-gray-300 border px-5">2</td>
-            <td className="border-gray-300 border px-5 flex-col flex">Hair Spa<span>Product Description</span></td>
-             <td className="border-gray-300 border px-5">₹ 200</td> 
-             <td className="border-gray-300 border px-5">0 %</td>
-              <td className="border-gray-300 border px-5">₹ 200</td>
-              <td className="border-gray-300 border px-5">₹ 200</td>
-           </tr>
-           <tr>
-            <td className="border-gray-300 border  px-5">3</td>
-            <td className="border-gray-300 border px-5 flex-col flex">Hair Color<span>Product Description</span></td>
-             <td className="border-gray-300 border px-5">₹ 200</td> 
-             <td className="border-gray-300 border px-5">0 %</td>
-              <td className="border-gray-300 border px-5">₹ 200</td>
-              <td className="border-gray-300 border px-5">₹ 200</td>
-           </tr> 
-          
-         </table>
-         <table className="ml-5 mt-3 ">
-          <tr>
-            <th className="border-gray-300 border p-1 px-5" >Total</th>
-            <td className="border-gray-300 border p-1 px-5">₹ 600</td>
-          </tr>
-          <tr>
-            <th className="border-gray-300 border p-1 px-5">GST</th>
-            <td className="border-gray-300 border p-1 px-5">₹ 30</td>
-          </tr>
-          <tr>
-            <th className="border-gray-300 border p-1 px-5">Total Discount</th>
-            <td className="border-gray-300 border p-1 px-5">₹ 0</td>
-          </tr>
-          <tr className=" ">
-            <th className="border-gray-300 border p-1 px-5">Total Price</th>
-            <td className="border-gray-300 border p-1 px-5">₹ 630.00</td>
-          </tr>
-          </table>
-        </div>
         </div>
       </div>
     </div>

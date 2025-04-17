@@ -31,7 +31,7 @@ const App = () => {
             }
           />
           <Route
-            path="/gym"
+            path="/gym/*"
             element={
               <ProtectedRoute segment="gym">
                 <GymRoutes />

@@ -1,9 +1,10 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import supabase from "../../../SupaBaseClient";
+import { fetchAppointmentApi } from "../../Api/salonApi/salonAppointment";
 
 export const getAppointment = createAsyncThunk("appointment/fetch",async()=>{
-    const appointmentLists = await supabase
-    return appointmentLists;
+    const appointmentData = await fetchAppointmentApi();
+    return appointmentData;
 })
 
 const appointmentSlice = createSlice({

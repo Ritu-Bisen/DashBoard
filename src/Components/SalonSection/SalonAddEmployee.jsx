@@ -13,9 +13,6 @@ const SalonAddEmployee = () => {
     role: "",
     phone: "",
     address:"",
-    active: true,
-    
-    section:"salon",
     image: null,
   });
   
@@ -68,9 +65,7 @@ const SalonAddEmployee = () => {
       name: '',
       phone: '',
       email: '',
-      section: "",
       role: '',
-      active: true,
       address: '',
       image: null,
     });
@@ -79,7 +74,8 @@ const SalonAddEmployee = () => {
   return (
     <div className="fixed w-[calc(100%-300px)] ml-[300px] h-screen pt-35  ">
       <div className=" px-35">
-       <form onSubmit={onHandleSubmit} className="grid grid-cols-2 space-y-3">
+        <h1 className="text-3xl font-bold">Add Employee </h1>
+       <form onSubmit={onHandleSubmit} className="grid grid-cols-2 space-y-3 mt-5">
     
           <div className="flex flex-col">
             <label className="font-semibold">Name</label>
@@ -121,36 +117,8 @@ const SalonAddEmployee = () => {
               value={formData.role}
             />
           </div>
-          <div className="flex flex-col">
-            <label className="font-semibold">Section</label>
-            <input
-              className="bg-gray-300 rounded-full h-10 w-90 p-3"
-              type="text"
-              name="section"
-              onChange={onhandleChange}
-              value={formData.section}
-            />
-          </div>
-          {/* <div className="flex flex-col">
-            <label className="font-semibold">Seller Id</label>
-            <input
-              className="bg-gray-300 rounded-full h-10 w-90 p-2"
-              type="text"
-              name="seller_id"
-              onChange={onhandleChange}
-              value={formData.seller_id}
-            />
-          </div> */}
-<div className="flex flex-col">
-            <label className="font-semibold">Active</label>
-            <input
-              className="bg-gray-300 rounded-full h-10 w-90 p-3"
-              type="text"
-              name="active"
-              onChange={onhandleChange}
-              value={formData.active}
-            />
-          </div>
+         
+         
 
           
           <div className="flex flex-col ">

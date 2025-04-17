@@ -2,17 +2,17 @@ import React, { useEffect } from "react";
 import DataTable from "react-data-table-component";
 import { useDispatch, useSelector } from "react-redux";
 import { getAppointment } from "../../Redux/Slices/salonSlicees/salonAappointmentSlice";
+import { fetchAppointmentApi } from "../../Redux/Api/salonApi/salonAppointment";
 
 const SalonAppointment = () => {
 
   const {appointmentList} = useSelector((state)=>state.appointmentList)
-  console.log(appointmentList);
-  
+ 
 const dispatch =useDispatch();
 
 useEffect(() => {
 dispatch(getAppointment())
-}, dispatch)
+}, [dispatch])
 
 
   const columns = [
@@ -26,33 +26,20 @@ dispatch(getAppointment())
     },
 
     {
-      name: "Name",
-      selector: (row) => row.name,
+      name: "Product Id",
+      selector: (row) => row.product_id,
+    },
+    {
+      name: "Price",
+      selector: (row) => row.price,
     },
     {
       name: "Date,Time",
-      selector: (row) => row.date_time,
+      selector: (row) => row.booked_for,
     },
     {
-      name: "Services",
-      selector: (row) => row.services,
-    },
-    {
-      name: "Phone no.",
-      selector: (row) => row.phone_no,
-    },
-    {
-      name: "Pay Mode",
-      selector: (row) => row.pay_mode,
-    },
-    {
-      name: "Amount",
-      selector: (row) => row.amount,
-    },
-    {
-      name: "Status",
-      selector: (row) => row.status,
-      width: "150px",
+      name: "Quantity",
+      selector: (row) => row.quantity,
     },
   ];
 
@@ -79,25 +66,18 @@ dispatch(getAppointment())
     },
   };
 
-  const data = Array(15).fill({
-    serialNo: "1",
-    order_id: "5767t7gugh",
-    name: "Rohan",
-    date_time: (
-      <p className="flex flex-col">
-        12/03/2025<span>12:40 pm</span>
-      </p>
-    ),
-    services: "Haircut",
-    phone_no: "9868756654",
-    pay_mode: "Online",
-    amount: "200",
-    status: "Edit",
-  });
+  const data = appointmentList.map((item,index)=>({
+    serialNo:index+1,
+    order_id:item.order_id,
+    product_id:item.product_id,
+    price:item.price,
+    booked_for:item.booked_for,
+    quantity:item.quantity
+  }))
 
   return (
     <div className="w-[calc(100%-300px)] ml-[300px] h-screen pt-30">
-      <div className="fixed h-175 w-285 shadow-lg py-10 shadow-gray-400 ml-10">
+     
         <div className="justify-between flex border-b border-gray-300  ">
           <div>
             {" "}
@@ -120,7 +100,7 @@ dispatch(getAppointment())
             customStyles={customStyles}
           />
         </div>
-      </div>
+     
     </div>
   );
 };

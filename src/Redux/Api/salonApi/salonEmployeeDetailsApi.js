@@ -2,7 +2,7 @@ import { seller_id } from "../../../Components/MartSection/StockManagementForm";
 import supabase from "../../../SupaBaseClient";
 import { v4 as uuidv4 } from 'uuid';
 
-const employee_id = uuidv4();
+
 const uploadEmployeePhoto = async (employee_id,employeePhoto)=>{
     try{
 
@@ -33,8 +33,6 @@ const uploadEmployeePhoto = async (employee_id,employeePhoto)=>{
 
 
 
-
-
 export const employeeDataApi = async (formData, seller_id) => {
     const employeePhoto = formData.image;
     const employee_id = uuidv4();
@@ -48,9 +46,9 @@ export const employeeDataApi = async (formData, seller_id) => {
          seller_id: seller_id,
         phone: formData.phone,
         email: formData.email,
-        section: formData.section,
+        section: "salon",
         role: formData.role,
-        active: formData.active,
+        
         profile_image_url: ProfileImageUrl,
         address: formData.address,
       };
@@ -76,7 +74,8 @@ export const employeeDataApi = async (formData, seller_id) => {
     try {
       const { data, error } = await supabase
       .from("employees")
-      .select('*');
+      .select('*')
+      .eq('section',"salon")
       if (!error) {
         console.log("fetching data succesfully", data);
       } else {

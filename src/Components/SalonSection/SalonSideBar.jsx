@@ -7,6 +7,10 @@ import { PiUserSwitchBold } from "react-icons/pi";
 import { Link, useLocation } from "react-router-dom";
 import { MdExpandLess, MdExpandMore } from "react-icons/md";
 import { HiOutlineClipboardDocumentList, HiUsers } from "react-icons/hi2";
+import { MdMiscellaneousServices } from "react-icons/md";
+import { FaRegCalendarCheck } from "react-icons/fa6";
+import { RiScissorsFill } from "react-icons/ri";
+
 
 const SalonSideBar = () => {
   const location = useLocation();
@@ -26,40 +30,37 @@ const SalonSideBar = () => {
     {
       id: 2,
       name: "Services",
-      icon: <PiUserSwitchBold size={30} />,
+      icon: <MdMiscellaneousServices size={30} />,
       path: "/salon/service",
     },
     {
       id: 3,
       name: "Product",
-      icon: <CgStyle size={30} />,
+      icon: <FaBoxOpen size={30} />,
       path: "/salon/product",
     },
     {
       id: 4,
       name: "Kit Request",
-      icon: <RiBillLine size={30} />,
+      icon: <RiScissorsFill size={30} />,
       path: "/salon/kit-request",
     },
     {
       id: 5,
       name: "Appointment",
-      icon: <FaBoxOpen size={30} />,
+      icon: <FaRegCalendarCheck size={30} />,
       path: "/salon/appointment",
     },
     {
       id: 6,
       name: "Billing",
-      icon: <RiUserSettingsFill size={30} />,
-      subroute: [
-        { title: "Billing List", path: "/salon/billing/billing-list" },
-        { title: "Billing Invoice", path: "/salon/billing/billing-invoice" },
-      ],
+      icon: <RiBillLine size={30} />,
+    path:"/salon/billing"
     },
     {
       id: 7,
       name: "Employee",
-      icon: <RiUserSettingsFill size={30} />,
+      icon: <HiUsers size={30} />,
       subroute: [  
           { title: "Add Employee", path: "/salon/employee/add-employee" },
         { title: "Employee List", path: "/salon/employee/employee-list" },
