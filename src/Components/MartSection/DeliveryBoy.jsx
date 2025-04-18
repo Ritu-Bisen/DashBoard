@@ -1,97 +1,441 @@
-import React from 'react'
+import React, { useState } from "react";
 
 const DeliveryBoy = () => {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    mobile_no: "",
+    address: "",
+    profile_image: null,
+    bank_name: "",
+    bank_account_name: "",
+    bank_ifsc: "",
+    account_no: "",
+    aadhar_no: "",
+    pan_no: "",
+    passbook_image: null,
+    adhar_image: null,
+    panCard_image: null,
+    rc_no: "",
+    rc_image: null,
+    driving_license_no: "",
+    vehicel_type: "",
+    driving_license_image: null,
+    vehicel_no: "",
+  });
+
+  const [imagePreviews, setImagePreviews] = useState({
+    profile_image: null,
+    passbook_image: null,
+    adhar_image: null,
+    panCard_image: null,
+    rc_image: null,
+    driving_license_image: null,
+  });
+
+  const handleImageChange = (e, fieldName) => {
+    const file = e.target.files[0];
+
+    setFormData((prev) => ({
+      ...prev,
+      [fieldName]: file,
+    }));
+
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImagePreviews((prev) => ({
+          ...prev,
+          [fieldName]: reader.result,
+        }));
+      };
+      reader.readAsDataURL(file);
+    } else {
+      setImagePreviews((prev) => ({
+        ...prev,
+        [fieldName]: null,
+      }));
+    }
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log("Form Submitted:", formData);
+    handleClear();
+  };
+
+  const handleClear = () => {
+    setFormData({
+      name: "",
+      email: "",
+      mobile_no: "",
+      address: "",
+      profile_image: null,
+      bank_name: "",
+      bank_account_name: "",
+      bank_ifsc: "",
+      account_no: "",
+      aadhar_no: "",
+      pan_no: "",
+      passbook_image: null,
+      adhar_image: null,
+      panCard_image: null,
+      rc_no: "",
+      rc_image: null,
+      driving_license_no: "",
+      vehicel_type: "",
+      driving_license_image: null,
+      vehicel_no: "",
+    });
+
+    setImagePreviews({
+      profile_image: null,
+      passbook_image: null,
+      adhar_image: null,
+      panCard_image: null,
+      rc_image: null,
+      driving_license_image: null,
+    });
+  };
+
+
   return (
-    <div className="w-[calc(100%-300px)] ml-[300px] bg-gray-300 ">
-       <div className='mt-5 flex justify-between border-b border-gray-500 py-5 '>
-       <h1 className='text-3xl font-bold ml-3'> Create Delivery Boy</h1>
-       <button className='bg-green-600 rounded-full h-10 w-50 mr-5  '>View Delivery Boy</button>
-       </div>
-       <div className='bg-white h-175 w-300 m-auto mt-4 p-5  rounded-xl  '>
-        <div className='grid grid-cols-3   gap-5'>
-            <div className='flex flex-col'>
-            <label className='font-semibold '>Name</label>
-            <input className='bg-gray-300 rounded-full h-10 w-70'/>
+    <div className="w-[calc(100%-300px)] ml-[300px] bg-gray-300 h-screen ">
+      <div className=" flex justify-between border-b border-gray-500 py-5">
+        <h1 className="text-3xl font-bold ml-3">Create Delivery Boy</h1>
+      </div>
+      <div className="fixed top-50 left-180 mt-5  bg-white h-90 w-90 rounded-4xl shadow-lg shadow-gray-400 p-5">
+        <h1 className="text-2xl font-bold ml-15">Add Delivery Boy</h1>
+       <form className="flex flex-col mt-10 items-center justify-center space-y-5">
+<label className="text-lg font-semibold"> Phone No.(for OTP) </label>
+<input type="number" className="bg-gray-300 rounded-lg h-10 w-70 p-2" placeholder="Enter Phone No."/>
+<button className="bg-gray-500 h-10 w-40 rounded-full mt-5 ">Send OTP</button>
+       </form>
+      </div>
+
+      {/* {/* <form
+        className="bg-white m-auto mt-4 p-10 rounded-xl"
+        onSubmit={handleSubmit}
+      >
+        <div className="flex">
+          <div className="grid-cols-2 grid gap-x-20 ml-10">
+            <div>
+              <label className="font-semibold">Full Name</label>
+              <input
+                type="text"
+                name="name"
+                value={formData.name}
+                onChange={handleChange}
+                className="bg-gray-300 rounded-full h-10 w-70"
+              />
             </div>
 
-            <div className='flex flex-col'>
-            <label className='font-semibold '>Date Of Birth</label>
-            <input className='bg-gray-300 rounded-full h-10 w-70'/>
+            <div>
+              <label className="font-semibold">Email Id</label>
+              <input
+                type="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                className="bg-gray-300 rounded-full h-10 w-70"
+              />
             </div>
 
-            <div className='flex flex-col'>
-            <label className='font-semibold '>Mobile</label>
-            <input className='bg-gray-300 rounded-full h-10 w-70'/>
+            <div>
+              <label className="font-semibold">Mobile No.</label>
+              <input
+                type="number"
+                name="mobile_no"
+                value={formData.mobile_no}
+                onChange={handleChange}
+                className="bg-gray-300 rounded-full h-10 w-70"
+              />
             </div>
 
-            <div className='flex flex-col'>
-            <label className='font-semibold '>Email</label>
-            <input className='bg-gray-300 rounded-full h-10 w-70'/>
+            <div>
+              <label className="font-semibold">Address</label>
+              <textarea
+                name="address"
+                value={formData.address}
+                onChange={handleChange}
+                className="h-20 w-70 rounded-xl bg-gray-300"
+              />
             </div>
+          </div>
 
-            <div className='flex flex-col'>
-            <label className='font-semibold '>Password</label>
-            <input className='bg-gray-300 rounded-full h-10 w-70'/>
+          <div className="flex flex-col ml-30">
+            <label className="font-semibold">Upload Profile Photo</label>
+            <div className="relative bg-gray-100 border-2 border-dashed border-gray-400 rounded-lg h-60 w-60 flex items-center justify-center overflow-hidden object-cover">
+              {imagePreviews.profile_image ? (
+                <img
+                  src={imagePreviews.profile_image}
+                  alt="Preview"
+                  className="h-full w-full object-cover"
+                />
+              ) : (
+                <span className="text-gray-500">No image selected</span>
+              )}
+              <input
+                type="file"
+                accept="image/*"
+                onChange={(e) => handleImageChange(e, "profile_image")}
+                className="absolute inset-0 opacity-0 cursor-pointer"
+              />
             </div>
-
-            <div className='flex flex-col'>
-            <label className='font-semibold '>Confirm Password</label>
-            <input className='bg-gray-300 rounded-full h-10 w-70'/>
-            </div>
-
-            <div className='flex flex-col'>
-            <label className='font-semibold '>Bank's IFCS code</label>
-            <input className='bg-gray-300 rounded-full h-10 w-70'/>
-            </div>
-
-            <div className='flex flex-col'>
-            <label className='font-semibold '>Bank Name</label>
-            <input className='bg-gray-300 rounded-full h-10 w-70'/>
-            </div>
-
-            <div className='flex flex-col'>
-            <label className='font-semibold '>Account Number</label>
-            <input className='bg-gray-300 rounded-full h-10 w-70'/>
-            </div>
-
-            <div className='flex flex-col'>
-            <label className='font-semibold '> Bank Account Name</label>
-            <input className='bg-gray-300 rounded-full h-10 w-70'/>
-            </div>
-
-            <div className='flex flex-col'>
-            <label className='font-semibold '>Select or Search City</label>
-            <input className='bg-gray-300 rounded-full h-10 w-70'/>
-            </div>
-
-            <div className='flex flex-col'>
-            <label className='font-semibold '>Other Payment Information</label>
-            <input className='bg-gray-300 rounded-full h-10 w-70'/>
-            </div>
-          
-
+          </div>
         </div>
 
-        <div className='flex gap-28 pt-5 '>
-            <div className='flex flex-col  '>
-            <label className='font-semibold'>Address</label>
-            <input className='h-50 w-120 rounded-xl bg-gray-300'/>
-            </div>
-            <div className='flex flex-col'>
-            <label className='font-semibold'>Driving License</label>
-            <input className='h-50 w-120 bg-gray-300 rounded-xl text-center' placeholder='Drop Files here or click to upload'/>
-            </div>
-        </div>
+        <div className="grid grid-cols-3 mt-7 ml-10 gap-5">
+          <div>
+            <label className="font-semibold">Bank Name</label>
+            <input
+              type="text"
+              name="bank_name"
+              value={formData.bank_name}
+              onChange={handleChange}
+              className="bg-gray-300 rounded-full h-10 w-70"
+            />
+          </div>
 
-        <div className='flex gap-30  mt-7'>
-        <button className='bg-green-600 w-120 h-10 rounded-full text-white font-semibold' >Save</button>
-        <button className='w-120 h-10 bg-red-500 rounded-full text-white font-semibold' >Clear</button>
-        </div>
+          <div>
+            <label className="font-semibold">Bank Account Name</label>
+            <input
+              type="text"
+              name="bank_account_name"
+              value={formData.bank_account_name}
+              onChange={handleChange}
+              className="bg-gray-300 rounded-full h-10 w-70"
+            />
+          </div>
 
-       </div>
-      
+          <div>
+            <label className="font-semibold">Bank IFSC Code</label>
+            <input
+              type="text"
+              name="bank_ifsc"
+              value={formData.bank_ifsc}
+              onChange={handleChange}
+              className="bg-gray-300 rounded-full h-10 w-70"
+            />
+          </div>
+
+          <div>
+            <label className="font-semibold">Account Number</label>
+            <input
+              type="text"
+              name="account_no"
+              value={formData.account_no}
+              onChange={handleChange}
+              className="bg-gray-300 rounded-full h-10 w-70"
+            />
+          </div>
+
+          <div>
+            <label className="font-semibold">Aadhar Number</label>
+            <input
+              type="text"
+              name="aadhar_no"
+              value={formData.aadhar_no}
+              onChange={handleChange}
+              className="bg-gray-300 rounded-full h-10 w-70"
+            />
+          </div>
+
+          <div>
+            <label className="font-semibold">PAN Number</label>
+            <input
+              type="text"
+              name="pan_no"
+              value={formData.pan_no}
+              onChange={handleChange}
+              className="bg-gray-300 rounded-full h-10 w-70"
+            />
+          </div>
+
+          <div>
+            <label className="font-semibold">RC Number</label>
+            <input
+              type="text"
+              name="rc_no"
+              value={formData.rc_no}
+              onChange={handleChange}
+              className="bg-gray-300 rounded-full h-10 w-70"
+            />
+          </div>
+
+          <div>
+            <label className="font-semibold">Driving License Number</label>
+            <input
+              type="text"
+              name="driving_license_no"
+              value={formData.driving_license_no}
+              onChange={handleChange}
+              className="bg-gray-300 rounded-full h-10 w-70"
+            />
+          </div>
+
+          <div>
+            <label className="font-semibold">Vehicle Type</label>
+            <input
+              type="text"
+              name="vehicel_type"
+              value={formData.vehicel_type}
+              onChange={handleChange}
+              className="bg-gray-300 rounded-full h-10 w-70"
+            />
+          </div>
+
+          <div>
+            <label className="font-semibold">Vehicle Number</label>
+            <input
+              type="text"
+              name="vehicel_no"
+              value={formData.vehicel_no}
+              onChange={handleChange}
+              className="bg-gray-300 rounded-full h-10 w-70"
+            />
+          </div>
+</div>
+          {/* Image Uploads */}
+
+          {/* <div className="grid grid-cols-3 mt-7 ml-10 gap-10">
+ 
+  <div>
+    <label className="font-semibold">Passbook Image</label>
+    <div className="relative bg-gray-100 border-2 border-dashed border-gray-400 rounded-lg h-60 w-60 flex items-center justify-center overflow-hidden object-cover">
+      {imagePreviews.passbook_image ? (
+        <img
+          src={imagePreviews.passbook_image}
+          alt="Preview"
+          className="h-full w-full object-cover"
+        />
+      ) : (
+        <span className="text-gray-500">No image selected</span>
+      )}
+      <input
+        type="file"
+        accept="image/*"
+        onChange={(e) => handleImageChange(e, "passbook_image")}
+        className="absolute inset-0 opacity-0 cursor-pointer"
+      />
     </div>
-  )
-}
+  </div>
 
-export default DeliveryBoy
+
+  <div>
+    <label className="font-semibold">Aadhar Image</label>
+    <div className="relative bg-gray-100 border-2 border-dashed border-gray-400 rounded-lg h-60 w-60 flex items-center justify-center overflow-hidden object-cover">
+      {imagePreviews.adhar_image ? (
+        <img
+          src={imagePreviews.adhar_image}
+          alt="Preview"
+          className="h-full w-full object-cover"
+        />
+      ) : (
+        <span className="text-gray-500">No image selected</span>
+      )}
+      <input
+        type="file"
+        accept="image/*"
+        onChange={(e) => handleImageChange(e, "adhar_image")}
+        className="absolute inset-0 opacity-0 cursor-pointer"
+      />
+    </div>
+  </div>
+
+
+  <div>
+    <label className="font-semibold">PAN Card Image</label>
+    <div className="relative bg-gray-100 border-2 border-dashed border-gray-400 rounded-lg h-60 w-60 flex items-center justify-center overflow-hidden object-cover">
+      {imagePreviews.panCard_image ? (
+        <img
+          src={imagePreviews.panCard_image}
+          alt="Preview"
+          className="h-full w-full object-cover"
+        />
+      ) : (
+        <span className="text-gray-500">No image selected</span>
+      )}
+      <input
+        type="file"
+        accept="image/*"
+        onChange={(e) => handleImageChange(e, "panCard_image")}
+        className="absolute inset-0 opacity-0 cursor-pointer"
+      />
+    </div>
+  </div>
+
+  <div>
+    <label className="font-semibold">RC Image</label>
+    <div className="relative bg-gray-100 border-2 border-dashed border-gray-400 rounded-lg h-60 w-60 flex items-center justify-center overflow-hidden object-cover">
+      {imagePreviews.rc_image ? (
+        <img
+          src={imagePreviews.rc_image}
+          alt="Preview"
+          className="h-full w-full object-cover"
+        />
+      ) : (
+        <span className="text-gray-500">No image selected</span>
+      )}
+      <input
+        type="file"
+        accept="image/*"
+        onChange={(e) => handleImageChange(e, "rc_image")}
+        className="absolute inset-0 opacity-0 cursor-pointer"
+      />
+    </div>
+  </div>
+
+  <div>
+    <label className="font-semibold">Driving License Image</label>
+    <div className="relative bg-gray-100 border-2 border-dashed border-gray-400 rounded-lg h-60 w-60 flex items-center justify-center overflow-hidden object-cover">
+      {imagePreviews.driving_license_image ? (
+        <img
+          src={imagePreviews.driving_license_image}
+          alt="Preview"
+          className="h-full w-full object-cover"
+        />
+      ) : (
+        <span className="text-gray-500">No image selected</span>
+      )}
+      <input
+        type="file"
+        accept="image/*"
+        onChange={(e) => handleImageChange(e, "driving_license_image")}
+        className="absolute inset-0 opacity-0 cursor-pointer"
+      />
+    </div>
+  </div>
+</div>
+
+
+       
+        <div className="flex gap-10 mt-7">
+          <button
+            type="submit"
+            className="bg-green-600 w-40 h-10 rounded-full text-white font-semibold"
+          >
+            Save
+          </button>
+          <button
+            type="button"
+            onClick={handleClear}
+            className="w-40 h-10 bg-red-500 rounded-full text-white font-semibold"
+          >
+            Clear
+          </button>
+        </div>
+      </form> */}  
+    </div>
+  );
+};
+
+export default DeliveryBoy;

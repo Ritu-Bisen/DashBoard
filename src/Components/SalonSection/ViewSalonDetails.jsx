@@ -1,4 +1,5 @@
 import React from "react";
+import Carousel from "../UI/Carousel";
 
 const ViewSalonDetails = ({ services, onClose }) => {
   return (
@@ -7,10 +8,11 @@ const ViewSalonDetails = ({ services, onClose }) => {
         <h1 className="text-2xl font-bold">View Details</h1>
         <button className="bg-red-600 text-white py-2 px-10 rounded-full " onClick={onClose}>Clear</button>
         </div>
-      <div className="flex">
-        <img className="h-80 w-80 object-cover" src={services.image_urls[0]} />
+      <div className="flex gap-3">
+        {/* <img className="h-65 w-65 object-cover" src={services.image_urls[0]} /> */}
+        <Carousel image={services.image_urls}/>
         <div>
-          <table>
+          <table >
             <th  className="border-gray-300 border p-2 px-5">Name:</th>
             <td className="border-gray-300 border p-1">{services.name}</td>
             <tr>

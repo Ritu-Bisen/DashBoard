@@ -1,5 +1,6 @@
 import React from "react";
 import { RxCross2 } from "react-icons/rx";
+import Carousel from "../UI/Carousel";
 
 const ViewDetails = ({ product,onClose }) => {
   console.log(product);
@@ -64,7 +65,8 @@ const ViewDetails = ({ product,onClose }) => {
 
         <div className="pr-5 flex flex-col justify-center items-center text-2xl font-semibold">
           <h1>Image</h1>
-          <img className="h-65 w-65" src={product.image_urls[0]} />
+          <Carousel image={product.image_urls}/>
+          {/* <img className="h-65 w-65" src={product.image_urls[0]} /> */}
         </div>
        
       </div>
