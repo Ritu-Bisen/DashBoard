@@ -13,7 +13,7 @@ import Sidebar from "./Components/MartSection/Sidebar";
 import SalonSideBar from "./Components/SalonSection/SalonSideBar";
 import SalonRoutes from "./routes/SalonRoutes";
 import SalonServices from "./Components/SalonSection/SalonServices";
-import DemoTable from "./Components/MartSection/DemoTable";
+//import DemoTable from "./Components/MartSection/DemoTable";
 
 const App = () => {
   return (
