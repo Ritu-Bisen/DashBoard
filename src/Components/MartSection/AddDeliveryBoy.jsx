@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { toast } from "react-toastify";
@@ -6,8 +6,9 @@ import {
   deliveryBoyRegisterWithOtp,
   deliveryBoyVerifyOtp,
 } from "../../Redux/Slices/salonSlicees/authDeliveryBoySlice";
-import { deliveryBoyData } from "../../Redux/Slices/deliveryBoyDataSlice";
+import { deliveryBoyData, deliveryBoyRegister } from "../../Redux/Slices/deliveryBoyDataSlice";
 import { seller_id } from "./StockManagementForm";
+import { checkExistingDeliveryBoy } from "../../Redux/Api/deliveryBoyApi";
 
 const AddDeliveryBoy = () => {
   const dispatch = useDispatch();
@@ -38,9 +39,9 @@ const AddDeliveryBoy = () => {
     rc_no: "",
     rc_image: null,
     driving_license_no: "",
-    vehicel_type: "",
+    vehicle_type: "",
     driving_license_image: null,
-    vehicel_no: "",
+    vehicle_no: "",
   });
 
   const [imagePreviews, setImagePreviews] = useState({
@@ -60,12 +61,12 @@ const AddDeliveryBoy = () => {
       return;
     }
 
-    // const existing = await checkExistingDeliveryBoy(phone_no);
-    // if (existing && existing.length > 0) {
-    //   console.log('DeliveryBoy already exists:', existing);
-    //   alert('DeliveryBoy Already Exist');
-    //   toast.warn('DeliveryBoy Already Exist');
-    // }
+    const existing = await checkExistingDeliveryBoy(phone_no);
+    if (existing && existing.length > 0) {
+      console.log('DeliveryBoy already exists:', existing);
+      alert('DeliveryBoy Already Exist');
+      toast.warn('DeliveryBoy Already Exist');
+    }
     else {
       await dispatch(deliveryBoyRegisterWithOtp(phone_no));
       console.log("New DeliveryBoy — continue with registration");
@@ -120,12 +121,7 @@ const AddDeliveryBoy = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    dispatch(deliveryBoyData({formData,seller_id}))
-   // console.log("Form Submitted:", formData);
-    handleClear();
-  };
+ 
 
   const handleClear = () => {
     setFormData({
@@ -146,9 +142,9 @@ const AddDeliveryBoy = () => {
       rc_no: "",
       rc_image: null,
       driving_license_no: "",
-      vehicel_type: "",
+      vehicle_type: "",
       driving_license_image: null,
-      vehicel_no: "",
+      vehicle_no: "",
     });
 
     setImagePreviews({
@@ -161,9 +157,81 @@ const AddDeliveryBoy = () => {
     });
   };
 
+useEffect(()=>{
+  setFormData((prev)=>({ ...prev,phone:phone}));
+},[phone]);
+
+const validation = ()=>{
+  let newErrors ={};
+
+  if(!formData.name.trim())
+    newErrors.name = "Name is required.";
+  if(!formData.email.trim())
+    newErrors.email = "Email is required.";
+  if(!formData.phone.trim()){
+    newErrors.phone =" phone number is required.";
+  }else if(formData.phone.length !== 10){
+    newErrors.phone ="Phone number should be 10 digits.";
+  }
+  if(!formData.address.trim())
+    newErrors.address = "Address is required.";
+  if(!formData.bank_name.trim())
+    newErrors.bank_name = "Bank Name is required.";
+  if(!formData.bank_ifsc.trim()){
+    newErrors.bank_ifsc =" Bank IFSC code  is required.";
+  }else if(formData.bank_ifsc.length !== 11){
+    newErrors.bank_ifsc ="Bank IFSC code should be 11 digits.";
+  }
+  if(!formData.bank_account_name.trim())
+    newErrors.bank_account_name="Bank Account Name is required.";
+if(!formData.account_no.trim())
+  newErrors.account_no="Account Number is required.";
+if(!formData.aadhar_no.trim())
+  newErrors.aadhar_no="Aadhar number is required";
+if(!formData.pan_no.trim())
+  newErrors.pan_no="Pan Number is required.";
+if(!formData.rc_no.trim())
+  newErrors.rc_no="Rc Number is required.";
+if(!formData.driving_license_no.trim())
+  newErrors.driving_license_no="Driving License Number is required.";
+if(!formData.vehicle_type.trim())
+  newErrors.vehicle_type="Vehicle Type is required.";
+if(!formData.vehicle_no.trim())
+  newErrors.vehicel_no="Vehicle is required.";
+if(!formData.profile_image)
+  newErrors.profile_image="Profile Photo is required.";
+if(!formData.adhar_image)
+  newErrors.adhar_image="Aadhar Photo is required.";
+if(!formData.panCard_image)
+  newErrors.panCard_image="PanCard Photo is required.";
+if(!formData.rc_image)
+  newErrors.rc_image="Rc Photo is required.";
+if(!formData.driving_license_image)
+    newErrors.driving_license_image="Driving License Photo is required.";
+  if(!formData.passbook_image)
+      newErrors.passbook_image="Passbook Photo is required.";
+return newErrors;
+}
+
+
+const handleSubmit = (e) => {
+  e.preventDefault();
+  const errors = validation();
+  if(Object.keys(errors).length > 0){
+    console.log("Validation Failed:",errors);
+    setErrors(errors);//store them
+    return
+    
+  }
+  setErrors({});
+  dispatch(deliveryBoyRegister({formData,seller_id}))
+ // console.log("Form Submitted:", formData);
+  handleClear();
+};
+
   return (
     <div className="w-[calc(100%-300px)] ml-[300px] bg-gray-300  ">
-      <div className="t">
+      <div className="">
         <h1 className="text-3xl font-bold"> Create Delivery Boy</h1>
       </div>
       <div className="mt-5 ">
@@ -214,6 +282,7 @@ const AddDeliveryBoy = () => {
             {otpVerified && (
               <div className="bg-white mt-2 p-10 rounded-xl">
                 <div className="flex">
+
                   <div className="grid-cols-2 grid gap-x-20 ml-10">
                     <div className="flex flex-col ">
                       <label className="font-semibold">Full Name</label>
@@ -222,8 +291,13 @@ const AddDeliveryBoy = () => {
                         name="name"
                         value={formData.name}
                         onChange={handleChange}
-                        className="bg-gray-300 rounded-full h-10 w-70"
+                        className="bg-gray-300 rounded-full h-10 w-70 p-5"
                       />
+                       {errors.name && (
+                    <p className="text-red-500 text-sm">
+                      {errors.name}
+                    </p>
+                  )}
                     </div>
 
                     <div className="flex flex-col ">
@@ -235,6 +309,11 @@ const AddDeliveryBoy = () => {
                         onChange={handleChange}
                         className="bg-gray-300 rounded-full h-10 w-70"
                       />
+                       {errors.email && (
+                    <p className="text-red-500 text-sm">
+                      {errors.email}
+                    </p>
+                  )}
                     </div>
 
                     <div className="flex flex-col ">
@@ -246,6 +325,11 @@ const AddDeliveryBoy = () => {
                         onChange={handleChange}
                         className="bg-gray-300 rounded-full h-10 w-70"
                       />
+                       {errors.phone && (
+                    <p className="text-red-500 text-sm">
+                      {errors.phone}
+                    </p>
+                  )}
                     </div>
 
                     <div className="flex flex-col ">
@@ -254,8 +338,14 @@ const AddDeliveryBoy = () => {
                         name="address"
                         value={formData.address}
                         onChange={handleChange}
-                        className="h-20 w-70 rounded-xl bg-gray-300"
+                        className="h-20 w-70 rounded-xl bg-gray-300 p-5"
                       />
+                     
+                       {errors.address && (
+                    <p className="text-red-500 text-sm">
+                      {errors.address}
+                    </p>
+                  )}
                     </div>
                   </div>
 
@@ -277,9 +367,14 @@ const AddDeliveryBoy = () => {
                         type="file"
                         accept="image/*"
                         onChange={(e) => handleImageChange(e, "profile_image")}
-                        className="absolute inset-0 opacity-0 cursor-pointer"
+                        className="absolute inset-0 opacity-0 cursor-pointer p-5"
                       />
                     </div>
+                    {errors.profile_image && (
+                    <p className="text-red-500 text-sm">
+                      {errors.profile_image}
+                    </p>
+                  )}
                   </div>
                 </div>
 
@@ -291,8 +386,13 @@ const AddDeliveryBoy = () => {
                       name="bank_name"
                       value={formData.bank_name}
                       onChange={handleChange}
-                      className="bg-gray-300 rounded-full h-10 w-70"
+                      className="bg-gray-300 rounded-full h-10 w-70 p-5"
                     />
+                     {errors.bank_name && (
+                    <p className="text-red-500 text-sm">
+                      {errors.bank_name}
+                    </p>
+                  )}
                   </div>
 
                   <div className="flex flex-col ">
@@ -302,8 +402,13 @@ const AddDeliveryBoy = () => {
                       name="bank_account_name"
                       value={formData.bank_account_name}
                       onChange={handleChange}
-                      className="bg-gray-300 rounded-full h-10 w-70"
+                      className="bg-gray-300 rounded-full h-10 w-70 p-5"
                     />
+                     {errors.bank_account_name && (
+                    <p className="text-red-500 text-sm">
+                      {errors.bank_account_name}
+                    </p>
+                  )}
                   </div>
 
                   <div className="flex flex-col ">
@@ -313,8 +418,13 @@ const AddDeliveryBoy = () => {
                       name="bank_ifsc"
                       value={formData.bank_ifsc}
                       onChange={handleChange}
-                      className="bg-gray-300 rounded-full h-10 w-70"
+                      className="bg-gray-300 rounded-full h-10 w-70 p-5"
                     />
+                     {errors.bank_ifsc && (
+                    <p className="text-red-500 text-sm">
+                      {errors.bank_ifsc}
+                    </p>
+                  )}
                   </div>
 
                   <div className="flex flex-col ">
@@ -324,8 +434,13 @@ const AddDeliveryBoy = () => {
                       name="account_no"
                       value={formData.account_no}
                       onChange={handleChange}
-                      className="bg-gray-300 rounded-full h-10 w-70"
+                      className="bg-gray-300 rounded-full h-10 w-70 p-5"
                     />
+                     {errors.account_no && (
+                    <p className="text-red-500 text-sm">
+                      {errors.account_no}
+                    </p>
+                  )}
                   </div>
 
                   <div className="flex flex-col ">
@@ -335,8 +450,13 @@ const AddDeliveryBoy = () => {
                       name="aadhar_no"
                       value={formData.aadhar_no}
                       onChange={handleChange}
-                      className="bg-gray-300 rounded-full h-10 w-70"
+                      className="bg-gray-300 rounded-full h-10 w-70 p-5"
                     />
+                     {errors.aadhar_no && (
+                    <p className="text-red-500 text-sm">
+                      {errors.aadhar_no}
+                    </p>
+                  )}
                   </div>
 
                   <div className="flex flex-col ">
@@ -346,8 +466,13 @@ const AddDeliveryBoy = () => {
                       name="pan_no"
                       value={formData.pan_no}
                       onChange={handleChange}
-                      className="bg-gray-300 rounded-full h-10 w-70"
+                      className="bg-gray-300 rounded-full h-10 w-70 p-5"
                     />
+                     {errors.pan_no && (
+                    <p className="text-red-500 text-sm">
+                      {errors.pan_no}
+                    </p>
+                  )}
                   </div>
 
                   <div className="flex flex-col ">
@@ -357,8 +482,13 @@ const AddDeliveryBoy = () => {
                       name="rc_no"
                       value={formData.rc_no}
                       onChange={handleChange}
-                      className="bg-gray-300 rounded-full h-10 w-70"
+                      className="bg-gray-300 rounded-full h-10 w-70 p-5"
                     />
+                     {errors.rc_no && (
+                    <p className="text-red-500 text-sm">
+                      {errors.rc_no}
+                    </p>
+                  )}
                   </div>
 
                   <div className="flex flex-col ">
@@ -370,30 +500,48 @@ const AddDeliveryBoy = () => {
                       name="driving_license_no"
                       value={formData.driving_license_no}
                       onChange={handleChange}
-                      className="bg-gray-300 rounded-full h-10 w-70"
+                      className="bg-gray-300 rounded-full h-10 w-70 p-5"
                     />
+                     {errors.driving_license_no && (
+                    <p className="text-red-500 text-sm">
+                      {errors.driving_license_no}
+                    </p>
+                  )}
                   </div>
 
-                  <div className="flex flex-col ">
-                    <label className="font-semibold">Vehicle Type</label>
-                    <input
-                      type="text"
-                      name="vehicel_type"
-                      value={formData.vehicel_type}
-                      onChange={handleChange}
-                      className="bg-gray-300 rounded-full h-10 w-70"
-                    />
-                  </div>
+                  <div className="flex flex-col">
+  <label className="font-semibold">Vehicle Type</label>
+  <select
+    name="vehicle_type"
+    value={formData.vehicle_type}
+    onChange={handleChange}
+    className="bg-gray-300 text-black appearance-none rounded-full h-10 w-70 px-4"
+  >
+    <option value="">Select</option>
+    <option value="two_wheeler">two_wheeler</option>
+    <option value="four_wheeler">four_wheeler</option>
+  </select>
+  {errors.vehicle_type && (
+    <p className="text-red-500 text-sm">{errors.vehicle_type}</p>
+  )}
+</div>
 
+
+             
                   <div className="flex flex-col ">
                     <label className="font-semibold">Vehicle Number</label>
                     <input
                       type="text"
-                      name="vehicel_no"
-                      value={formData.vehicel_no}
+                      name="vehicle_no"
+                      value={formData.vehicle_no}
                       onChange={handleChange}
-                      className="bg-gray-300 rounded-full h-10 w-70"
+                      className="bg-gray-300 rounded-full h-10 w-70 p-5"
                     />
+                     {errors.vehicle_no && (
+                    <p className="text-red-500 text-sm">
+                      {errors.vehicle_no}
+                    </p>
+                  )}
                   </div>
                 </div>
                 {/* Image Uploads */}
@@ -418,6 +566,11 @@ const AddDeliveryBoy = () => {
                         className="absolute inset-0 opacity-0 cursor-pointer"
                       />
                     </div>
+                    {errors.passbook_image && (
+                    <p className="text-red-500 text-sm">
+                      {errors.passbook_image}
+                    </p>
+                  )}
                   </div>
 
                   <div>
@@ -439,6 +592,11 @@ const AddDeliveryBoy = () => {
                         className="absolute inset-0 opacity-0 cursor-pointer"
                       />
                     </div>
+                    {errors.adhar_image && (
+                    <p className="text-red-500 text-sm">
+                      {errors.adhar_image}
+                    </p>
+                  )}
                   </div>
 
                   <div>
@@ -460,6 +618,11 @@ const AddDeliveryBoy = () => {
                         className="absolute inset-0 opacity-0 cursor-pointer"
                       />
                     </div>
+                    {errors.panCard_image&& (
+                    <p className="text-red-500 text-sm">
+                      {errors.panCard_image}
+                    </p>
+                  )}
                   </div>
 
                   <div>
@@ -481,6 +644,11 @@ const AddDeliveryBoy = () => {
                         className="absolute inset-0 opacity-0 cursor-pointer"
                       />
                     </div>
+                    {errors.rc_image && (
+                    <p className="text-red-500 text-sm">
+                      {errors.rc_image}
+                    </p>
+                  )}
                   </div>
 
                   <div>
@@ -506,6 +674,11 @@ const AddDeliveryBoy = () => {
                         className="absolute inset-0 opacity-0 cursor-pointer"
                       />
                     </div>
+                    {errors.driving_license_image && (
+                    <p className="text-red-500 text-sm">
+                      {errors.driving_license_image}
+                    </p>
+                  )}
                   </div>
                 </div>
 
@@ -532,25 +705,7 @@ const AddDeliveryBoy = () => {
       </div>
     </div>
 
-    // <div className="w-[calc(100%-300px)] ml-[300px] bg-gray-300  ">
-    //   <div className=" flex justify-between border-b  py-5">
-    //     <h1 className="text-3xl font-bold ml-3">Create Delivery Boy</h1>
-    //   </div>
-
-    //   <div className="  bg-white  h-50  rounded-4xl shadow-lg shadow-gray-400 mt-5">
-    //     <h1 className="text-2xl font-bold p-5">Add Delivery Boy</h1>
-    //     <form
-    //       onSubmit={(e) => {
-    //         handleSubmit;
-    //       }}
-    //       className="flex flex-col   "
-    //     >
-    //
-    //
-    //     </form>
-    //   </div>
-
-    // </div>
+  
   );
 };
 
