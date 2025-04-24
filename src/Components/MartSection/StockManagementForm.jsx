@@ -8,7 +8,7 @@ import { IoIosSend } from "react-icons/io";
 import { orderList } from "../../Redux/Slices/stockQuantitySlice";
 import { stockApi } from "../../Redux/Api/stockApi";
 
-export const seller_id="ada0e9bb-b12d-4dc0-9de6-9b9c1576db2b";
+export const seller_id="1b5e07c8-7e20-4728-ac91-a100546bc1b1";
 
 const StockManagementForm = () => {
   const [selectedProducts, setSelectedProducts] = useState([]); // Selected products list

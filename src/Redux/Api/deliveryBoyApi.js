@@ -1,3 +1,4 @@
+import { toast } from "react-toastify";
 import { seller_id } from "../../Components/MartSection/StockManagementForm";
 import supabase from "../../SupaBaseClient"
 
@@ -48,28 +49,47 @@ const uploadDeliveryBoyPhoto = async(id,deliveryBoyPhoto)=>{
     }
 }
 
-const uploadAadharPhoto = async (id,aadharPhoto)=>{
+const uploadAadhar = async(id, aadharPhoto) =>{
     try {
-        const filePath = `mart/${seller_id}/${id}/aadharCard`;
-
-        const { error } = await supabase.storage
-        .from("delivery-boys")
-        .upload(filePath, aadharPhoto,  { upsert: true });
+      console.log(aadharPhoto);
+      
+      const uploadUrls = await Promise.all(
+        aadharPhoto.map(async(file, index)=> {
+          if (!file || !file.name) {
+            console.error("Invalid file detected:", file);
+            return null;
+          }
   
-      if (error) {
-        console.error("Error uploading aadhar Documents:", error);
-        return null;
-      }
-
-      const { data } = await supabase.storage
-      .from("delivery-boys")
-      .getPublicUrl(filePath);
-    return data.publicUrl;
-
+          let fileLabel = ""
+          if (index === 0) {
+            fileLabel = `AadharCardFront`
+          }
+           else  {
+            fileLabel = `AadharCardBack`
+          }
+          const fileName = fileLabel
+          const filePath = `mart/${seller_id}/${id}/${fileName}`
+  
+          const {error} = await supabase.storage
+          .from("delivery-boys")
+          .upload(filePath, file , { upsert: true })
+  
+          if (error) {
+            console.error("Error uploading image", error)
+            return null
+          }else{
+            toast.success("Addhar Uploaded Successfully")
+          }
+          return supabase.storage.from("delivery-boys").getPublicUrl(filePath).data.publicUrl
+        })
+      )
+      return uploadUrls.filter((url)=> url !== null)
+  
     } catch (error) {
-        console.error("Unexpected error uploading Aadhar documents:", error); 
+      console.error("Unexpected error uploading Aadhar:", error);
+      return null;
     }
-}
+  }
 
 const uploadPanCardPhoto = async (id,panCardPhoto)=>{
     try {
@@ -179,7 +199,7 @@ export const deliveryBoyRegisterApi = async ({formData,seller_id})=>{
           const deliveryBoyPhoto = formData.profile_image;
 
 const ProfilePicUrl = await uploadDeliveryBoyPhoto(id,deliveryBoyPhoto);
-const AadharUrl = await uploadAadharPhoto(id,aadharPhoto);
+const AadharUrl = await uploadAadhar(id,aadharPhoto);
 const RcUrl = await uploadRcPhoto(id,rcPhoto);
 const panCardUrl = await uploadPanCardPhoto(id,panCardPhoto);
 const drivingLicenseUrl= await uploadDeliveryBoyPhoto(id,drivingLicensePhoto);

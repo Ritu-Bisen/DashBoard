@@ -75,7 +75,7 @@ const SalonSideBar = () => {
   ];
 
   return (
-    <div className="fixed w-[300px] h-screen mt-30 rounded-tr-4xl rounded-br-4xl shadow-gray-900 shadow-lg  bg-white">
+    <div className="fixed mt-26 w-[300px] h-full  rounded-tr-4xl rounded-br-4xl shadow-gray-900 shadow-lg  bg-white">
       <div className="pt-10">
         {itemList.map((item) => (
           <div key={item.id}>

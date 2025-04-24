@@ -4,8 +4,8 @@ import { toast } from "react-toastify";
 import supabase from "../../../SupaBaseClient";
 
 // OTP: Send OTP to phone
-export const deliveryBoyRegisterWithOtp = createAsyncThunk(
-    'addDeliveryBoy/deliveryBoyRegisterWithOtp',
+export const RegisterWithOtp = createAsyncThunk(
+    'form/RegisterWithOtp',
     async (phoneNumber, { rejectWithValue }) => {
       try {
         const phone = `91${phoneNumber}`
@@ -22,8 +22,8 @@ export const deliveryBoyRegisterWithOtp = createAsyncThunk(
   );
   
   // OTP: Verify OTP
-  export const deliveryBoyVerifyOtp = createAsyncThunk(
-    'addDeliveryBoy/deliveryBoyVerifyOtp',
+  export const VerifyOtp = createAsyncThunk(
+    'form/verifyOtp',
     async ({ phoneNumber, token }, { rejectWithValue }) => {
       try {
         const phone = `91${phoneNumber}`;
@@ -45,7 +45,7 @@ export const deliveryBoyRegisterWithOtp = createAsyncThunk(
     }
   );
 
-  const authDeliveryBoySlice = createSlice({
+  const authSlice = createSlice({
     name: 'auth',
     initialState: {
       loading: false,
@@ -57,32 +57,32 @@ export const deliveryBoyRegisterWithOtp = createAsyncThunk(
     reducers: {},
     extraReducers: (builder) => {
       builder
-        .addCase(deliveryBoyRegisterWithOtp.pending, (state) => {
+        .addCase(RegisterWithOtp.pending, (state) => {
           state.loading = true;
           state.error = null;
         })
-        .addCase(deliveryBoyRegisterWithOtp.fulfilled, (state) => {
+        .addCase(RegisterWithOtp.fulfilled, (state) => {
           state.loading = false;
           state.otpSent = true;
         })
-        .addCase(deliveryBoyRegisterWithOtp.rejected, (state, action) => {
+        .addCase(RegisterWithOtp.rejected, (state, action) => {
           state.loading = false;
           state.error = action.payload;
         })
   
-        .addCase(deliveryBoyVerifyOtp.pending, (state) => {
+        .addCase(VerifyOtp.pending, (state) => {
           state.loading = true;
           state.error = null;
         })
-        .addCase(deliveryBoyVerifyOtp.fulfilled, (state) => {
+        .addCase(VerifyOtp.fulfilled, (state) => {
           state.loading = false;
           state.otpVerified = true;
         })
-        .addCase(deliveryBoyVerifyOtp.rejected, (state, action) => {
+        .addCase(VerifyOtp.rejected, (state, action) => {
           state.loading = false;
           state.error = action.payload;
         })
     },
 });  
 
-export default authDeliveryBoySlice.reducer;
+export default authSlice.reducer;
