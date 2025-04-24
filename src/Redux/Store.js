@@ -9,7 +9,8 @@ import employeeDetailReducer from './Slices/salonSlicees/salonEmployeeDataSlice'
 import appointmentReducer from './Slices/salonSlicees/salonAappointmentSlice'
 import billingReducer from './Slices/salonSlicees/salonBillingSlice'
 import authReducer from './Slices/salonSlicees/authSlice'
- 
+import deliveryBoyReducer from './Slices/deliveryBoyDataSlice'
+
 const store = configureStore({
     reducer:{
         order : orderReducer,
@@ -22,6 +23,8 @@ const store = configureStore({
        appointmentList: appointmentReducer,
        billing: billingReducer,
        auth : authReducer,
+       deliveryBoyData : deliveryBoyReducer,
+
 
     }
 })

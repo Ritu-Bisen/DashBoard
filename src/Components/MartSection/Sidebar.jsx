@@ -63,8 +63,8 @@ const Sidebar = () => {
       icon: <TbTruckDelivery size={25} />,
       subroute: [
         { title: "Delivery Boy Add", path: "/mart/deliveryboy/delivery-boy-add" },
-        { title: "Delivery Boy Request", path: "/mart/deliveryboy/delivery-boy-request" },
-        { title: "Delivery Boy Managed", path: "/mart/deliveryboy/delivery-boy-management" },
+        // { title: "Delivery Boy Request", path: "/mart/deliveryboy/delivery-boy-request" },
+        { title: "Delivery Boy List", path: "/mart/deliveryboy/delivery-boy-list" },
         { title: "Delivery Boy Cash", path: "/mart/deliveryboy/delivery-boy-cash" },
       ],
     },

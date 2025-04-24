@@ -16,6 +16,7 @@ import Reports from '../Components/MartSection/Reports'
 import Dashboard from '../Components/MartSection/Dashboard'
 import Employee from '../Components/MartSection/Employee'
 import AddDeliveryBoy from '../Components/MartSection/AddDeliveryBoy'
+import DeliveryBoyList from '../Components/MartSection/DeliveryBoyManaged'
 
 
 const MartLayout = () => {
@@ -44,8 +45,8 @@ const MartRoutes = () => {
         <Route path="order/orders" element={<OrderTable />} />
         <Route path="employee" element={<Employee/>} />
         <Route path="deliveryboy/delivery-boy-add" element={<AddDeliveryBoy />} />
-        <Route path="deliveryboy/delivery-boy-request" element={<DeliveryBoyRequest />} />
-        <Route path="deliveryboy/delivery-boy-management" element={<DeliveryBoyManaged />} />
+        {/* <Route path="deliveryboy/delivery-boy-request" element={<DeliveryBoyRequest />} /> */}
+        <Route path="deliveryboy/delivery-boy-management" element={<DeliveryBoyList />} />
         <Route path="deliveryboy/delivery-boy-cash" element={<DeliveryBoyCash />} />
       </Route>
     </Routes>

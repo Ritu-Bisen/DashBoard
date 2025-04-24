@@ -1,9 +1,9 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { deliveryBoyRegisterApi } from "../Api/deliveryBoyApi";
+import { deliveryBoyRegisterApi, fetchDeliveryBoyData } from "../Api/deliveryBoyApi";
 
-export const  deliveryBoyData = createAsyncThunk('deliveryBoyData/fetch',async({formData,seller_id})=>{
-    console.log("gcfd",formData)
-    const deliveryBoyDetails = await deliveryBoyDataApi({formData,seller_id});
+export const  getdeliveryBoyData = createAsyncThunk('deliveryBoyData/fetch',async({formData,seller_id})=>{
+  
+    const deliveryBoyDetails = await fetchDeliveryBoyData({formData,seller_id});
     return deliveryBoyDetails;
 })
 
@@ -21,7 +21,8 @@ const deliveryBoyDataSlice = createSlice({
     },
     reducers:{},
     extraReducers:(builder)=>{
-        builder.addCase(deliveryBoyRegister.pending,(state)=>{
+        builder
+        .addCase(deliveryBoyRegister.pending,(state)=>{
             state.loading=true
         })
         .addCase(deliveryBoyRegister.fulfilled,(state,action)=>{
@@ -31,6 +32,17 @@ const deliveryBoyDataSlice = createSlice({
         .addCase(deliveryBoyRegister.rejected,(state,action)=>{
           state.loading= action.payload,
           state.error=action.payload
+        })
+        .addCase(getdeliveryBoyData.pending,(state)=>{
+            state.loading=true    
+        })
+        .addCase(getdeliveryBoyData.fulfilled,(state,action)=>{
+            state.loading =false,
+            state.deliveryBoys=action.payload
+        })
+        .addCase(getdeliveryBoyData.rejected,(state,action)=>{
+            state.loading=action.payload,
+            state.error=action.payload
         })
     }
 

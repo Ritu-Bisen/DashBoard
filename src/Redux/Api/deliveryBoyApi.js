@@ -191,7 +191,7 @@ export const deliveryBoyRegisterApi = async ({formData,seller_id})=>{
 
         const id = user.id;
             // Optional: upload files first to Supabase Storage and get their URLs
-          const aadharPhoto =formData.adhar_image;
+          const aadharPhoto =formData.aadhar_image;
           const rcPhoto =formData.rc_image;
           const panCardPhoto = formData.panCard_image;
           const drivingLicensePhoto  = formData.driving_license_image;  
@@ -249,3 +249,22 @@ return data;
         throw error; 
     }
 };
+
+export const fetchDeliveryBoyData = async () =>{
+    try {
+        const{data,error}= await supabase
+        .from("delivery_boy")
+        .select('*')
+        if (!error) {
+           console.log("fetch succefully",data)
+            
+        } else {
+           console.log("error when fetching data",error) 
+        } 
+        return data;
+    } catch (error) {
+       console.log("error from supabase",error);
+        
+    }
+}
+

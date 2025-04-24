@@ -1,11 +1,25 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Header from '../MartSection/Header';
 import DataTable from 'react-data-table-component';
+import { useDispatch, useSelector } from 'react-redux';
+import { getdeliveryBoyData } from '../../Redux/Slices/deliveryBoyDataSlice';
 
 
-const DeliveryBoyManaged = () => {
+const DeliveryBoyList = () => {
+  
+const {deliveryBoyData}=useSelector((state)=>state.deliveryBoyData)
+const dispatch =useDispatch();
+useEffect(() => {
+dispatch(getdeliveryBoyData())
+}, [dispatch])
+
+
     const columns = [
-        {
+      {
+        name: "Serial No.",
+        selector: (row) => row.serial_no,
+      },
+      {
           name: "Id",
           selector: (row) => row.deliveryBoy_id,
           width: "150px",
@@ -16,34 +30,34 @@ const DeliveryBoyManaged = () => {
           selector: (row) => row.name,
         },
         {
-          name: "Date Of Birth",
-          selector: (row) => row.dob,
-         width:'200px'
+          name: "email",
+          selector: (row) => row.email,
+        },
+       
+       
+        {
+          name: "Phone No",
+          selector: (row) => row.phone,
+        },
+        {
+            name: "Active",
+            selector: (row) => row.active,
+          },
 
-        },
-    
-        {
-          name: "Mobile No",
-          selector: (row) => row.mobileNo,
-        },
-        {
-            name: "City",
-            selector: (row) => row.city,
+          {
+            name: "Verified",
+            selector: (row) => row.verified,
+          },
+
+          {
+            name: "Address",
+            selector: (row) => row.address,
           },
           {
-            name: "Account No",
-            selector: (row) => row.accountNo,
-            width:'200px'
+            name: "View",
+            selector: (row) => row.view,
           },
-          {
-            name: "Driving License",
-            selector: (row) => row.drivingLicense,
-          },
-          {
-            name: "Status",
-            selector: (row) => row.status,
-            width:'200px'
-          },
+         
       ]; 
 
       const customStyles = {
@@ -70,16 +84,17 @@ const DeliveryBoyManaged = () => {
       };
 
 
-      const data =Array(25).fill({
-        deliveryBoy_id:'8743yfie',
-        name:'Rohan',
-        dob:'18-02-2001',
-        mobileNo:'3928487451',
-        city:'Raipur',
-        accountNo:'y4823921093100',
-        drivingLicense:<img src='https://th.bing.com/th/id/OIP.E3UNwm389l_qdOdJ6zbhCAHaE8?w=275&h=184&c=7&r=0&o=5&dpr=1.3&pid=1.7'/>,
-        status:<div className='space-x-2 text-white font-semibold'><button className='bg-green-700 h-10 w-20 rounded-lg'>Edit</button><button className='bg-red-700 h-10 w-20 rounded-lg'>Delete</button></div>,
-      })
+      const data = deliveryBoyData.map((item,index)=>({
+        serial_no:index+1,
+        deliveryBoy_id:item.id,
+        name:item.full_name,
+        phone:item.phone,
+        email:item.email,
+       active:item.is_active,
+       verified:item.is_verified,
+       address:item_address,
+
+      }))
 
   return (
     <div className="w-[calc(100%-300px) ml-[300px]">
@@ -99,4 +114,4 @@ const DeliveryBoyManaged = () => {
   )
 }
 
-export default DeliveryBoyManaged
+export default DeliveryBoyList
