@@ -1,17 +1,38 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import Header from '../MartSection/Header';
 import DataTable from 'react-data-table-component';
 import { useDispatch, useSelector } from 'react-redux';
+//import  getdeliveryBoyData  from '../../Redux/Slices/deliveryBoyDataSlice';
+//import { fetchDeliveryBoyData } from '../../Redux/Api/deliveryBoyApi';
 import { getdeliveryBoyData } from '../../Redux/Slices/deliveryBoyDataSlice';
+import { FaEye } from "react-icons/fa";
+import ViewDeliveryBoyDEtails from './ViewDeliveryBoyDEtails';
 
 
-const DeliveryBoyList = () => {
+const DeliveryBoyList  = () => {
+
+  const [isShowDetail, setIsShowDetail] = useState(false);
+    const [showDeliveryBoy, setShowDeliveryBoy] = useState(null);
   
-const {deliveryBoyData}=useSelector((state)=>state.deliveryBoyData)
+    const handleViewDetails = (deliveryBoys) => {
+      setIsShowDetail(true);
+      setShowDeliveryBoy(deliveryBoys);
+    };
+
+    const handleDeliveryBoyDetailClose = () => {
+      setIsShowDetail(false);
+    };
+
+const { deliveryBoys}=useSelector((state)=>state.deliveryBoyData);
+console.log( deliveryBoys);
+
 const dispatch =useDispatch();
+
 useEffect(() => {
 dispatch(getdeliveryBoyData())
 }, [dispatch])
+
+
 
 
     const columns = [
@@ -39,6 +60,10 @@ dispatch(getdeliveryBoyData())
           name: "Phone No",
           selector: (row) => row.phone,
         },
+         {
+            name: "Address",
+            selector: (row) => row.address,
+          },
         {
             name: "Active",
             selector: (row) => row.active,
@@ -49,13 +74,12 @@ dispatch(getdeliveryBoyData())
             selector: (row) => row.verified,
           },
 
-          {
-            name: "Address",
-            selector: (row) => row.address,
-          },
+         
+        
           {
             name: "View",
             selector: (row) => row.view,
+            center:true,
           },
          
       ]; 
@@ -84,16 +108,23 @@ dispatch(getdeliveryBoyData())
       };
 
 
-      const data = deliveryBoyData.map((item,index)=>({
+      const data =  deliveryBoys.map((item,index)=>({
+        
         serial_no:index+1,
         deliveryBoy_id:item.id,
         name:item.full_name,
-        phone:item.phone,
+        phone:item.phone_number,
         email:item.email,
        active:item.is_active,
        verified:item.is_verified,
-       address:item_address,
-
+       address:item.address,
+       view:( <button onClick={() => handleViewDetails(item)}>
+               <FaEye size={25} />
+             </button>),
+       active:(item.is_active === true ?
+        (<p>Active</p>):(<p>Inactive</p>)),
+        verified:(item.is_verified === true ?
+          (<p>Verified</p>):(<p>Not Verified</p>))
       }))
 
   return (
@@ -106,8 +137,26 @@ dispatch(getdeliveryBoyData())
           </div>
        
         <div className='overflow-x mt-9'>
-          <DataTable data={data} columns={columns} customStyles={customStyles} pagination fixedHeader fixedHeaderScrollHeight='67vh' defaultSortFieldId={1} />
+         <DataTable data={data} columns={columns} customStyles={customStyles} pagination fixedHeader fixedHeaderScrollHeight='67vh' defaultSortFieldId={1} />
         </div>
+        {
+          isShowDetail && (
+            <>
+              <div
+                className="fixed inset-0 z-50 bg-black/70 "
+                onClick={() => {
+                  setIsShowDetail(false);
+                }}
+              ></div>
+              <div className="absolute z-1000">
+                <ViewDeliveryBoyDEtails
+                  deliveryBoys={showDeliveryBoy}
+                  onClose={handleDeliveryBoyDetailClose}
+                />
+              </div>
+            </>
+          )}
+        
       </div>
       
     </div>

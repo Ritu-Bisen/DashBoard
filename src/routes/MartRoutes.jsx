@@ -7,7 +7,7 @@ import CategoryManagement from '../Components/MartSection/CategoryManagement'
 import CategoryOfferTable from '../Components/MartSection/CategoryOfferTable'
 import DeliveryBoy from '../Components/MartSection/DeliveryBoy'
 import DeliveryBoyRequest from '../Components/MartSection/DeliveryBoyRequest'
-import DeliveryBoyManaged from '../Components/MartSection/DeliveryBoyManaged'
+//import DeliveryBoyManaged from '../Components/MartSection/DeliveryBoyManaged'
 import DeliveryBoyCash from '../Components/MartSection/DeliveryBoyCash'
 import { Outlet, Route, Routes } from 'react-router-dom'
 
@@ -16,7 +16,7 @@ import Reports from '../Components/MartSection/Reports'
 import Dashboard from '../Components/MartSection/Dashboard'
 import Employee from '../Components/MartSection/Employee'
 import AddDeliveryBoy from '../Components/MartSection/AddDeliveryBoy'
-import DeliveryBoyList from '../Components/MartSection/DeliveryBoyManaged'
+import DeliveryBoyList from '../Components/MartSection/DeliveryBoyList'
 
 
 const MartLayout = () => {
@@ -46,7 +46,7 @@ const MartRoutes = () => {
         <Route path="employee" element={<Employee/>} />
         <Route path="deliveryboy/delivery-boy-add" element={<AddDeliveryBoy />} />
         {/* <Route path="deliveryboy/delivery-boy-request" element={<DeliveryBoyRequest />} /> */}
-        <Route path="deliveryboy/delivery-boy-management" element={<DeliveryBoyList />} />
+        <Route path="deliveryboy/delivery-boy-list" element={<DeliveryBoyList />} />
         <Route path="deliveryboy/delivery-boy-cash" element={<DeliveryBoyCash />} />
       </Route>
     </Routes>

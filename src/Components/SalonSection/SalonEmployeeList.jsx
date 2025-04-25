@@ -1,9 +1,22 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import DataTable from 'react-data-table-component';
 import { useDispatch, useSelector } from 'react-redux';
 import { getemployeeList } from '../../Redux/Slices/salonSlicees/salonEmployeeDataSlice';
+import { FaEye } from "react-icons/fa";
+import ViewEmployeeDetails from './ViewEmployeeDetails';
 
 const SalonEmployeeList = () => {
+const [isShowDetail, setIsShowDetail] = useState(false);
+    const [showEmployee, setShowEmployee] = useState(null);
+  
+    const handleViewDetails = (employees) => {
+      setIsShowDetail(true);
+      setShowEmployee(employees);
+    };
+
+    const handleEmployeeClose = () => {
+      setIsShowDetail(false);
+    };
 
 const {employeeData} =useSelector((state)=>state.employeeDetail)
 console.log(employeeData);
@@ -54,6 +67,11 @@ useEffect(() => {
         name: "Active",
         selector: (row) => row.active,
       },
+      {
+        name: "View",
+        selector: (row) => row.view,
+        center:true,
+      },
     ]
   
   
@@ -86,19 +104,38 @@ useEffect(() => {
         name:item.name,
         phone:item.phone,
         email:item.email,
+        image:(<img className='h-15 w-15' src={item.profile_image_url}/>),
         role:item.role,
-        active:item.active,
-        image:<img src={item.profile_image_url }/>,
+        active:(item.active === true ?
+          (<p>Active</p>):(<p>Inactive</p>)),
         address:item.address,
-
-
+        view:( <button onClick={() => handleViewDetails(item)}>
+                      <FaEye size={25} />
+                    </button>),
       }))
   return (
     <div className='fixed w-[calc(100%-300px)] ml-[300px]  pt-30'>
     <h1 className=' font-bold text-3xl ml-5'>Services</h1>
-      <div className='overflow-x mt-9'>
+      <div className='overflow-x mt-9 '>
       <DataTable data={data} fixedHeaderScrollHeight='67vh' defaultSortFieldId={1} customStyles={customStyles} pagination fixedHeader columns={columns}/>
-      </div>  
+      </div> 
+      {
+          isShowDetail && (
+            <>
+              <div
+                className="fixed inset-0 z-50 bg-black/70 "
+                onClick={() => {
+                  setIsShowDetail(false);
+                }}
+              ></div>
+              <div className="absolute z-1000">
+                <ViewEmployeeDetails
+                  employeeData={showEmployee}
+                  onClose={handleEmployeeClose}
+                />
+              </div>
+            </>
+          )} 
     </div>
   )
 }

@@ -10,7 +10,7 @@ const ViewSalonDetails = ({ services, onClose }) => {
         </div>
       <div className="flex gap-3">
         {/* <img className="h-65 w-65 object-cover" src={services.image_urls[0]} /> */}
-        <Carousel image={services.image_urls}/>
+        <Carousel  className="h-65 w-65" image={services.image_urls}/>
         <div>
           <table >
             <th  className="border-gray-300 border p-2 px-5">Name:</th>

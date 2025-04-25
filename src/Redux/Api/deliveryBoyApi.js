@@ -253,7 +253,7 @@ return data;
 export const fetchDeliveryBoyData = async () =>{
     try {
         const{data,error}= await supabase
-        .from("delivery_boy")
+        .from("delivery_boys")
         .select('*')
         if (!error) {
            console.log("fetch succefully",data)

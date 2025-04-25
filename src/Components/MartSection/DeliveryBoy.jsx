@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 //import { deliveryBoyRegisterWithOtp, deliveryBoyVerifyOtp } from "../../Redux/Slices/salonSlicees/authDeliveryBoySlice";
-import { deliveryBoyData } from "../../Redux/Slices/deliveryBoyDataSlice";
+//import { deliveryBoyData } from "../../Redux/Slices/deliveryBoyDataSlice";
 
 const DeliveryBoy = () => {
 

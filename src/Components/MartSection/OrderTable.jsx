@@ -94,7 +94,7 @@ const OrderTable = () => {
     {
       name: "View",
       selector: (row) => row.view,
-      center: "true",
+      center:true,
     },
   ];
 

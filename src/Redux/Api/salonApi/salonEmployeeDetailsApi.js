@@ -214,7 +214,7 @@ export const employeeDataApi = async (formData, seller_id) => {
         email: formData.email,
         section: "salon",
         role: formData.designation,
-        aadhar_number: formData.aadhar_no,
+        aadhaar_number: formData.aadhar_no,
         pan_number: formData.pan_no,
         bank_account_number:formData.account_no,
         ifsc_code : formData.bank_ifsc,
@@ -227,7 +227,7 @@ export const employeeDataApi = async (formData, seller_id) => {
         address: formData.address,
         date_of_birth:formData.dateOfBirth,
         pan_card_image_url:PanCardUrl,
-        aadhar_image_urls:AadharImageUrl,
+        aadhaar_image_urls:AadharImageUrl,
         
       };
   

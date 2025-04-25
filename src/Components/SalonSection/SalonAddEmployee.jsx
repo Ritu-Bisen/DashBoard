@@ -9,6 +9,7 @@ import {
 } from "../../Redux/Slices/salonSlicees/authSlice";
 import bank_name from "../../constant/bank_names";
 import { checkExistingEmployee } from "../../Redux/Api/salonApi/salonEmployeeDetailsApi";
+import { salon_employee_designation } from "../../constant/employee_designation";
 
 const SalonAddEmployee = () => {
   const { otpSent, otpVerified } = useSelector((state) => state.auth);
@@ -348,13 +349,15 @@ const SalonAddEmployee = () => {
                 </div>
                 <div className="flex flex-col">
                   <label className="font-semibold pl-3">Designation (Role) </label>
-                  <input
-               className="bg-gray-300 rounded-lg h-10 w-75 pl-3"
-                    type="text"
-                    name="designation"
-                    onChange={onhandleChange}
-                    value={formData.designation}
-                  />
+
+                  <select name="designation" id="" value={formData.designation} onChange={onhandleChange} className="bg-gray-300 rounded-lg h-10 w-75 pl-3" > 
+                 <option value="">Select</option>
+                    {
+                      salon_employee_designation.map((role, index)=>(
+                        <option key={index} value={role}>{role}</option>
+                      ))
+                    }
+                </select>
                      {errors.designation && (
                         <p className="text-red-500 text-sm">{errors.designation}</p>
                       )}
@@ -364,7 +367,7 @@ const SalonAddEmployee = () => {
                   <label className="font-semibold pl-3">Date Of Birth </label>
                   <input
                  className="bg-gray-300 rounded-lg h-10 w-75 pl-3"
-                    type="text"
+                    type="date"
                     name="dateOfBirth"
                     onChange={onhandleChange}
                     value={formData.dateOfBirth}

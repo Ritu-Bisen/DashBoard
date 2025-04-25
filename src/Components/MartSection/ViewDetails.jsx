@@ -65,7 +65,7 @@ const ViewDetails = ({ product,onClose }) => {
 
         <div className="pr-5 flex flex-col justify-center items-center text-2xl font-semibold">
           <h1>Image</h1>
-          <Carousel image={product.image_urls}/>
+          <Carousel  className="h-65 w-65" image={product.image_urls}/>
           {/* <img className="h-65 w-65" src={product.image_urls[0]} /> */}
         </div>
        

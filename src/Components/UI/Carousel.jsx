@@ -10,7 +10,7 @@ const slides = [
     "https://cdn.pixabay.com/photo/2022/07/24/16/40/background-7342022_1280.jpg"
   ];
 
-const Carousel = ({image}) => {
+const Carousel = ({image,className}) => {
  const [current,setCurrent] = useState(0);
  const autoplay = true;
  const autoslideInterval = 2000;
@@ -34,8 +34,8 @@ const Carousel = ({image}) => {
  }
 
   return (
-    <div className='flex relative items-center h-65 gap-1 w-65'>
-    <div className='h-65 w-65 '>
+    <div className= {`flex relative items-center  gap-1 `}>
+    <div className={`${className} object-cover`}>
       {image.map((item,index)=>
      (current === index &&<img key={index} src={item} className='h-full w-full object-cover'/>)) 
           }    </div>
@@ -47,7 +47,7 @@ const Carousel = ({image}) => {
 <FaGreaterThan size={15}/>
       </button>
     </div>
-    <div className='absolute flex  gap-2 items-center bottom-3  left-25'>
+    <div className='absolute flex  gap-2 items-center  bottom-3  left-35'>
       {
         image.map((_,i)=>(
           <div key={i} className={`items-center flex h-2 w-2 bg-black rounded-full ${current === i ? 'p-1': 'opacity-40'}`}></div>

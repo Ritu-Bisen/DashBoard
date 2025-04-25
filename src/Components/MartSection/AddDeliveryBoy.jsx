@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 
 import {
-  deliveryBoyData,
+ 
   deliveryBoyRegister,
 } from "../../Redux/Slices/deliveryBoyDataSlice";
 import { seller_id } from "./StockManagementForm";
