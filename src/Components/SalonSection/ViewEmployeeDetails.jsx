@@ -17,7 +17,7 @@ const image =[ employeeData.profile_image_url,
         <h3 className="font-bold text-3xl">Employee Details</h3>
         <button
           onClick={onClose}
-          className="bg-red-500 p-2 rounded-full w-20 text-white"
+          className="bg-red-500 p-2 rounded-full w-30 text-white"
         >
           Close
         </button>

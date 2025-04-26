@@ -10,7 +10,10 @@ import appointmentReducer from './Slices/salonSlicees/salonAappointmentSlice'
 import billingReducer from './Slices/salonSlicees/salonBillingSlice';
 import authReducer from './Slices/salonSlicees/authSlice';
 import deliveryBoyReducer from './Slices/deliveryBoyDataSlice';
-import gymProductsReducer from './Slices/gymSlice/gymProductSlice'
+import gymProductsReducer from './Slices/gymSlice/gymProductSlice';
+import gymOrdersReducer from './Slices/gymSlice/gymOrdersSlice';
+import orderRequestReducer from './Slices/OrderRequestSlice';
+import gymEmployeeReducer from './Slices/gymSlice/gymEmployeeSlice'
 
 const store = configureStore({
     reducer:{
@@ -25,7 +28,11 @@ const store = configureStore({
        billing: billingReducer,
        auth : authReducer,
        deliveryBoyData: deliveryBoyReducer,
-       gymProducts:gymProductsReducer
+       gymProducts:gymProductsReducer,
+       gymOrders:gymOrdersReducer,
+       orderRequest:orderRequestReducer,
+       gymEmployee:gymEmployeeReducer,
+
 
     }
 })

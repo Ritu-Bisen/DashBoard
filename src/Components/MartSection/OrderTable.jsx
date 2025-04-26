@@ -8,6 +8,7 @@ import { FaEye } from "react-icons/fa";
 import ViewDetails from "./ViewDetails";
 import ViewOrderDetails from "./ViewOrderDetails";
 import supabase from "../../SupaBaseClient";
+import { getdeliveryBoyData } from "../../Redux/Slices/deliveryBoyDataSlice";
 
 const OrderTable = () => {
   const [isShowDetail, setIsShowDetail] = useState(false);
@@ -23,12 +24,14 @@ const OrderTable = () => {
   };
 
   const { orders } = useSelector((state) => state.order); //order=store,orders=initialstate
-  console.log(orders);
+ 
+  
 
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getOrders());
+ 
   }, [dispatch]);
 
   const columns = [
@@ -90,7 +93,7 @@ const OrderTable = () => {
       selector: (row) => row.address,
       width: "300px",
     },
-
+   
     {
       name: "View",
       selector: (row) => row.view,
@@ -138,8 +141,8 @@ const OrderTable = () => {
     order_status: item.orders.order_status,
     payment_method: item.orders.payment_method,
     address: item.orders.address,
-
-    view: (
+   
+    view:(
       <button onClick={() => handleViewDetails(item)}>
         <FaEye size={25} />
       </button>

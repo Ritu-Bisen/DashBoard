@@ -6,6 +6,8 @@ import GymDashBoard from '../Components/GymSection/GymDashBoard';
 import GymMembers from '../Components/GymSection/GymMembers';
 import GymProduct from '../Components/GymSection/GymProduct';
 import SalonAddEmployee from '../Components/SalonSection/SalonAddEmployee';
+import GymOrders from '../Components/GymSection/GymOrders';
+import GymAddEmployee from '../Components/GymSection/GymAddEmployee';
 
 
 const GymLayout = () => {
@@ -30,7 +32,8 @@ const GymRoutes = () => {
         <Route index element={<GymDashBoard/>}/>
         <Route path="member" element={<GymMembers/>}/>
         <Route path='product' element={<GymProduct/>}/>
-        <Route path='employee/add-employee' element={<SalonAddEmployee/>}/>
+        <Route path='order' element={<GymOrders/>}/>
+        <Route path='employee/add-employee' element={<GymAddEmployee/>}/>
         {/* <Route path='kit-request' element={<SalonKitRequest/>}/>
         <Route path='appointment' element={<SalonAppointment/>}/>
         <Route path='billing' element={<SalonBillingList/>}/>

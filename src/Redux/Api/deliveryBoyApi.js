@@ -16,6 +16,7 @@ export const checkExistingDeliveryBoy = async(phone)=>{
         .from("delivery_boys")
         .select("phone_number")
         .eq("phone_number",phone)
+
         if(error) throw error ;
         return data ;
     } catch (error) {
@@ -255,6 +256,7 @@ export const fetchDeliveryBoyData = async () =>{
         const{data,error}= await supabase
         .from("delivery_boys")
         .select('*')
+       .match({"seller_id":seller_id,"section":"mart"})
         if (!error) {
            console.log("fetch succefully",data)
             

@@ -11,12 +11,13 @@ import DeliveryBoyRequest from '../Components/MartSection/DeliveryBoyRequest'
 import DeliveryBoyCash from '../Components/MartSection/DeliveryBoyCash'
 import { Outlet, Route, Routes } from 'react-router-dom'
 
-import OderRequest from '../Components/MartSection/OderRequest'
+//import OderRequest from '../Components/MartSection/OderRequest'
 import Reports from '../Components/MartSection/Reports'
 import Dashboard from '../Components/MartSection/Dashboard'
 import Employee from '../Components/MartSection/Employee'
 import AddDeliveryBoy from '../Components/MartSection/AddDeliveryBoy'
 import DeliveryBoyList from '../Components/MartSection/DeliveryBoyList'
+import OrderRequest from '../Components/MartSection/OrderRequest'
 
 
 const MartLayout = () => {
@@ -38,7 +39,7 @@ const MartRoutes = () => {
         <Route index element={<Dashboard />} /> {/* Default page at /mart */}
         <Route path="stockmanagement" element={<StockManagementForm />} />
         <Route path="product" element={<ProductManagement />} />
-        <Route path='order/order-request' element={<OderRequest/>}/>
+        <Route path='order/order-request' element={<OrderRequest/>}/>
         <Route path='reports' element={<Reports/>}/>
         <Route path="category/category" element={<CategoryManagement />} />
         <Route path="category/category-offer" element={<CategoryOfferTable />} />

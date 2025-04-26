@@ -9,7 +9,7 @@ const GymHeader = () => {
   return (
    
 
-    <div className= "fixed top-0 left-0 w-screen flex justify-between py-5 px-12 border-b border-gray-300 shadow-xl shadow-gray-300 rounded-br-4xl rounded-bl-4xl">
+    <div className= "fixed top-0 w-full  left-0  flex justify-between py-5 px-12 border-b bg-white border-gray-300 shadow-xl  shadow-gray-300 rounded-br-4xl rounded-bl-4xl">
       <img className=" w-44 h-15  object-cover text-black " src={logo} />
       <div className="flex  gap-8">
       <button className=" ">
