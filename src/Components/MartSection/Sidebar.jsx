@@ -59,6 +59,15 @@ const Sidebar = () => {
     },
     {
       id: 6,
+      title: "Employee",
+      icon: <RiUserSettingsFill size={25} />,
+      subroute: [  
+        { title: "Add Employee", path: "/mart/employee/add-employee" },
+      { title: "Employee List", path: "/mart/employee/employee-list" },
+    ],
+    },
+    {
+      id: 7,
       title: "Delivery Boys",
       icon: <TbTruckDelivery size={25} />,
       subroute: [
@@ -69,17 +78,12 @@ const Sidebar = () => {
       ],
     },
     {
-      id: 7,
+      id: 8,
       title: "Reports",
       icon: <HiOutlineClipboardDocumentList size={25} />,
       path: "/mart/reports",
     },
-    {
-      id: 8,
-      title: "Employee",
-      icon: <RiUserSettingsFill size={25} />,
-      path: "/mart/employee",
-    },
+   
   ];
   
 

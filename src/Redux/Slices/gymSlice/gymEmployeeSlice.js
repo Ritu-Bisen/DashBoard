@@ -1,20 +1,20 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { employeeDataApi, fetchEployeeData } from "../../Api/salonApi/salonEmployeeDetailsApi";
-import { gymEmployeeDataApi } from "../../Api/gymApi/gymAddEmployeeApi";
+import { fetchGymEployeeData, gymEmployeeDataApi } from "../../Api/gymApi/gymAddEmployeeApi";
 
 
-export const employeeDetailsList = createAsyncThunk ("employee-details/fetch",async({formData,gym_seller_id})=>{
+export const gymEmployeeDetailsList = createAsyncThunk ("employee-details/fetch",async({formData,gym_seller_id})=>{
     const employeeDetails = await gymEmployeeDataApi(formData,gym_seller_id);
    // console.log(formData);
     
     return employeeDetails;
 })
 
-// export const getemployeeList = createAsyncThunk("employee/fetch",async()=>{
-//   const employeesList = await fetchEployeeData();
+export const getGymemployeeList = createAsyncThunk("employee/fetch",async()=>{
+  const employeesList = await fetchGymEployeeData();
 
-//   return employeesList;
-// })
+  return employeesList;
+})
 
 const gymEmployeeDataSlice = createSlice({
     name:"employeeData",
@@ -26,26 +26,26 @@ const gymEmployeeDataSlice = createSlice({
     reducers:{},
     extraReducers:(builder)=>{
         builder
-        .addCase(employeeDetailsList.pending,(state)=>{
+        .addCase(gymEmployeeDetailsList.pending,(state)=>{
            state.loading=true,
            state.error=null
            })
-           .addCase(employeeDetailsList.fulfilled,(state,action)=>{
+           .addCase(gymEmployeeDetailsList.fulfilled,(state,action)=>{
              state.employeeData.push(action.payload);
            })
-           .addCase(employeeDetailsList.rejected,(state,action)=>{
+           .addCase(gymEmployeeDetailsList.rejected,(state,action)=>{
              state.error=action.payload
            })
-        //    .addCase(getemployeeList.pending,(state)=>{
-        //     state.loading=true,
-        //     state.error=null
-        //     })
-        //     .addCase(getemployeeList.fulfilled,(state,action)=>{
-        //      state.employeeData=action.payload
-        //     })
-        //     .addCase(getemployeeList.rejected,(state,action)=>{
-        //       state.error=action.payload
-        //     })
+           .addCase(getGymemployeeList.pending,(state)=>{
+            state.loading=true,
+            state.error=null
+            })
+            .addCase(getGymemployeeList.fulfilled,(state,action)=>{
+             state.employeeData=action.payload
+            })
+            .addCase(getGymemployeeList.rejected,(state,action)=>{
+              state.error=action.payload
+            })
 
     }
 })

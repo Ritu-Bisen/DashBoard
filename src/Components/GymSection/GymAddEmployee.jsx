@@ -10,9 +10,11 @@ import {
 import bank_name from "../../constant/bank_names";
 import { checkExistingEmployee } from "../../Redux/Api/salonApi/salonEmployeeDetailsApi";
 import { gym_employee_designation } from "../../constant/employee_designation";
+import { gymEmployeeDetailsList } from "../../Redux/Slices/gymSlice/gymEmployeeSlice";
 
+export const gym_seller_id="ea4962c3-4ea9-48b9-8fe9-4da836b8daff";
 const GymAddEmployee = () => {
-const gym_seller_id="ea4962c3-4ea9-48b9-8fe9-4da836b8daff";
+
 
   const { otpSent, otpVerified } = useSelector((state) => state.auth);
   const [errors, setErrors] = useState({});
@@ -78,15 +80,7 @@ const gym_seller_id="ea4962c3-4ea9-48b9-8fe9-4da836b8daff";
     
    });
  
-   const [imagePreviews, setImagePreviews] = useState({
-     profile_image: null,
-     passbook_image: null,
-     aadhar_image: [],
-     panCard_image: null,
-     cancel_cheque_image: null,
-     bank_statement_image: null,
-   });
-
+   
 
   const handleImageChange =  (e) => {
     const { name, files } = e.target;
@@ -149,7 +143,7 @@ const gym_seller_id="ea4962c3-4ea9-48b9-8fe9-4da836b8daff";
     }));
   };
 
-  const { employeeData } = useSelector((state) => state.employeeDetail);
+  const { employeeData } = useSelector((state) => state.gymEmployee);
   const dispatch = useDispatch();
 
   const onHandleSubmit = (e) => {
@@ -163,7 +157,8 @@ const gym_seller_id="ea4962c3-4ea9-48b9-8fe9-4da836b8daff";
     }
     setErrors({});
     console.log(formData);
-    dispatch(employeeDetailsList({ formData, gym_seller_id }));
+    dispatch(gymEmployeeDetailsList
+      ({ formData, gym_seller_id }));
     handleClear()
   };
 
@@ -279,14 +274,14 @@ const gym_seller_id="ea4962c3-4ea9-48b9-8fe9-4da836b8daff";
             <button
               type="button"
               onClick={handleSendOtp}
-              className="bg-gray-500 h-10 w-40 rounded-full mt-8"
+              className="bg-green-600 text-white h-10 w-40 rounded-full mt-8"
             >
               Send OTP
             </button>
             {errors.phone && <p>{errors.phone}</p>}
             {otpSent && (
               
-              <div className="mt-8 ml-7">
+              <div className="mt-8 ml-7 space-x-4">
                 <input
                   type="text"
                   value={otp}

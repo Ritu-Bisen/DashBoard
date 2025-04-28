@@ -8,6 +8,8 @@ import GymProduct from '../Components/GymSection/GymProduct';
 import SalonAddEmployee from '../Components/SalonSection/SalonAddEmployee';
 import GymOrders from '../Components/GymSection/GymOrders';
 import GymAddEmployee from '../Components/GymSection/GymAddEmployee';
+import GymEmployeeList from '../Components/GymSection/GymEmployeeList';
+import GymReport from '../Components/GymSection/GymReport';
 
 
 const GymLayout = () => {
@@ -34,13 +36,15 @@ const GymRoutes = () => {
         <Route path='product' element={<GymProduct/>}/>
         <Route path='order' element={<GymOrders/>}/>
         <Route path='employee/add-employee' element={<GymAddEmployee/>}/>
+        <Route path='employee/employee-list' element={<GymEmployeeList/>}/>
+        <Route path='reports' element={<GymReport/>}/>
         {/* <Route path='kit-request' element={<SalonKitRequest/>}/>
         <Route path='appointment' element={<SalonAppointment/>}/>
         <Route path='billing' element={<SalonBillingList/>}/>
         
         <Route path='employee/employee-list' element={<SalonEmployeeList/>}/>
        
-        <Route path='reports' element={<SalonReport/>}/> */}
+       */}
         </Route>
        
        

@@ -2,7 +2,6 @@ import { toast } from "react-toastify";
 import { seller_id } from "../../../Components/MartSection/StockManagementForm";
 import supabase from "../../../SupaBaseClient";
 import { v4 as uuidv4 } from 'uuid';
-import { gym_seller_id } from "../../../Components/GymSection/GymAddEmployee";
 
 export const checkExistingEmployee = async(phone)=>{
   try {
@@ -26,7 +25,7 @@ const uploadEmployeePhoto = async (employee_id,employeePhoto)=>{
         console.log(employee_id);
         
         
-        const filePath=`gym/${seller_id}/${employee_id}/profile_pic`;
+        const filePath=`mart/${seller_id}/${employee_id}/profile_pic`;
 
         const {error} = await supabase.storage
         .from("employees")
@@ -66,7 +65,7 @@ const uploadAadhar = async(employee_id, aadharPhoto) =>{
           fileLabel = `AadharCardBack`
         }
         const fileName = fileLabel
-        const filePath = `gym/${seller_id}/${employee_id}/${fileName}`
+        const filePath = `mart/${seller_id}/${employee_id}/${fileName}`
 
         const {error} = await supabase.storage
         .from("employees")
@@ -92,7 +91,7 @@ const uploadAadhar = async(employee_id, aadharPhoto) =>{
 const uploadPanCardPhoto = async (employee_id,employeePanCard)=>{
   try{
 
-      const filePath=`gym/${seller_id}/${employee_id}/PanCard_image`;
+      const filePath=`mart/${seller_id}/${employee_id}/PanCard_image`;
 
       const {error} = await supabase.storage
       .from("employees")
@@ -116,7 +115,7 @@ const uploadPanCardPhoto = async (employee_id,employeePanCard)=>{
 const uploadPassbookPhoto = async (employee_id,employeePassBook)=>{
   try{
 
-      const filePath=`gym/${seller_id}/${employee_id}/Passbook`;
+      const filePath=`mart/${seller_id}/${employee_id}/Passbook`;
 
       const {error} = await supabase.storage
       .from("employees")
@@ -139,7 +138,7 @@ const uploadPassbookPhoto = async (employee_id,employeePassBook)=>{
 const uploadCancelChequePhoto = async (employee_id,employeeCancelCheque)=>{
   try{
 
-      const filePath=`gym/${seller_id}/${employee_id}/Cancel_cheque`;
+      const filePath=`mart/${seller_id}/${employee_id}/Cancel_cheque`;
 
       const {error} = await supabase.storage
       .from("employees")
@@ -162,7 +161,7 @@ const uploadCancelChequePhoto = async (employee_id,employeeCancelCheque)=>{
 const uploadBankStatementPhoto = async (employee_id,employeeBankStatementImage)=>{
   try{
 
-      const filePath=`gym/${seller_id}/${employee_id}/bank_Statement`;
+      const filePath=`mart/${seller_id}/${employee_id}/bank_Statement`;
 
       const {error} = await supabase.storage
       .from("employees")
@@ -182,7 +181,7 @@ const uploadBankStatementPhoto = async (employee_id,employeeBankStatementImage)=
   }
 };
 
-export const gymEmployeeDataApi = async (formData, gym_seller_id) => {
+export const employeeDataApi = async (formData, mart_seller_id) => {
     const employeePhoto = formData.profile_image;
     console.log(employeePhoto);
     
@@ -210,10 +209,10 @@ export const gymEmployeeDataApi = async (formData, gym_seller_id) => {
       const employee_data = {
        id: employee_id,
         name: formData.name,
-         seller_id: gym_seller_id,
+         seller_id: seller_id,
         phone: formData.phone,
         email: formData.email,
-        section: "gym",
+        section: "salon",
         role: formData.designation,
         aadhaar_number: formData.aadhar_no,
         pan_number: formData.pan_no,
@@ -249,12 +248,12 @@ export const gymEmployeeDataApi = async (formData, gym_seller_id) => {
   };
   
 
-  export const fetchGymEployeeData = async () => {
+  export const fetchEployeeData = async () => {
     try {
       const { data, error } = await supabase
       .from("employees")
       .select('*')
-      .match({section:"gym",seller_id:gym_seller_id})
+      .eq('section',"salon")
       if (!error) {
         console.log("fetching data succesfully", data);
       } else {
