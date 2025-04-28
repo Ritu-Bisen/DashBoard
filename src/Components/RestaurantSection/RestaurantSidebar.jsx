@@ -1,15 +1,21 @@
 import React, { useState } from 'react'
-import { Link, useLocation } from 'react-router-dom';
-import { TbLogout } from "react-icons/tb";
+
+import { TbCategoryPlus, TbTruckDelivery } from 'react-icons/tb';
+
 import { MdDashboard } from "react-icons/md";
+
 import { FaBoxOpen } from "react-icons/fa";
+
+import { Link, useLocation } from "react-router-dom";
 import { MdExpandLess, MdExpandMore } from "react-icons/md";
 import { HiOutlineClipboardDocumentList, HiUsers } from "react-icons/hi2";
 import { MdMiscellaneousServices } from "react-icons/md";
+import { FaRegCalendarCheck } from "react-icons/fa6";
 import { RiScissorsFill } from "react-icons/ri";
-import { CgGym } from "react-icons/cg";
+import { GiProgression } from 'react-icons/gi';
 
-const GymSideBar = () => {
+
+const RestaurantSidebar = () => {
     const location = useLocation();
     const [openMenu, setOpenMenu] = useState(null);
   
@@ -22,52 +28,66 @@ const GymSideBar = () => {
         id: 1,
         name: "Dashboard",
         icon: <MdDashboard size={30} />,
-        path: "/gym",
+        path: "/restaurant",
       },
       {
         id: 2,
-        name: "Member",
-        icon: <MdMiscellaneousServices size={30} />,
-        path: "/gym/member",
+        name: "Product",
+        icon:  <FaBoxOpen size={30} />,
+        path: "/restaurant/appointment",
       },
       {
         id: 3,
-        name: "Product",
-        icon: <FaBoxOpen size={30} />,
-        path: "/gym/product",
+        name: "Stock Management",
+        icon:  <GiProgression size={25} />,
+        path: "/restaurant/product",
       },
-      {
+     
+     
+       {
         id: 4,
-        name: "Order",
-        icon: <CgGym size={30} />,
-        path: "/gym/order",
+        name: "Category",
+        icon:  <TbCategoryPlus size={25} />,
+        path: "/restaurant/kit-request",
       },
-      {
+       {
         id: 5,
-        name: "Employee",
-        icon: <HiUsers size={30} />,
+        name: "Order",
+        icon: <MdMiscellaneousServices size={30} />,
         subroute: [  
-            { title: "Add Employee", path: "/gym/employee/add-employee" },
-          { title: "Employee List", path: "/gym/employee/employee-list" },
+            { title: "Orders", path: "/restaurant/order/orders" },
+          { title: "Order Request", path: "/restaurant/order/order-request" },
         ],
       },
       {
         id: 6,
-        name: "Reports",
-        icon: <HiOutlineClipboardDocumentList size={30} />,
-        path: "/gym/reports",
+        name: "Delivery Boys",
+        icon: <TbTruckDelivery size={25} />,
+        subroute: [  
+            { title: "Add Employee", path: "/restaurant/deliveryboys/add-delivery-boy" },
+          { title: "Employee List", path: "/restaurant/deliveryboys/deliveryboys-list" },
+        ],
       },
       {
         id: 7,
-        name: "Logout",
-        icon: <TbLogout size={30} />,
-        path: "/",
+        name: "Employee",
+        icon: <HiUsers size={30} />,
+        subroute: [  
+            { title: "Add Employee", path: "/restaurant/employee/add-employee" },
+          { title: "Employee List", path: "/restaurant/employee/employee-list" },
+        ],
+      },
+      {
+        id: 8,
+        name: "Reports",
+        icon: <HiOutlineClipboardDocumentList size={30} />,
+        path: "/restaurant/reports",
       },
     ];
   
     return (
-      <div className="fixed w-[300px] h-screen mt-30 rounded-tr-4xl rounded-br-4xl shadow-gray-900 shadow-lg  bg-white">
-        <div className="pt-15">
+      <div className="fixed mt-26 w-[300px] h-full  rounded-tr-4xl rounded-br-4xl shadow-gray-900 shadow-lg  bg-white">
+        <div className="pt-10">
           {itemList.map((item) => (
             <div key={item.id}>
               {item.subroute ? (
@@ -128,5 +148,5 @@ const GymSideBar = () => {
     );
   };
   
-  export default GymSideBar;
-  
+
+export default RestaurantSidebar

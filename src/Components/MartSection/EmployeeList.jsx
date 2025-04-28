@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import DataTable from 'react-data-table-component';
 import { useDispatch, useSelector } from 'react-redux';
-import { getemployeeList } from '../../Redux/Slices/salonSlicees/salonEmployeeDataSlice';
+//import { getemployeeList } from '../../Redux/Slices/salonSlicees/salonEmployeeDataSlice';
 import { FaEye } from "react-icons/fa";
 
-import ViewGymEmployeeDeatils from './ViewGymEmployeeDeatils';
-import { getGymemployeeList } from '../../Redux/Slices/gymSlice/gymEmployeeSlice';
+// import ViewGymEmployeeDeatils from './ViewGymEmployeeDeatils';
+// import { getGymemployeeList } from '../../Redux/Slices/gymSlice/gymEmployeeSlice';
+import ViewMartEmployeeDetails from './ViewMartEmployeeDetails';
+import { getmartemployeeList } from '../../Redux/Slices/martEmployeeSlice';
 
-const GymEmployeeList = () => {
+const EmployeeList = () => {
 const [isShowDetail, setIsShowDetail] = useState(false);
     const [showEmployee, setShowEmployee] = useState(null);
   
@@ -20,13 +22,13 @@ const [isShowDetail, setIsShowDetail] = useState(false);
       setIsShowDetail(false);
     };
 
-const {employeeData} =useSelector((state)=>state.gymEmployee)
+const {employeeData} =useSelector((state)=>state.martEmployee)
 console.log(employeeData);
 
 const dispatch =useDispatch();
 
 useEffect(() => {
-  dispatch(getGymemployeeList())
+  dispatch(getmartemployeeList())
 }, [dispatch])
 
 
@@ -116,7 +118,7 @@ useEffect(() => {
                     </button>),
       }))
   return (
-    <div className='fixed w-[calc(100%-300px)] ml-[300px]  pt-30'>
+    <div className='fixed w-[calc(100%-300px)] ml-[300px]  pt-10'>
     <h1 className=' font-bold text-3xl ml-5'>Employees List</h1>
       <div className='overflow-x mt-9 '>
       <DataTable data={data} fixedHeaderScrollHeight='67vh' defaultSortFieldId={1} customStyles={customStyles} pagination fixedHeader columns={columns}/>
@@ -131,7 +133,7 @@ useEffect(() => {
                 }}
               ></div>
               <div className="absolute z-1000">
-                <ViewGymEmployeeDeatils
+                <ViewMartEmployeeDetails
                   employeeData={showEmployee}
                   onClose={handleEmployeeClose}
                 />
@@ -142,4 +144,4 @@ useEffect(() => {
   )
 }
 
-export default GymEmployeeList
+export default EmployeeList

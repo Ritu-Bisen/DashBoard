@@ -274,7 +274,7 @@ const GymAddEmployee = () => {
             <button
               type="button"
               onClick={handleSendOtp}
-              className="bg-green-600 text-white h-10 w-40 rounded-full mt-8"
+              className="bg-green-600 text-white h-10 w-40 rounded-full mt-8 active:bg-green-800"
             >
               Send OTP
             </button>
@@ -292,7 +292,7 @@ const GymAddEmployee = () => {
                 <button
                   type="button"
                   onClick={handleVerifyOtp}
-                  className="bg-green-600 text-white px-4 py-2  rounded-full w-40 ml-2"
+                  className="bg-green-600 text-white px-4 py-2  rounded-full w-40 ml-2 active:bg-green-800"
                 >
                   Verify OTP
                 </button>

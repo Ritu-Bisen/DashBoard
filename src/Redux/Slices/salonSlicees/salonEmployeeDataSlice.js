@@ -1,9 +1,9 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { employeeDataApi, fetchEployeeData } from "../../Api/salonApi/salonEmployeeDetailsApi";
-import { seller_id } from "../../../Components/MartSection/StockManagementForm";
+//import { seller_id } from "../../../Components/MartSection/StockManagementForm";
 
-export const employeeDetailsList = createAsyncThunk ("employee-details/fetch",async({formData,seller_id})=>{
-    const employeeDetails = await employeeDataApi(formData,seller_id);
+export const employeeDetailsList = createAsyncThunk ("employee-details/fetch",async({formData,salon_seller_id})=>{
+    const employeeDetails = await employeeDataApi(formData,salon_seller_id);
    // console.log(formData);
     
     return employeeDetails;

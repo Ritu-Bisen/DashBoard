@@ -1,7 +1,9 @@
 import { toast } from "react-toastify";
-import { seller_id } from "../../../Components/MartSection/StockManagementForm";
-import supabase from "../../../SupaBaseClient";
+//import { seller_id } from "../../../Components/MartSection/StockManagementForm";
+//import supabase from "../../../SupaBaseClient";
 import { v4 as uuidv4 } from 'uuid';
+import { seller_id } from "../../Components/MartSection/StockManagementForm";
+import supabase from "../../SupaBaseClient";
 
 export const checkExistingEmployee = async(phone)=>{
   try {
@@ -181,7 +183,7 @@ const uploadBankStatementPhoto = async (employee_id,employeeBankStatementImage)=
   }
 };
 
-export const employeeDataApi = async (formData, mart_seller_id) => {
+export const martemployeeDataApi = async (formData,seller_id) => {
     const employeePhoto = formData.profile_image;
     console.log(employeePhoto);
     
@@ -212,7 +214,7 @@ export const employeeDataApi = async (formData, mart_seller_id) => {
          seller_id: seller_id,
         phone: formData.phone,
         email: formData.email,
-        section: "salon",
+        section: "mart",
         role: formData.designation,
         aadhaar_number: formData.aadhar_no,
         pan_number: formData.pan_no,
@@ -248,12 +250,12 @@ export const employeeDataApi = async (formData, mart_seller_id) => {
   };
   
 
-  export const fetchEployeeData = async () => {
+  export const fetchMartEployeeData = async () => {
     try {
       const { data, error } = await supabase
       .from("employees")
       .select('*')
-      .eq('section',"salon")
+      .match({section:"mart",seller_id:seller_id})
       if (!error) {
         console.log("fetching data succesfully", data);
       } else {

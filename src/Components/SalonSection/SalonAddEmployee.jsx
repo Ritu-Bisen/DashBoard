@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 
 import { employeeDetailsList } from "../../Redux/Slices/salonSlicees/salonEmployeeDataSlice";
 import { useDispatch, useSelector } from "react-redux";
-import { seller_id } from "../MartSection/StockManagementForm";
+//import { seller_id } from "../MartSection/StockManagementForm";
 import {
   RegisterWithOtp,
   VerifyOtp,
@@ -10,6 +10,8 @@ import {
 import bank_name from "../../constant/bank_names";
 import { checkExistingEmployee } from "../../Redux/Api/salonApi/salonEmployeeDetailsApi";
 import { salon_employee_designation } from "../../constant/employee_designation";
+
+export const salon_seller_id="81aa7eb6-a376-4389-95f3-5343ca44490d";
 
 const SalonAddEmployee = () => {
   const { otpSent, otpVerified } = useSelector((state) => state.auth);
@@ -154,7 +156,7 @@ const SalonAddEmployee = () => {
     }
     setErrors({});
     console.log(formData);
-    dispatch(employeeDetailsList({ formData, seller_id }));
+    dispatch(employeeDetailsList({ formData, salon_seller_id }));
     handleClear()
   };
 
@@ -270,7 +272,7 @@ const SalonAddEmployee = () => {
             <button
               type="button"
               onClick={handleSendOtp}
-              className="bg-green-600 text-white h-10 w-40 rounded-full mt-8"
+              className="bg-green-600 text-white h-10 w-40 rounded-full mt-8 active:bg-green-800"
             >
               Send OTP
             </button>
@@ -288,7 +290,7 @@ const SalonAddEmployee = () => {
                 <button
                   type="button"
                   onClick={handleVerifyOtp}
-                  className="bg-green-600 text-white px-4 py-2  rounded-full w-40 ml-2"
+                  className="bg-green-600 text-white px-4 py-2  rounded-full w-40 ml-2 active:bg-green-800"
                 >
                   Verify OTP
                 </button>

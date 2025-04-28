@@ -48,7 +48,7 @@ const App = () => {
           />
 
           <Route
-            path="/restaurant"
+            path="/restaurant/*"
             element={
               <ProtectedRoute segment="restaurant">
                 <RestaurantRoutes />

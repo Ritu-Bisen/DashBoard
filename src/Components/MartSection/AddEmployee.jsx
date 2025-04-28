@@ -10,6 +10,7 @@ import {
 import bank_name from "../../constant/bank_names";
 import { checkExistingEmployee } from "../../Redux/Api/salonApi/salonEmployeeDetailsApi";
 import { salon_employee_designation } from "../../constant/employee_designation";
+import { martemployeeDetailsList } from "../../Redux/Slices/martEmployeeSlice";
 
 const SalonAddEmployee = () => {
   const { otpSent, otpVerified } = useSelector((state) => state.auth);
@@ -140,7 +141,7 @@ const SalonAddEmployee = () => {
     }));
   };
 
-  const { employeeData } = useSelector((state) => state.employeeDetail);
+  const { employeeData } = useSelector((state) => state.martEmployee);
   const dispatch = useDispatch();
 
   const onHandleSubmit = (e) => {
@@ -154,7 +155,7 @@ const SalonAddEmployee = () => {
     }
     setErrors({});
     console.log(formData);
-    dispatch(employeeDetailsList({ formData, seller_id }));
+    dispatch(martemployeeDetailsList({ formData, seller_id }));
     handleClear()
   };
 
@@ -248,8 +249,8 @@ const SalonAddEmployee = () => {
   }, [phone]);
 
   return (
-    <div className=" w-[calc(100%-300px)] ml-[300px] h-screen flex flex-col mt-2  ">
-      <div className=" overflow-y-auto flex-1 pt-[100px] ">
+    <div className=" w-[calc(100%-300px)] ml-[300px] h-screen flex flex-col   ">
+      <div className=" overflow-y-auto flex-1  ">
       <div className="bg-gray-300 px-10 py-5  top-0  shadow-md rounded-t-4xl">
         <h1 className="text-3xl font-bold ">Add Employee </h1>
         </div>
@@ -270,7 +271,7 @@ const SalonAddEmployee = () => {
             <button
               type="button"
               onClick={handleSendOtp}
-              className="bg-green-600 text-white h-10 w-40 rounded-full mt-8"
+              className="bg-green-600 text-white h-10 w-40 rounded-full mt-8 active:bg-green-800"
             >
               Send OTP
             </button>
@@ -288,7 +289,7 @@ const SalonAddEmployee = () => {
                 <button
                   type="button"
                   onClick={handleVerifyOtp}
-                  className="bg-green-600 text-white px-4 py-2  rounded-full w-40 ml-2"
+                  className="bg-green-600 text-white px-4 py-2  rounded-full w-40 ml-2 active:bg-green-800"
                 >
                   Verify OTP
                 </button>

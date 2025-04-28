@@ -115,7 +115,7 @@ useEffect(() => {
       }))
   return (
     <div className='fixed w-[calc(100%-300px)] ml-[300px]  pt-30'>
-    <h1 className=' font-bold text-3xl ml-5'>Services</h1>
+    <h1 className=' font-bold text-3xl ml-5'>Employees List</h1>
       <div className='overflow-x mt-9 '>
       <DataTable data={data} fixedHeaderScrollHeight='67vh' defaultSortFieldId={1} customStyles={customStyles} pagination fixedHeader columns={columns}/>
       </div> 

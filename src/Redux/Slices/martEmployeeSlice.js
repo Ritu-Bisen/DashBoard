@@ -1,21 +1,22 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { employeeDataApi, fetchEployeeData } from "../../Api/salonApi/salonEmployeeDetailsApi";
-import { seller_id } from "../../../Components/MartSection/StockManagementForm";
+//import { employeeDataApi, fetchEployeeData } from "../../Api/salonApi/salonEmployeeDetailsApi";
+//import { seller_id } from "../../../Components/MartSection/StockManagementForm";
+import { fetchMartEployeeData, martemployeeDataApi } from "../Api/martEmployeeApi";
 
-export const employeeDetailsList = createAsyncThunk ("employee-details/fetch",async({formData,seller_id})=>{
-    const employeeDetails = await employeeDataApi(formData,seller_id);
+export const martemployeeDetailsList = createAsyncThunk ("employee-details/fetch",async({formData,seller_id})=>{
+    const employeeDetails = await martemployeeDataApi(formData,seller_id);
    // console.log(formData);
     
     return employeeDetails;
 })
 
-export const getemployeeList = createAsyncThunk("employee/fetch",async()=>{
-  const employeesList = await fetchEployeeData();
+export const getmartemployeeList = createAsyncThunk("employee/fetch",async()=>{
+  const employeesList = await fetchMartEployeeData();
 
   return employeesList;
 })
 
-const EmployeeDataSlice = createSlice({
+const MartEmployeeDataSlice = createSlice({
     name:"employeeData",
     initialState:{
         employeeData:[],
@@ -25,28 +26,28 @@ const EmployeeDataSlice = createSlice({
     reducers:{},
     extraReducers:(builder)=>{
         builder
-        .addCase(employeeDetailsList.pending,(state)=>{
+        .addCase(martemployeeDetailsList.pending,(state)=>{
            state.loading=true,
            state.error=null
            })
-           .addCase(employeeDetailsList.fulfilled,(state,action)=>{
+           .addCase(martemployeeDetailsList.fulfilled,(state,action)=>{
              state.employeeData.push(action.payload);
            })
-           .addCase(employeeDetailsList.rejected,(state,action)=>{
+           .addCase(martemployeeDetailsList.rejected,(state,action)=>{
              state.error=action.payload
            })
-           .addCase(getemployeeList.pending,(state)=>{
+           .addCase(getmartemployeeList.pending,(state)=>{
             state.loading=true,
             state.error=null
             })
-            .addCase(getemployeeList.fulfilled,(state,action)=>{
+            .addCase(getmartemployeeList.fulfilled,(state,action)=>{
              state.employeeData=action.payload
             })
-            .addCase(getemployeeList.rejected,(state,action)=>{
+            .addCase(getmartemployeeList.rejected,(state,action)=>{
               state.error=action.payload
             })
 
     }
 })
 
-export default EmployeeDataSlice.reducer;
+export default MartEmployeeDataSlice.reducer;
