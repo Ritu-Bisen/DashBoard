@@ -15,6 +15,10 @@ import gymOrdersReducer from './Slices/gymSlice/gymOrdersSlice';
 import orderRequestReducer from './Slices/OrderRequestSlice';
 import gymEmployeeReducer from './Slices/gymSlice/gymEmployeeSlice';
 import martEmployeeReducer from './Slices/martEmployeeSlice'
+import restaurantMenusReducer from './Slices/restaurantSlice/restaurantMenuSlice'
+import restaurantCategoryReducer from './Slices/restaurantSlice/restaurantCategorySlice'
+import restaurantDeliveryBoyReducer from './Slices/restaurantSlice/restaurantDeliveryBoySlice'
+
 
 const store = configureStore({
     reducer:{
@@ -34,6 +38,9 @@ const store = configureStore({
        orderRequest:orderRequestReducer,
        gymEmployee:gymEmployeeReducer,
        martEmployee:martEmployeeReducer,
+       restaurantmenu:restaurantMenusReducer,
+       restaurantCategory:restaurantCategoryReducer,
+restaurantDeliveryBoy:restaurantDeliveryBoyReducer,
 
 
     }

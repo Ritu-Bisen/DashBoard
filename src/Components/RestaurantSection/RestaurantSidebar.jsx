@@ -32,15 +32,15 @@ const RestaurantSidebar = () => {
       },
       {
         id: 2,
-        name: "Product",
+        name: "Menus",
         icon:  <FaBoxOpen size={30} />,
-        path: "/restaurant/appointment",
+        path: "/restaurant/menus",
       },
       {
         id: 3,
         name: "Stock Management",
         icon:  <GiProgression size={25} />,
-        path: "/restaurant/product",
+        path: "/restaurant/stock-management",
       },
      
      
@@ -48,7 +48,10 @@ const RestaurantSidebar = () => {
         id: 4,
         name: "Category",
         icon:  <TbCategoryPlus size={25} />,
-        path: "/restaurant/kit-request",
+        subroute: [  
+            { title: "Category", path: "/restaurant/category/category" },
+          { title: "Category Offer", path: "/restaurant/category/category-offer" },
+        ],
       },
        {
         id: 5,
