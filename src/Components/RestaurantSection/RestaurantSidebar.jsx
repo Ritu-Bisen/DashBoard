@@ -67,8 +67,9 @@ const RestaurantSidebar = () => {
         name: "Delivery Boys",
         icon: <TbTruckDelivery size={25} />,
         subroute: [  
-            { title: "Add Employee", path: "/restaurant/deliveryboys/add-delivery-boy" },
-          { title: "Employee List", path: "/restaurant/deliveryboys/deliveryboys-list" },
+          { title: "Add Delivery Boy ", path: "/restaurant/deliveryboy/add-delivery-boy" },
+        
+        { title: "Delivery Boy List", path: "/restaurant/deliveryboy/delivery-boy-list" },
         ],
       },
       {

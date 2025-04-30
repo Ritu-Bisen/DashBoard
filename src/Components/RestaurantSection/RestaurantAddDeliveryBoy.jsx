@@ -249,7 +249,7 @@ const RestaurantAddDeliveryBoy = () => {
 
   return (
     <div className="w-[calc(100%-300px)] ml-[300px] bg-gray-300  ">
-      <div className="">
+      <div className="pt-[100px]">
         <h1 className="text-3xl font-bold p-5"> Create Delivery Boy</h1>
       </div>
       <div className="mt-5 ">
@@ -271,7 +271,7 @@ const RestaurantAddDeliveryBoy = () => {
             <button
               type="button"
               onClick={handleSendOtp}
-              className="bg-gray-500 h-10 w-40 rounded-full mt-7 "
+              className="bg-green-600 active:bg-green-800 h-10 w-40 rounded-full mt-7 "
             >
               Send OTP
             </button>

@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 //import { deliveryBoyRegisterApi, fetchDeliveryBoyData } from "../Api/deliveryBoyApi";
-import { fetchRestaurantDeliveryBoyData } from "../../Api/restaurantApi/restaurantDeliverBoyApi";
+import { fetchRestaurantDeliveryBoyData, restaurantdeliveryBoyRegisterApi } from "../../Api/restaurantApi/restaurantDeliverBoyApi";
 
 // Async thunk to fetch delivery boys
 export const getRestaurantDeliveryBoyData = createAsyncThunk(
@@ -16,7 +16,7 @@ export const getRestaurantDeliveryBoyData = createAsyncThunk(
 export const restaurantDeliveryBoyRegister = createAsyncThunk(
   "deliveryBoy/register",
   async ({ formData, restaurant_seller_id }) => {
-    const deliveryBoys = await restaurantDeliveryBoyRegister({ formData, restaurant_seller_id });
+    const deliveryBoys = await restaurantdeliveryBoyRegisterApi({ formData, restaurant_seller_id });
     return deliveryBoys;
   }
 );

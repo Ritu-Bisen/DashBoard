@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { FaEye } from "react-icons/fa";
 //import ViewDeliveryBoyDEtails from './ViewDeliveryBoyDEtails';
 import { getRestaurantDeliveryBoyData } from '../../Redux/Slices/restaurantSlice/restaurantDeliveryBoySlice';
+import RestaurantViewDeliveryBoyDetails from './RestaurantViewDeliveryBoyDetails';
 
 
 const RestaurantDeliveryBoysList  = () => {
@@ -24,7 +25,8 @@ const RestaurantDeliveryBoysList  = () => {
       setIsShowDetail(false);
     };
 
-const { deliveryBoys}=useSelector((state)=>state.restaurantDeliveryBoy);
+const {deliveryBoys}=useSelector((state)=>state.restaurantDeliveryBoy,
+);
 console.log( deliveryBoys);
 
 const dispatch =useDispatch();
@@ -46,7 +48,10 @@ dispatch(getRestaurantDeliveryBoyData())
           selector: (row) => row.deliveryBoy_id,
           width: "150px",
         },
-        
+        {
+          name: "Profile",
+          selector: (row) => row.profile_image_url,
+        },
         {
           name: "Name",
           selector: (row) => row.name,
@@ -115,13 +120,14 @@ dispatch(getRestaurantDeliveryBoyData())
         deliveryBoy_id:item.id,
         name:item.full_name,
         phone:item.phone_number,
+        profile_image_url:(<img src={item.profile_image_url}/>),
         email:item.email,
        active:item.is_active,
        verified:item.is_verified,
        address:item.address,
-    //    view:( <button onClick={() => handleViewDetails(item)}>
-    //            <FaEye size={25} />
-    //          </button>),
+       view:( <button onClick={()=>handleViewDetails(item)} >
+               <FaEye size={25} />
+             </button>),
        active:(item.is_active === true ?
         (<p>Active</p>):(<p>Inactive</p>)),
         verified:(item.is_verified === true ?
@@ -139,7 +145,7 @@ dispatch(getRestaurantDeliveryBoyData())
         <div className='overflow-x mt-9'>
          <DataTable data={data} columns={columns} customStyles={customStyles} pagination fixedHeader fixedHeaderScrollHeight='67vh' defaultSortFieldId={1} />
         </div>
-        {/* {
+        {
           isShowDetail && (
             <>
               <div
@@ -149,13 +155,13 @@ dispatch(getRestaurantDeliveryBoyData())
                 }}
               ></div>
               <div className="absolute z-1000">
-                <ViewDeliveryBoyDEtails
+                <RestaurantViewDeliveryBoyDetails
                   deliveryBoys={showDeliveryBoy}
                   onClose={handleDeliveryBoyDetailClose}
                 />
               </div>
             </>
-          )} */}
+          )}
         
       </div>
       

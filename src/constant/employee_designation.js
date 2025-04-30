@@ -26,7 +26,7 @@ export const gym_employee_designation=[
 	 "Housekeeping",
 ].sort()
 
-export const restaurant_employee=[
+export const restaurant_employee_designation=[
     "Café Manager",
 	"Store Manager",
 	"Head Chef",
