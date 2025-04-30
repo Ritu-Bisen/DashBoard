@@ -19,6 +19,7 @@ import restaurantMenusReducer from './Slices/restaurantSlice/restaurantMenuSlice
 import restaurantCategoryReducer from './Slices/restaurantSlice/restaurantCategorySlice'
 import restaurantDeliveryBoyReducer from './Slices/restaurantSlice/restaurantDeliveryBoySlice'
 import restaurantEmployeeReducer from './Slices/restaurantSlice/restaurantemployeeSlice'
+import restaurantOrderReducer from './Slices/restaurantSlice/restaurantOrderSlice'
 
 const store = configureStore({
     reducer:{
@@ -42,6 +43,7 @@ const store = configureStore({
        restaurantCategory:restaurantCategoryReducer,
        restaurantDeliveryBoy:restaurantDeliveryBoyReducer,
        restaurantEmployee:restaurantEmployeeReducer,
+       restaurantOrder:restaurantOrderReducer,
 
 
     }

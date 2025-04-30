@@ -11,6 +11,7 @@ import RestaurantAddDeliveryBoy from '../Components/RestaurantSection/Restaurant
 import RestaurantDeliveryBoysList from '../Components/RestaurantSection/RestaurantDeliveryBoysList';
 import RestaurantEmployeeDataList from '../Components/RestaurantSection/RestaurantEmployeeDataList';
 import RestaurantAddEmployee from '../Components/RestaurantSection/RestaurantAddEmployee';
+import RestaurantOrders from '../Components/RestaurantSection/RestaurantOrders';
 
 
 
@@ -39,6 +40,7 @@ const RestaurantRoutes = () => {
         <Route path='deliveryboy/delivery-boy-list' element={<RestaurantDeliveryBoysList/>}/>
         <Route path='employee/employee-list' element={<RestaurantEmployeeDataList/>}/>
         <Route path='employee/add-employee' element={<RestaurantAddEmployee/>}/>
+        <Route path='order/orders' element={<RestaurantOrders/>}/>
        {/*   <Route path='billing' element={<SalonBillingList/>}/>
         
       
