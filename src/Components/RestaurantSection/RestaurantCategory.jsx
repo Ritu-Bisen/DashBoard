@@ -19,6 +19,11 @@ const RestaurantCategory = () => {
         name: "S.no",
         selector: (row) => row.serialNo,
       },
+       {
+        name: "Icon",
+        selector: (row) => row.icon,
+      },
+    
       {
         name: "Id",
         selector: (row) => row.id,
@@ -26,11 +31,7 @@ const RestaurantCategory = () => {
         name: "Name",
         selector: (row) => row.name,
       },
-      {
-        name: "Icon",
-        selector: (row) => row.icon,
-      },
-    
+     
     ]
     
     const customStyles = {

@@ -32,9 +32,9 @@ const RestaurantSidebar = () => {
       },
       {
         id: 2,
-        name: "Menus",
+        name: "Menu",
         icon:  <FaBoxOpen size={30} />,
-        path: "/restaurant/menus",
+        path: "/restaurant/menu",
       },
       {
         id: 3,

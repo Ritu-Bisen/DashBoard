@@ -3,17 +3,17 @@ import { createAsyncThunk,createSlice } from "@reduxjs/toolkit";
 import { fetchRestaurantMenuApi } from "../../Api/restaurantApi/restaurantMenuApi";
 
 
-export const getRestaurantmenus=createAsyncThunk("product/fetch",async () =>{
-    const menus = await fetchRestaurantMenuApi();
+export const getRestaurantmenus=createAsyncThunk("menu/fetch",async () =>{
+    const menu = await fetchRestaurantMenuApi();
     
     
-     return menus;
+     return menu;
 })
 
-const menusSlice = createSlice({
-    name:"menus",
+const menuSlice = createSlice({
+    name:"menu",
     initialState:{
-        menus:[],
+        menu:[],
         loading:false,
         error:null
     },
@@ -26,11 +26,11 @@ const menusSlice = createSlice({
         state.error=null
        })
        .addCase(getRestaurantmenus.fulfilled,(state,action)=>{
-        state.menus=action.payload;
+        state.menu=action.payload;
        })
        .addCase(getRestaurantmenus.rejected,(state,action)=>{
         state.error=action.payload;
        })
     }
 })
-export default menusSlice.reducer;
+export default menuSlice.reducer;

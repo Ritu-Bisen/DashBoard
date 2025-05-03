@@ -203,7 +203,7 @@ const ProfilePicUrl = await uploadDeliveryBoyPhoto(id,deliveryBoyPhoto);
 const AadharUrl = await uploadAadhar(id,aadharPhoto);
 const RcUrl = await uploadRcPhoto(id,rcPhoto);
 const panCardUrl = await uploadPanCardPhoto(id,panCardPhoto);
-const drivingLicenseUrl= await uploadDeliveryBoyPhoto(id,drivingLicensePhoto);
+const drivingLicenseUrl= await uploadDrivingLicensePhoto(id,drivingLicensePhoto);
 const passBookUrl = await uploadPassBookPhoto(id,passBookPhoto);
 
 const {data , error }= await supabase

@@ -79,7 +79,7 @@ const RestaurantCategoryOffer = () => {
           category_id: (item.id).slice(0,8),
           name: item.name,
           icon: <img src={item.icon} className="h-13 p-2 w-13 " />,
-          banner_urls: <div ><img src={item.banner_urls[0]} className="py-1 relative" /><p className='absolute z-10 p-2 bg-black bottom-1 text-white'> {item.banner_urls.length}</p></div>,
+          banner_urls: <div ><img  src={item.banner_urls[0]} className="py-1 relative h-25 w-50" /><p className='absolute z-10 p-2 bg-black bottom-1 text-white'> {item.banner_urls.length}</p></div>,
         }))
         
        

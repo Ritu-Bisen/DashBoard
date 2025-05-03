@@ -12,6 +12,9 @@ import RestaurantDeliveryBoysList from '../Components/RestaurantSection/Restaura
 import RestaurantEmployeeDataList from '../Components/RestaurantSection/RestaurantEmployeeDataList';
 import RestaurantAddEmployee from '../Components/RestaurantSection/RestaurantAddEmployee';
 import RestaurantOrders from '../Components/RestaurantSection/RestaurantOrders';
+import RestaurantStockManagement from '../Components/RestaurantSection/RestaurantStockManagement';
+import RestaurantReports from '../Components/RestaurantSection/RestaurantReports';
+import RestaurantOrderRequest from '../Components/RestaurantSection/RestaurantOrderRequest';
 
 
 
@@ -33,7 +36,7 @@ const RestaurantRoutes = () => {
       <Routes>
         <Route element={<RestaurantLayout/>}> 
         <Route index element={<RestaurantDashboard/>}/>
-        <Route path='menus' element={<RestaurantMenu/>}/>
+        <Route path='menu' element={<RestaurantMenu/>}/>
         <Route path="category/category" element={<RestaurantCategory/>}/>
          <Route path='category/category-offer' element={<RestaurantCategoryOffer/>}/>
       <Route path='deliveryboy/add-delivery-boy' element={<RestaurantAddDeliveryBoy/>}/>
@@ -41,10 +44,11 @@ const RestaurantRoutes = () => {
         <Route path='employee/employee-list' element={<RestaurantEmployeeDataList/>}/>
         <Route path='employee/add-employee' element={<RestaurantAddEmployee/>}/>
         <Route path='order/orders' element={<RestaurantOrders/>}/>
-       {/*   <Route path='billing' element={<SalonBillingList/>}/>
+        <Route path='order/order-request' element={<RestaurantOrderRequest/>}/>
+        <Route path='stock-management' element={<RestaurantStockManagement/>}/>
         
       
-        <Route path='reports' element={<SalonReport/>}/> */}
+         <Route path='reports' element={<RestaurantReports/>}/> 
         </Route>
        
        

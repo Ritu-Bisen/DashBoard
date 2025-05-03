@@ -1,18 +1,34 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import DataTable from 'react-data-table-component';
 import { FaEye } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
 import { getRestaurantmenus } from '../../Redux/Slices/restaurantSlice/restaurantMenuSlice';
 import { fetchRestaurantMenuApi } from '../../Redux/Api/restaurantApi/restaurantMenuApi';
+import RestaurantViewMenuDetails from './RestaurantViewMenuDetails';
 
 const RestaurantMenu = () => {
-const { menus } = useSelector((state) => state.restaurantmenu);
+  const [isShowProduct,setIsShowProduct] = useState(false);
+  const [showProduct,setShowProduct] = useState(null);
+
+const { menu } = useSelector((state) => state.restaurantmenu);
 const dispatch =useDispatch();
 useEffect(() => {
  dispatch(getRestaurantmenus())
 }, [dispatch])
-console.log(menus);
+console.log(menu);
 
+const handleViewDetails = (menu)=> {
+  console.log(menu);
+ 
+setIsShowProduct(true);
+setShowProduct(menu);
+};
+
+//for close details
+const handleProductDetailClose = () => {
+  setIsShowProduct(false);
+  
+};
 
   const columns = [ {
     name: "S.no",
@@ -91,7 +107,7 @@ const customStyles = {
 
 
     
-      const data = menus.map((item,index)=>(
+      const data = menu.map((item,index)=>(
         {
           serialNo:index+1,
           id:item.id,
@@ -117,11 +133,23 @@ const customStyles = {
   return (
     <div className='w-[calc(100%-300px)] ml-[300px]  pt-30'>
     <div>
-        <h1 className='font-bold text-3xl ml-5'>Menus</h1>
+        <h1 className='font-bold text-3xl ml-5'>Menu</h1>
         </div>
         <div className='overflow-x mt-9'>
             <DataTable data={data} columns={columns} customStyles={customStyles} pagination fixedHeader fixedHeaderScrollHeight='67vh' defaultSortFieldId={1}/>
         </div>
+        {isShowProduct && ( 
+      <>
+     
+     <div
+            className="fixed inset-0 bg-black/70 z-50"
+            onClick={() => setIsShowProduct(false)}
+          ></div>
+          <div className="absolute z-1000">
+            <RestaurantViewMenuDetails product={showProduct} onClose= {handleProductDetailClose} />
+            </div>
+      </>
+    )}
   
 </div>
   )
