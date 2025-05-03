@@ -1,16 +1,15 @@
 import React, { useEffect, useState } from "react";
 import DataTable from "react-data-table-component";
 
-
 import { useDispatch, useSelector } from "react-redux";
 
 import { FaEye } from "react-icons/fa";
 
-
-import { getRestaurantOrders } from "../../Redux/Slices/restaurantSlice/restaurantOrderSlice";
-import { fetchRestaurantOrderAPI } from "../../Redux/Api/restaurantApi/restaurantOrderApi";
+import {
+  getOrderAssignedData,
+  getRestaurantOrders,
+} from "../../Redux/Slices/restaurantSlice/restaurantOrderSlice";
 import RestaurantViewOrderdetails from "./RestaurantViewOrderdetails";
-
 
 const RestaurantOrders = () => {
   const [isShowDetail, setIsShowDetail] = useState(false);
@@ -25,15 +24,14 @@ const RestaurantOrders = () => {
     setIsShowDetail(false);
   };
 
-  const { orders } = useSelector((state) => state.restaurantOrder); 
- 
-  //console.log(orders)
+  const { assignedOrder } = useSelector((state) => state.restaurantOrder);
+
+  console.log("hii", assignedOrder);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getRestaurantOrders());
- 
+    dispatch(getOrderAssignedData());
   }, [dispatch]);
 
   const columns = [
@@ -47,26 +45,13 @@ const RestaurantOrders = () => {
       width: "300px",
     },
     {
-      name: "User Name",
-      selector: (row) => row.user_name,
-    },
-    {
-      name: "User Contact",
-      selector: (row) => row.user_contact,
-      width: "150px",
+      name: "User Id",
+      selector: (row) => row.user_id,
+      width: "300px",
     },
     {
       name: "Order Type",
       selector: (row) => row.order_type,
-    },
-    {
-      name: "Quantity",
-      selector: (row) => row.quantity,
-    },
-    {
-      name: "Product Name",
-      selector: (row) => row.product_name,
-      width: "150px",
     },
 
     {
@@ -95,11 +80,11 @@ const RestaurantOrders = () => {
       selector: (row) => row.address,
       width: "300px",
     },
-   
+
     {
       name: "View",
       selector: (row) => row.view,
-      center:true,
+      center: true,
     },
   ];
 
@@ -126,26 +111,21 @@ const RestaurantOrders = () => {
     },
   };
 
-  const data = orders.map((item, index) => ({
+  const data = assignedOrder.map((item, index) => ({
     serialNo: index + 1,
 
-    order_id: item.order_id,
+    order_id: item.id,
+    user_id: item.user_id,
 
-    quantity: item.quantity,
-    user_name: item.orders.users.name,
-    user_contact: item.orders.users.phone_number,
+    order_type: item.order_type,
+    total_amount: item.total_amount,
+    payment_status: item.payment_status,
+    order_status: item.order_status,
+    payment_method: item.payment_method,
+    address: item.address,
 
-    product_name: item.restaurant_products.name,
-
-    order_type: item.orders.order_type,
-    total_amount: item.orders.total_amount,
-    payment_status: item.orders.payment_status,
-    order_status: item.orders.order_status,
-    payment_method: item.orders.payment_method,
-    address: item.orders.address,
-   
-    view:(
-      <button onClick={() => handleViewDetails(item)}>
+    view: (
+      <button onClick={() => handleViewDetails(item.id)}>
         <FaEye size={25} />
       </button>
     ),
@@ -154,7 +134,6 @@ const RestaurantOrders = () => {
   return (
     <div className="relative w-[calc(100%-300px)] ml-[300px]">
       {" "}
-    
       <div className="  pt-[100px] ">
         <div className="flex gap-5 justify-between">
           <h1 className=" mt-9 ml-2  text-3xl font-bold ">Latest Orders</h1>
@@ -213,7 +192,7 @@ const RestaurantOrders = () => {
             ></div>
             <div className="absolute z-1000">
               <RestaurantViewOrderdetails
-                orders={showOrder}
+                orderId={showOrder}
                 onClose={handleProductDetailClose}
               />
             </div>

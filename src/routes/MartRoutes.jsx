@@ -5,8 +5,8 @@ import StockManagementForm from '../Components/MartSection/StockManagementForm'
 import ProductManagement from '../Components/MartSection/ProductManagement'
 import CategoryManagement from '../Components/MartSection/CategoryManagement'
 import CategoryOfferTable from '../Components/MartSection/CategoryOfferTable'
-import DeliveryBoy from '../Components/MartSection/DeliveryBoy'
-import DeliveryBoyRequest from '../Components/MartSection/DeliveryBoyRequest'
+
+
 //import DeliveryBoyManaged from '../Components/MartSection/DeliveryBoyManaged'
 import DeliveryBoyCash from '../Components/MartSection/DeliveryBoyCash'
 import { Outlet, Route, Routes } from 'react-router-dom'
