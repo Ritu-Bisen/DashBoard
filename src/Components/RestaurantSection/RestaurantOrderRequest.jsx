@@ -7,10 +7,12 @@ import { FaEye } from "react-icons/fa";
 import {
   getRestaurantOrderRequest,
   restaurantOrderRequest,
+  updateAssignedRestaurantOrder,
 } from "../../Redux/Slices/restaurantSlice/restaurantOrderRequestSlice";
 import { getRestaurantDeliveryBoyData } from "../../Redux/Slices/restaurantSlice/restaurantDeliveryBoySlice";
 
 import RestaurantViewOrderRequest from "./RestaurantViewOrderRequest";
+import { fetchRestaurantOrderRequestAPI } from "../../Redux/Api/restaurantApi/restaurantOrderRequestApi";
 
 const RestaurantOrderRequest = () => {
   const [assignStatus, setAssignStatus] = useState({});
@@ -31,6 +33,8 @@ const RestaurantOrderRequest = () => {
   const { orderRequest } = useSelector((state) => state.restaurantOrderRequest);
   const { deliveryBoys } = useSelector((state) => state.restaurantDeliveryBoy);
 
+  console.log("hii",orderRequest)
+
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -46,31 +50,24 @@ const RestaurantOrderRequest = () => {
 
   const handleAssigned = (orderId) => {
     const deliveryBoyId = selectedDeliveryBoy[orderId];
-
+  
     if (!deliveryBoyId) {
       alert("Please select a delivery boy before assigning.");
       return;
     }
-
-    dispatch(restaurantOrderRequest({ deliveryBoyId, orderId })).then(
-      (result) => {
-        if (!result.error) {
-          setLocalOrders((prevOrders) => {
-            const updated = { ...prevOrders };
-            delete updated[orderId];
-            return updated;
-          });
-
-          setAssignStatus((prev) => ({
-            ...prev,
-            [orderId]: true,
-          }));
-        } else {
-          alert("Failed to assign delivery boy.");
-        }
-      }
-    );
+  
+    dispatch(restaurantOrderRequest({orderId,deliveryBoyId}));
+    dispatch( updateAssignedRestaurantOrder(orderId));
+    console.log("Order ID:", orderId);
+    console.log("Delivery Boy ID:", deliveryBoyId);
+  
+    
+    setAssignStatus((prev) => ({
+      ...prev,
+      [orderId]: true,
+    }));
   };
+  
 
   const columns = [
     {
@@ -91,10 +88,7 @@ const RestaurantOrderRequest = () => {
       selector: (row) => row.user_contact,
       width: "150px",
     },
-    {
-      name: "Quantity",
-      selector: (row) => row.quantity,
-    },
+   
     {
       name: "Total Amount",
       selector: (row) => row.total_amount,
@@ -155,53 +149,55 @@ const RestaurantOrderRequest = () => {
     },
   };
 
-  const data = localOrders
-    ? Object.entries(localOrders).map(([orderId, items], index) => ({
-        serialNo: index + 1,
-        order_id: orderId,
-        user_name: items[0]?.orders?.users?.name,
-        user_contact: items[0]?.orders?.users?.phone_number,
-        delivery_boy: (
-          <div className="space-x-3">
-            <select
-              className="w-40 h-8 border-b-gray-300 border-1"
-              value={selectedDeliveryBoy[orderId] || ""}
-              onChange={(e) =>
-                setSelectedDeliveryBoy((prev) => ({
-                  ...prev,
-                  [orderId]: e.target.value,
-                }))
-              }
-            >
-              <option value="">Select</option>
-              {deliveryBoys.map((boy, index) => (
+  const data=orderRequest.map((item, index) => ({
+    serialNo: index + 1,
+    order_id: item?.id,
+    user_name: item.users?.name || "N/A",
+    user_contact: item.users?.phone_number || "N/A",
+    total_amount: item.total_amount,
+    payment_status: item.payment_status,
+    payment_method: item.payment_method,
+    order_status: assignStatus[item.id] ? "Assigned" : "Processing",
+    address: item.address,
+    delivery_boy: (
+      <div className="space-x-3">
+       <select
+  className="w-40 h-8 border-b-gray-300 border-1"
+  value={selectedDeliveryBoy[item.id] || ""}
+  onChange={(e) =>
+    setSelectedDeliveryBoy((prev) => ({
+      ...prev,
+      [item.id]: e.target.value,
+    }))
+  }
+ 
+>
+
+          <option value="">Select</option>
+          {deliveryBoys.map((boy, index) => (
                 <option value={boy.id} key={index}>
                   {boy.full_name}
                 </option>
               ))}
-            </select>
+        </select>
 
-            <button
-              onClick={() => handleAssigned(orderId)}
-              className="bg-green-500 hover:bg-green-700 text-white font-semibold px-5 py-2 rounded-lg"
-            >
-              Assign
-            </button>
-          </div>
-        ),
-        total_amount: items[0]?.orders?.total_amount,
-        payment_status: items[0]?.orders?.payment_status,
-        order_status: assignStatus[orderId] ? "Assigned" : "Processing",
-        payment_method: items[0]?.orders?.payment_method,
-        address: items[0]?.orders?.address,
-        quantity: items.length,
-        view: (
-          <button onClick={() => handleViewDetails(items)}>
-            <FaEye size={25} />
-          </button>
-        ),
-      }))
-    : [];
+        <button
+          onClick={() => handleAssigned(item.id)}
+          className="bg-green-500 hover:bg-green-700 text-white font-semibold px-5 py-2 rounded-lg"
+        >
+          Assign
+        </button>
+      </div>
+    ),
+    view: (
+      <button onClick={() => handleViewDetails(item)}>
+        <FaEye size={25} />
+      </button>
+    ),
+  }));
+  
+
+ 
 
   return (
     <div className="w-[calc(100%-300px) ml-[300px]">

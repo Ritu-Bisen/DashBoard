@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { FaEye } from "react-icons/fa";
 
 import {
+  getAssignedDeliveryBoy,
   getOrderAssignedData,
   getRestaurantOrders,
 } from "../../Redux/Slices/restaurantSlice/restaurantOrderSlice";
@@ -15,9 +16,9 @@ const RestaurantOrders = () => {
   const [isShowDetail, setIsShowDetail] = useState(false);
   const [showOrder, setShowOrder] = useState(null);
 
-  const handleViewDetails = (orders) => {
+  const handleViewDetails = (orderId) => {
     setIsShowDetail(true);
-    setShowOrder(orders);
+    setShowOrder(orderId);
   };
 
   const handleProductDetailClose = () => {
@@ -26,12 +27,15 @@ const RestaurantOrders = () => {
 
   const { assignedOrder } = useSelector((state) => state.restaurantOrder);
 
-  console.log("hii", assignedOrder);
+//  console.log("hii", assignedDeliveryBoy);
 
   const dispatch = useDispatch();
 
+  
+
   useEffect(() => {
     dispatch(getOrderAssignedData());
+    
   }, [dispatch]);
 
   const columns = [
@@ -132,7 +136,7 @@ const RestaurantOrders = () => {
   }));
 
   return (
-    <div className="relative w-[calc(100%-300px)] ml-[300px]">
+    <div className=" relative w-[calc(100%-300px)] ml-[300px]">
       {" "}
       <div className="  pt-[100px] ">
         <div className="flex gap-5 justify-between">

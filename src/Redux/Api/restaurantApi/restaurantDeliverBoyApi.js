@@ -253,6 +253,7 @@ export const fetchRestaurantDeliveryBoyData = async () =>{
         .from("delivery_boys")
         .select('*')
        .match({"seller_id":restaurant_seller_id,"section":"restaurant"})
+       
         if (!error) {
            console.log("fetch succefully",data)
             

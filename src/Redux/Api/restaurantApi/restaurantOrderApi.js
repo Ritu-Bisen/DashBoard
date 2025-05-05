@@ -26,11 +26,33 @@ export const fetchRestaurantOrderAPI = async (orderId) => {
   }
 };
 
+
+export const fetchAssignedDeliveryBoy=async(orderId)=>{
+  try{
+    const{data,error}=await supabase
+    .from("delivery_boy_orders")
+    .select(`*,delivery_boys(*)`)
+    .eq("order_id",`${orderId}`)
+    if (!error) {
+      console.log("fetch the order data", data);
+    } else {
+      console.log("error when fetching data", error);
+    }
+    return data
+  } catch (error) {
+    console.error("error from supabase", error);
+  }
+}
+
+
+
 export const fetchAssignedData= async()=>{
   try {
     const {data,error}=await supabase
     .from("orders")
     .select('*')
+    .eq("order_type","restaurant")
+    .eq("seller_id","a10d0cab-e757-4f32-bc91-6adf2c79b786")
     .eq("is_assigned",true)
     if (!error) {
       console.log("fetch the order data", data);

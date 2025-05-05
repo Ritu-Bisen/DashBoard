@@ -264,7 +264,7 @@ const AddDeliveryBoy = () => {
               type="number"
               value={phone}
               onChange={(e) => setPhone(e.target.value)}
-              className="bg-gray-300 rounded-lg h-10 w-70 p-2"
+              className=" no-arrows bg-gray-300 rounded-lg h-10 w-70 p-2"
               placeholder="Enter Phone No."
             />
           </div>

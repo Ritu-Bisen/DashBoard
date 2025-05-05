@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
-import { fetchRestaurantOrderRequestAPI, RestaurantOrdersAssigned } from "../../Api/restaurantApi/restaurantOrderRequestApi";
+import { fetchRestaurantOrderRequestAPI, RestaurantOrdersAssigned, updateRestaurantAssignedOrder } from "../../Api/restaurantApi/restaurantOrderRequestApi";
 
 export const getRestaurantOrderRequest = createAsyncThunk("order-request/fetch", async () => {
         const ordersRequest = await fetchRestaurantOrderRequestAPI();
@@ -8,8 +8,17 @@ export const getRestaurantOrderRequest = createAsyncThunk("order-request/fetch",
         return ordersRequest;
 });
 
+export const updateAssignedRestaurantOrder=createAsyncThunk('order-assigned/update',async(orderId)=>{
+    console.log(orderId);
+    
+    const orderAssigned=await updateRestaurantAssignedOrder(orderId);
+    return orderAssigned;
+})
+
 export const restaurantOrderRequest = createAsyncThunk("order-request/assign",async({deliveryBoyId,orderId})=>{
     const orders = await RestaurantOrdersAssigned({deliveryBoyId,orderId});
+    // console.log("del",deliveryBoyId);
+    // console.log("ord",orderId);
     return orders;
 })
 
@@ -44,6 +53,20 @@ const restaurantOrderRequestSlice = createSlice({
                 state.orderRequest = action.payload;
             })
             .addCase(getRestaurantOrderRequest.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.payload || "Failed to fetch orders.";
+            })
+            .addCase(updateAssignedRestaurantOrder.pending, (state) => {
+                state.loading = true;
+                state.error = null;
+            })
+            .addCase(updateAssignedRestaurantOrder.fulfilled, (state, action) => {
+                state.loading = false;
+                const updatedAssigned = action.payload;
+                state.orderRequest = state.orderRequest.map((order) =>
+                  order?.id === updatedAssigned.id ? updatedAssigned : order)
+            })
+            .addCase(updateAssignedRestaurantOrder.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.payload || "Failed to fetch orders.";
             })
