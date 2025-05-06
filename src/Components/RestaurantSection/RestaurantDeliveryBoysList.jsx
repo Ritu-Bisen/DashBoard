@@ -135,10 +135,10 @@ dispatch(getRestaurantDeliveryBoyData())
       }))
 
   return (
-    <div className=" w-[calc(100%-300px)] ml-[300px] h-screen flex flex-col mt-2  ">
-      <div className=" overflow-y-auto flex-1 pt-[100px] ">
+    <div className=" w-[calc(100%-300px)] ml-[300px] h-screen flex flex-col   ">
+      <div className=" overflow-y-auto flex-1 pt-[120px] ">
         <div className='flex justify-between '> 
-        <h1 className="  ml-2  text-3xl font-bold ">Delivery Boys Management</h1>
+        <h1 className="  ml-2  text-3xl font-bold ">Delivery Boys List</h1>
           <input className="border-2 border-gray-400 w-95 h-10 rounded-full p-3" type='text' placeholder='Search'/>
           </div>
        

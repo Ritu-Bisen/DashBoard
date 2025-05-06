@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { employeeDataApi, fetchEployeeData } from "../../Api/salonApi/salonEmployeeDetailsApi";
+//import { employeeDataApi, fetchEployeeData } from "../../Api/salonApi/salonEmployeeDetailsApi";
 import { fetchRestaurantEmployeeData, restaurantEmployeeDataApi } from "../../Api/restaurantApi/restaurantEmployeeApi";
 //import { seller_id } from "../../../Components/MartSection/StockManagementForm";
 

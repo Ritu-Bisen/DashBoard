@@ -70,6 +70,7 @@ const RestaurantSidebar = () => {
           { title: "Add Delivery Boy ", path: "/restaurant/deliveryboy/add-delivery-boy" },
         
         { title: "Delivery Boy List", path: "/restaurant/deliveryboy/delivery-boy-list" },
+        { title: "Delivery Boy Management", path: "/restaurant/deliveryboy/delivery-boy-management" },
         ],
       },
       {

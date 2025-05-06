@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { employeeDataApi, fetchEployeeData } from "../../Api/salonApi/salonEmployeeDetailsApi";
-import { fetchGymEployeeData, gymEmployeeDataApi } from "../../Api/gymApi/gymAddEmployeeApi";
+//import { employeeDataApi, fetchEployeeData } from "../../Api/salonApi/salonEmployeeDetailsApi";
+import { fetchGymEmployeeData, gymEmployeeDataApi } from "../../Api/gymApi/gymAddEmployeeApi";
 
 
 export const gymEmployeeDetailsList = createAsyncThunk ("employee-details/fetch",async({formData,gym_seller_id})=>{
@@ -10,8 +10,8 @@ export const gymEmployeeDetailsList = createAsyncThunk ("employee-details/fetch"
     return employeeDetails;
 })
 
-export const getGymemployeeList = createAsyncThunk("employee/fetch",async()=>{
-  const employeesList = await fetchGymEployeeData();
+export const getGymEmployeeList = createAsyncThunk("employee/fetch",async()=>{
+  const employeesList = await fetchGymEmployeeData();
 
   return employeesList;
 })
@@ -36,14 +36,14 @@ const gymEmployeeDataSlice = createSlice({
            .addCase(gymEmployeeDetailsList.rejected,(state,action)=>{
              state.error=action.payload
            })
-           .addCase(getGymemployeeList.pending,(state)=>{
+           .addCase(getGymEmployeeList.pending,(state)=>{
             state.loading=true,
             state.error=null
             })
-            .addCase(getGymemployeeList.fulfilled,(state,action)=>{
+            .addCase(getGymEmployeeList.fulfilled,(state,action)=>{
              state.employeeData=action.payload
             })
-            .addCase(getGymemployeeList.rejected,(state,action)=>{
+            .addCase(getGymEmployeeList.rejected,(state,action)=>{
               state.error=action.payload
             })
 

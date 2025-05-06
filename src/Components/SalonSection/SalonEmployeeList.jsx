@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import DataTable from 'react-data-table-component';
 import { useDispatch, useSelector } from 'react-redux';
-import { getemployeeList } from '../../Redux/Slices/salonSlicees/salonEmployeeDataSlice';
+import { getEmployeeList } from '../../Redux/Slices/salonSlicees/salonEmployeeDataSlice';
 import { FaEye } from "react-icons/fa";
 import ViewEmployeeDetails from './ViewEmployeeDetails';
 
@@ -24,7 +24,7 @@ console.log(employeeData);
 const dispatch =useDispatch();
 
 useEffect(() => {
-  dispatch(getemployeeList())
+  dispatch(getEmployeeList())
 }, [dispatch])
 
 

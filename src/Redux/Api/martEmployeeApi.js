@@ -184,6 +184,16 @@ const uploadBankStatementPhoto = async (employee_id,employeeBankStatementImage)=
 };
 
 export const martemployeeDataApi = async (formData,seller_id) => {
+
+  try {
+    const {
+    data: { user },
+    error: authError,
+  } = await supabase.auth.getUser();
+
+  if (authError) throw authError;
+
+  const employeeId = user.id;
     const employeePhoto = formData.profile_image;
     console.log(employeePhoto);
     
@@ -207,9 +217,9 @@ export const martemployeeDataApi = async (formData,seller_id) => {
 
     console.log("Profile Image URL:", ProfileImageUrl);
   
-    try {
+    
       const employee_data = {
-       id: employee_id,
+        employeeId,
         name: formData.name,
          seller_id: seller_id,
         phone: formData.phone,
@@ -250,7 +260,7 @@ export const martemployeeDataApi = async (formData,seller_id) => {
   };
   
 
-  export const fetchMartEployeeData = async () => {
+  export const fetchMartEmployeeData = async () => {
     try {
       const { data, error } = await supabase
       .from("employees")

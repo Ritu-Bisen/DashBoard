@@ -7,7 +7,7 @@ import { FaEye } from "react-icons/fa";
 // import ViewGymEmployeeDeatils from './ViewGymEmployeeDeatils';
 // import { getGymemployeeList } from '../../Redux/Slices/gymSlice/gymEmployeeSlice';
 import ViewMartEmployeeDetails from './ViewMartEmployeeDetails';
-import { getmartemployeeList } from '../../Redux/Slices/martEmployeeSlice';
+import { getmartEmployeeList } from '../../Redux/Slices/martEmployeeSlice';
 import Header from './Header';
 
 const EmployeeList = () => {
@@ -29,7 +29,7 @@ console.log(employeeData);
 const dispatch =useDispatch();
 
 useEffect(() => {
-  dispatch(getmartemployeeList())
+  dispatch(getmartEmployeeList())
 }, [dispatch])
 
 

@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import DataTable from 'react-data-table-component';
 import { useDispatch, useSelector } from 'react-redux';
-import { getemployeeList } from '../../Redux/Slices/salonSlicees/salonEmployeeDataSlice';
+//import { getemployeeList } from '../../Redux/Slices/salonSlicees/salonEmployeeDataSlice';
 import { FaEye } from "react-icons/fa";
 
 import ViewGymEmployeeDeatils from './ViewGymEmployeeDeatils';
-import { getGymemployeeList } from '../../Redux/Slices/gymSlice/gymEmployeeSlice';
+import { getGymEmployeeList } from '../../Redux/Slices/gymSlice/gymEmployeeSlice';
 
 const GymEmployeeList = () => {
 const [isShowDetail, setIsShowDetail] = useState(false);
@@ -26,7 +26,7 @@ console.log(employeeData);
 const dispatch =useDispatch();
 
 useEffect(() => {
-  dispatch(getGymemployeeList())
+  dispatch(getGymEmployeeList())
 }, [dispatch])
 
 

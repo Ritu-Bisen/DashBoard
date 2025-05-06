@@ -252,9 +252,9 @@ const RestaurantAddDeliveryBoy = () => {
       <div className="pt-[100px]">
         <h1 className="text-3xl font-bold p-5"> Create Delivery Boy</h1>
       </div>
-      <div className="mt-5 ">
+      <div className="p-5 ">
         <form>
-          <div className="mt-5 bg-white m-5 rounded-xl p-5 flex gap-10">
+          <div className=" bg-white  rounded-xl p-5 flex gap-10">
             <div className="flex flex-col">
               <label className="text-lg font-semibold">
                 {" "}

@@ -14,7 +14,7 @@ import { Outlet, Route, Routes } from 'react-router-dom'
 //import OderRequest from '../Components/MartSection/OderRequest'
 import Reports from '../Components/MartSection/Reports'
 import Dashboard from '../Components/MartSection/Dashboard'
-import Employee from '../Components/MartSection/Employee'
+
 import AddDeliveryBoy from '../Components/MartSection/AddDeliveryBoy'
 import DeliveryBoyList from '../Components/MartSection/DeliveryBoyList'
 import OrderRequest from '../Components/MartSection/OrderRequest'
@@ -47,7 +47,7 @@ const MartRoutes = () => {
         <Route path="category/category" element={<CategoryManagement />} />
         <Route path="category/category-offer" element={<CategoryOfferTable />} />
         <Route path="order/orders" element={<OrderTable />} />
-        <Route path="employee" element={<Employee/>} />
+      
         <Route path="deliveryboy/delivery-boy-add" element={<AddDeliveryBoy />} />
         <Route path="deliveryboy/delivery-boy-management" element={<DeliveryBoyManagement/>} /> 
         <Route path="deliveryboy/delivery-boy-list" element={<DeliveryBoyList />} />

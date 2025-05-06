@@ -15,6 +15,7 @@ import RestaurantOrders from '../Components/RestaurantSection/RestaurantOrders';
 import RestaurantStockManagement from '../Components/RestaurantSection/RestaurantStockManagement';
 import RestaurantReports from '../Components/RestaurantSection/RestaurantReports';
 import RestaurantOrderRequest from '../Components/RestaurantSection/RestaurantOrderRequest';
+import RestaurantDeliveryBoysManagement from '../Components/RestaurantSection/RestaurantDeliveryBoysManagement';
 
 
 
@@ -40,6 +41,7 @@ const RestaurantRoutes = () => {
         <Route path="category/category" element={<RestaurantCategory/>}/>
          <Route path='category/category-offer' element={<RestaurantCategoryOffer/>}/>
       <Route path='deliveryboy/add-delivery-boy' element={<RestaurantAddDeliveryBoy/>}/>
+      <Route path='deliveryboy/delivery-boy-management' element={<RestaurantDeliveryBoysManagement/>}/>
         <Route path='deliveryboy/delivery-boy-list' element={<RestaurantDeliveryBoysList/>}/>
         <Route path='employee/employee-list' element={<RestaurantEmployeeDataList/>}/>
         <Route path='employee/add-employee' element={<RestaurantAddEmployee/>}/>
