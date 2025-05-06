@@ -1,31 +1,49 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { fetchorderAPI } from "../Api/orderapi";
+import { fetchMartAssignedOrderAPI, fetchMartOrderDetailsAPI} from "../Api/orderapi";
 
-export const getOrders = createAsyncThunk("order/fetch", async () => {
-        const orders = await fetchorderAPI();
+export const getAssignedOrders = createAsyncThunk("assign-orders/fetch", async () => {
+        const assignOrders = await fetchMartAssignedOrderAPI();
         // console.log(orders);
-        return orders;
+        return assignOrders;
 });
 
+export const getMartOrdersDetails=createAsyncThunk('orders-details/fetch',async(orderId)=>{
+    const ordersDetails = await fetchMartOrderDetailsAPI(orderId);
+    return ordersDetails;
+})
+
 const orderSlice = createSlice({
-    name: "orders",
+    name: "assignOrders",
+    name:'orders',
     initialState: {
-        orders: [],
+        assignOrders: [],
         loading: false,
         error: null,
     },
     reducers: {},
     extraReducers: (builder) => {
         builder
-            .addCase(getOrders.pending, (state) => {
+            .addCase(getAssignedOrders.pending, (state) => {
                 state.loading = true;
                 state.error = null;
             })
-            .addCase(getOrders.fulfilled, (state, action) => {
+            .addCase(getAssignedOrders.fulfilled, (state, action) => {
+                state.loading = false;
+                state.assignOrders = action.payload;
+            })
+            .addCase(getAssignedOrders.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.payload || "Failed to fetch orders.";
+            })
+            .addCase(getMartOrdersDetails.pending, (state) => {
+                state.loading = true;
+                state.error = null;
+            })
+            .addCase(getMartOrdersDetails.fulfilled, (state, action) => {
                 state.loading = false;
                 state.orders = action.payload;
             })
-            .addCase(getOrders.rejected, (state, action) => {
+            .addCase(getMartOrdersDetails.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.payload || "Failed to fetch orders.";
             });

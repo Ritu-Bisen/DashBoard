@@ -8,6 +8,7 @@ import { FaEye } from "react-icons/fa";
 // import { getGymemployeeList } from '../../Redux/Slices/gymSlice/gymEmployeeSlice';
 import ViewMartEmployeeDetails from './ViewMartEmployeeDetails';
 import { getmartemployeeList } from '../../Redux/Slices/martEmployeeSlice';
+import Header from './Header';
 
 const EmployeeList = () => {
 const [isShowDetail, setIsShowDetail] = useState(false);
@@ -119,7 +120,9 @@ useEffect(() => {
       }))
   return (
     <div className='fixed w-[calc(100%-300px)] ml-[300px]  pt-10'>
-    <h1 className=' font-bold text-3xl ml-5'>Employees List</h1>
+      <Header/>
+      
+    <h1 className=' font-bold text-3xl mt-15 ml-5'>Employees List</h1>
       <div className='overflow-x mt-9 '>
       <DataTable data={data} fixedHeaderScrollHeight='67vh' defaultSortFieldId={1} customStyles={customStyles} pagination fixedHeader columns={columns}/>
       </div> 

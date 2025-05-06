@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getOrderRequest } from "../../Redux/Slices/OrderRequestSlice";
+import { getOrderRequest, martOrderRequest, updateAssignedMartOrder } from "../../Redux/Slices/OrderRequestSlice";
 import { getdeliveryBoyData } from "../../Redux/Slices/deliveryBoyDataSlice";
 import Header from "./Header";
 import DataTable from "react-data-table-component";
@@ -13,10 +13,12 @@ const OrderRequest = () => {
   const [assignStatus, setAssignStatus] = useState({});
   const [isShowDetail, setIsShowDetail] = useState(false);
   const [showProducts, setShowProducts] = useState(null);
+  const [selectedDeliveryBoy, setSelectedDeliveryBoy] = useState({});
+  const [localOrders, setLocalOrders] = useState({});
 
-  const handleViewDetails = (orderRequest) => {
+  const handleViewDetails = (orderId) => {
     setIsShowDetail(true);
-    setShowProducts(orderRequest);
+    setShowProducts(orderId);
   };
 
   const handleProductsClose = () => {
@@ -26,86 +28,98 @@ const OrderRequest = () => {
   const { orderRequest } = useSelector((state) => state.orderRequest);
   const { deliveryBoys } = useSelector((state) => state.deliveryBoyData);
 
-  console.log(fetchorderRequestAPI());
+ console.log("bjj",orderRequest);
+  
 
   const dispatch = useDispatch();
+
   useEffect(() => {
     dispatch(getOrderRequest());
     dispatch(getdeliveryBoyData());
   }, [dispatch]);
 
-  const handleAssigned = (orderId) => {
-    setAssignStatus((prev) => ({
-      ...prev,
-      [orderId]: true, // set assigned true for only that order_id
-    }));
-  };
+   useEffect(() => {
+      if (orderRequest) {
+        setLocalOrders(orderRequest);
+      }
+    }, [orderRequest]);
 
-  const columns = [
-    {
-      name: "S.no",
-      selector: (row) => row.serialNo,
-    },
-    {
-      name: "Order Id",
-      selector: (row) => row.order_id,
-      width: "300px",
-    },
+   const handleAssigned = (orderId) => {
+      const deliveryBoyId = selectedDeliveryBoy[orderId];
+    
+      if (!deliveryBoyId) {
+        alert("Please select a delivery boy before assigning.");
+        return;
+      }
+    
+       dispatch(martOrderRequest({orderId,deliveryBoyId}));
+       dispatch( updateAssignedMartOrder(orderId));
+      console.log("Order ID:", orderId);
+      console.log("Delivery Boy ID:", deliveryBoyId);
+    
+      
+      setAssignStatus((prev) => ({
+        ...prev,
+        [orderId]: true,
+      }));
+    };
 
-    {
-      name: "User Name",
-      selector: (row) => row.user_name,
-    },
-    {
-      name: "User Contact",
-      selector: (row) => row.user_contact,
-      width: "150px",
-    },
-
-    {
-      name: "Quantity",
-      selector: (row) => row.quantity,
-    },
-
-    {
-      name: "Total Amount",
-      selector: (row) => row.total_amount,
-      width: "120px",
-    },
-
-    {
-      name: "Payment Status",
-      selector: (row) => row.payment_status,
-      width: "150px",
-    },
-    {
-      name: "Order Status",
-      selector: (row) => row.order_status,
-      width: "120px",
-    },
-    {
-      name: "Payment Method",
-      selector: (row) => row.payment_method,
-      width: "150px",
-    },
-    {
-      name: "Address",
-      selector: (row) => row.address,
-      width: "300px",
-    },
-
-    {
-      name: "View",
-      selector: (row) => row.view,
-      center: true,
-    },
-
-    {
-      name: "Delivery Boy",
-      selector: (row) => row.delivery_boy,
-      width: "300px",
-    },
-  ];
+    const columns = [
+      {
+        name: "S.no",
+        selector: (row) => row.serialNo,
+      },
+      {
+        name: "Order Id",
+        selector: (row) => row.order_id,
+        width: "300px",
+      },
+      {
+        name: "User Name",
+        selector: (row) => row.user_name,
+      },
+      {
+        name: "User Contact",
+        selector: (row) => row.user_contact,
+        width: "150px",
+      },
+     
+      {
+        name: "Total Amount",
+        selector: (row) => row.total_amount,
+        width: "120px",
+      },
+      {
+        name: "Payment Status",
+        selector: (row) => row.payment_status,
+        width: "150px",
+      },
+      {
+        name: "Order Status",
+        selector: (row) => row.order_status,
+        width: "120px",
+      },
+      {
+        name: "Payment Method",
+        selector: (row) => row.payment_method,
+        width: "150px",
+      },
+      {
+        name: "Address",
+        selector: (row) => row.address,
+        width: "300px",
+      },
+      {
+        name: "View",
+        selector: (row) => row.view,
+        center: true,
+      },
+      {
+        name: "Delivery Boy",
+        selector: (row) => row.delivery_boy,
+        width: "300px",
+      },
+    ];
 
   const customStyles = {
     headCells: {
@@ -130,45 +144,54 @@ const OrderRequest = () => {
     },
   };
 
-  const data = orderRequest
-    ? Object.entries(orderRequest).map(([orderId, items], index) => ({
-        serialNo: index + 1,
-        order_id: orderId,
-        user_name: items[0]?.orders?.users?.name,
-        user_contact: items[0]?.orders?.users?.phone_number,
-        delivery_boy: (
-          <div className="space-x-3">
-            <select className="w-40 h-8 border-b-gray-300 border-1">
-              <option value="">Select</option>
-              {deliveryBoys.map((boy, index) => (
-                <option value={boy.full_name} key={index}>
-                  {boy.full_name}
-                </option>
-              ))}
-            </select>
-            <button
-              onClick={() => handleAssigned(orderId)}
-              className="bg-green-500 hover:bg-green-700 text-white font-semibold px-5 py-2 rounded-lg"
-            >
-              Assign
-            </button>
-          </div>
-        ),
+  const data = (orderRequest || [])
+  .filter(item => item && item.id)  // Ensure item and item.id are valid
+  .map((item, index) => ({
+    serialNo: index + 1,
+    order_id: item.id,
+    user_name: item.users?.name || "N/A",
+    user_contact: item.users?.phone_number || "N/A",
+    total_amount: item.total_amount,
+    payment_status: item.payment_status,
+    payment_method: item.payment_method,
+    order_status: assignStatus[item.id] ? "Assigned" : "Processing",
+    address: item.address,
+    delivery_boy: (
+      <div className="space-x-3">
+        <select
+          className="w-40 h-8 border-b-gray-300 border-1"
+          value={selectedDeliveryBoy[item.id] || ""}
+          onChange={(e) =>
+            setSelectedDeliveryBoy((prev) => ({
+              ...prev,
+              [item.id]: e.target.value,
+            }))
+          }
+        >
+          <option value="">Select</option>
+          {deliveryBoys.map((boy, index) => (
+            <option value={boy.id} key={index}>
+              {boy.full_name}
+            </option>
+          ))}
+        </select>
 
-        total_amount: items[0]?.orders?.total_amount,
-        payment_status: items[0]?.orders?.payment_status,
-        order_status: assignStatus[orderId] ? "Assigned" : "Processing",
+        <button
+          onClick={() => handleAssigned(item.id)}
+          className="bg-green-500 hover:bg-green-700 text-white font-semibold px-5 py-2 rounded-lg"
+        >
+          Assign
+        </button>
+      </div>
+    ),
+    view: (
+      <button onClick={() => handleViewDetails(item.id)}>
+        <FaEye size={25} />
+      </button>
+    ),
+  }));
 
-        payment_method: items[0]?.orders?.payment_method,
-        address: items[0]?.orders?.address,
-        quantity: items.length,
-        view: (
-          <button onClick={() => handleViewDetails(items)}>
-            <FaEye size={25} />
-          </button>
-        ),
-      }))
-    : [];
+ 
 
   return (
     <div className="w-[calc(100%-300px) ml-[300px]">
@@ -198,7 +221,7 @@ const OrderRequest = () => {
             ></div>
             <div className="absolute z-1000">
               <ViewOrderRequestProducts
-                orderProducts={showProducts}
+                orderId={showProducts}
                 onClose={handleProductsClose}
               />
             </div>

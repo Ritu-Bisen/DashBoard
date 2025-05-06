@@ -27,41 +27,37 @@ const ViewGymProductDetails = ({gymProducts,onClose}) => {
                     <th className="border-gray-300 border p-2 px-5">Name</th>
                     <td className="border-gray-300 border p-2 px-5">{gymProducts.name}</td>
                 </tr>
+                  <tr>
+                    <th className="border-gray-300 border p-2 px-5">Discounted %</th>
+                    <td className="border-gray-300 border p-2 px-5">{gymProducts.discount_percentage}</td>
+                </tr>
                 <tr>
-                    <th className="border-gray-300 border p-2 px-5">Category</th>
-                    <td className="border-gray-300 border p-2 px-5">{gymProducts.category}</td>
+                    <th className="border-gray-300 border p-2 px-5">Discounted Price</th>
+                    <td className="border-gray-300 border p-2 px-5">{gymProducts.discount_price}</td>
+                </tr>
+                <tr>
+                    <th className="border-gray-300 border p-2 px-5">CGST INR</th>
+                    <td className="border-gray-300 border p-2 px-5">{gymProducts.cgst_inr}</td>
+                </tr>
+                <tr>
+                    <th className="border-gray-300 border p-2 px-5">SGST INR</th>
+                    <td className="border-gray-300 border p-2 px-5">{gymProducts.sgst_inr}</td>
+                </tr>
+                <tr>
+                    <th className="border-gray-300 border p-2 px-5">GST </th>
+                    <td className="border-gray-300 border p-2 px-5">{gymProducts.gst}</td>
+                </tr>
+                <tr>
+                    <th className="border-gray-300 border p-2 px-5">HSN Code</th>
+                    <td className="border-gray-300 border p-2 px-5">{gymProducts.hsn_code}</td>
+                </tr>
+                 <tr>
+                    <th className="border-gray-300 border p-2 px-5">Taxable Price</th>
+                    <td className="border-gray-300 border p-2 px-5">{gymProducts.taxable_price}</td>
                 </tr>
                 <tr>
                     <th className="border-gray-300 border p-2 px-5">Price</th>
                     <td className="border-gray-300 border p-2 px-5">{gymProducts.price}</td>
-                </tr>
-                <tr>
-                    <th className="border-gray-300 border p-2 px-5">Discounted %</th>
-                    <td className="border-gray-300 border p-2 px-5">{gymProducts.discounted_percentage}</td>
-                </tr>
-                <tr>
-                    <th className="border-gray-300 border p-2 px-5">Discounted Price</th>
-                    <td className="border-gray-300 border p-2 px-5">{gymProducts.discounted_price}</td>
-                </tr>
-                <tr>
-                    <th className="border-gray-300 border p-2 px-5">Brand</th>
-                    <td className="border-gray-300 border p-2 px-5">{gymProducts.brand}</td>
-                </tr>
-                <tr>
-                    <th className="border-gray-300 border p-2 px-5">Model No.</th>
-                    <td className="border-gray-300 border p-2 px-5">{gymProducts.model_number}</td>
-                </tr>
-                <tr>
-                    <th className="border-gray-300 border p-2 px-5">No. of Pack</th>
-                    <td className="border-gray-300 border p-2 px-5">{gymProducts.number_of_pack}</td>
-                </tr>
-                <tr>
-                    <th className="border-gray-300 border p-2 px-5">Gender</th>
-                    <td className="border-gray-300 border p-2 px-5">{gymProducts.gender}</td>
-                </tr>
-                <tr>
-                    <th className="border-gray-300 border p-2 px-5">Weight</th>
-                    <td className="border-gray-300 border p-2 px-5">{gymProducts.weight}</td>
                 </tr>
                 <tr>
                     <th className="border-gray-300 border p-2 px-5">Stock Quantity</th>
@@ -70,7 +66,7 @@ const ViewGymProductDetails = ({gymProducts,onClose}) => {
             </table>
          </div>
          <div>
-            <Carousel image={gymProducts.image_urls} className="h-65 w-90" />
+            <Carousel  image={gymProducts.image_urls} className="h-85 w-90" />
          </div>
      </div>
      <div>
@@ -85,11 +81,7 @@ const ViewGymProductDetails = ({gymProducts,onClose}) => {
         </tr>
         <tr>
             <th className="border-gray-300 border p-2 px-5">Description</th>
-            <td className="border-gray-300 border p-2 px-5"> {gymProducts?.description.map((list, index) => (
-                      <p key={index}>
-                        <span className="font-bold">{index + 1}.</span> {list}
-                      </p>
-                    ))}</td>
+            <td className="border-gray-300 border p-2 px-5"> {gymProducts.description} </td>
         </tr>
       </table>
        

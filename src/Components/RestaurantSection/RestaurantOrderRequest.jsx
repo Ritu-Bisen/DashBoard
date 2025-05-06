@@ -21,9 +21,9 @@ const RestaurantOrderRequest = () => {
   const [selectedDeliveryBoy, setSelectedDeliveryBoy] = useState({});
   const [localOrders, setLocalOrders] = useState({});
 
-  const handleViewDetails = (orderRequest) => {
+  const handleViewDetails = (orderId) => {
     setIsShowDetail(true);
-    setShowProducts(orderRequest);
+    setShowProducts(orderId);
   };
 
   const handleProductsClose = () => {
@@ -149,9 +149,11 @@ const RestaurantOrderRequest = () => {
     },
   };
 
-  const data=orderRequest.map((item, index) => ({
+  const data = (orderRequest || [])
+  .filter(item => item && item.id)  // Ensure item and item.id are valid
+  .map((item, index) => ({
     serialNo: index + 1,
-    order_id: item?.id,
+    order_id: item.id,
     user_name: item.users?.name || "N/A",
     user_contact: item.users?.phone_number || "N/A",
     total_amount: item.total_amount,
@@ -161,24 +163,22 @@ const RestaurantOrderRequest = () => {
     address: item.address,
     delivery_boy: (
       <div className="space-x-3">
-       <select
-  className="w-40 h-8 border-b-gray-300 border-1"
-  value={selectedDeliveryBoy[item.id] || ""}
-  onChange={(e) =>
-    setSelectedDeliveryBoy((prev) => ({
-      ...prev,
-      [item.id]: e.target.value,
-    }))
-  }
- 
->
-
+        <select
+          className="w-40 h-8 border-b-gray-300 border-1"
+          value={selectedDeliveryBoy[item.id] || ""}
+          onChange={(e) =>
+            setSelectedDeliveryBoy((prev) => ({
+              ...prev,
+              [item.id]: e.target.value,
+            }))
+          }
+        >
           <option value="">Select</option>
           {deliveryBoys.map((boy, index) => (
-                <option value={boy.id} key={index}>
-                  {boy.full_name}
-                </option>
-              ))}
+            <option value={boy.id} key={index}>
+              {boy.full_name}
+            </option>
+          ))}
         </select>
 
         <button
@@ -190,18 +190,19 @@ const RestaurantOrderRequest = () => {
       </div>
     ),
     view: (
-      <button onClick={() => handleViewDetails(item)}>
+      <button onClick={() => handleViewDetails(item.id)}>
         <FaEye size={25} />
       </button>
     ),
   }));
+
   
 
  
 
   return (
     <div className="w-[calc(100%-300px) ml-[300px]">
-      <div className="pt-[110px]">
+      <div className="pt-[120px]">
         <div className="flex justify-between gap-3">
           <h1 className="ml-2 text-3xl font-bold">Order Requests</h1>
         </div>
@@ -225,7 +226,7 @@ const RestaurantOrderRequest = () => {
             ></div>
             <div className="absolute z-1000">
               <RestaurantViewOrderRequest
-                orderProducts={showProducts}
+                orderId={showProducts}
                 onClose={handleProductsClose}
               />
             </div>

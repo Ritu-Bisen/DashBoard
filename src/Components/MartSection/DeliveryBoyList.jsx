@@ -132,7 +132,7 @@ dispatch(getdeliveryBoyData())
       <Header/>
       <div className='mt-25'>
         <div className='flex justify-between '> 
-        <h1 className="  ml-2  text-3xl font-bold ">Delivery Boys Management</h1>
+        <h1 className="  ml-2  text-3xl font-bold ">Delivery Boys List</h1>
           <input className="border-2 border-gray-400 w-95 h-10 rounded-full p-3" type='text' placeholder='Search'/>
           </div>
        

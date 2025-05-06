@@ -28,6 +28,8 @@ export const fetchRestaurantOrderAPI = async (orderId) => {
 
 
 export const fetchAssignedDeliveryBoy=async(orderId)=>{
+  console.log(orderId);
+  
   try{
     const{data,error}=await supabase
     .from("delivery_boy_orders")

@@ -3,7 +3,7 @@ import DataTable from "react-data-table-component";
 import { IoMdSearch } from "react-icons/io";
 import Header from "../MartSection/Header";
 import { useDispatch, useSelector } from "react-redux";
-import { getOrders } from "../../Redux/Slices/OrderSlice";
+import { getAssignedOrders } from "../../Redux/Slices/OrderSlice";
 import { FaEye } from "react-icons/fa";
 import ViewDetails from "./ViewDetails";
 import ViewOrderDetails from "./ViewOrderDetails";
@@ -14,23 +14,25 @@ const OrderTable = () => {
   const [isShowDetail, setIsShowDetail] = useState(false);
   const [showOrder, setShowOrder] = useState(null);
 
-  const handleViewDetails = (orders) => {
+  const handleViewDetails = (orderId) => {
     setIsShowDetail(true);
-    setShowOrder(orders);
+    setShowOrder(orderId);
   };
 
   const handleProductDetailClose = () => {
     setIsShowDetail(false);
   };
 
-  const { orders } = useSelector((state) => state.order); //order=store,orders=initialstate
+  const { assignOrders } = useSelector((state) => state.order); 
+  
+
  
   
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getOrders());
+    dispatch(getAssignedOrders());
  
   }, [dispatch]);
 
@@ -45,28 +47,10 @@ const OrderTable = () => {
       width: "300px",
     },
     {
-      name: "User Name",
-      selector: (row) => row.user_name,
+      name: "User Id",
+      selector: (row) => row.user_id,
+      width: "300px",
     },
-    {
-      name: "User Contact",
-      selector: (row) => row.user_contact,
-      width: "150px",
-    },
-    {
-      name: "Order Type",
-      selector: (row) => row.order_type,
-    },
-    {
-      name: "Quantity",
-      selector: (row) => row.quantity,
-    },
-    {
-      name: "Product Name",
-      selector: (row) => row.product_name,
-      width: "150px",
-    },
-
     {
       name: "Total Amount",
       selector: (row) => row.total_amount,
@@ -93,11 +77,11 @@ const OrderTable = () => {
       selector: (row) => row.address,
       width: "300px",
     },
-   
+
     {
       name: "View",
       selector: (row) => row.view,
-      center:true,
+      center: true,
     },
   ];
 
@@ -124,30 +108,24 @@ const OrderTable = () => {
     },
   };
 
-  const data = orders.map((item, index) => ({
-    serialNo: index + 1,
-
-    order_id: item.order_id,
-
-    quantity: item.quantity,
-    user_name: item.orders.users.name,
-    user_contact: item.orders.users.phone_number,
-
-    product_name: item.mart_products.name,
-
-    order_type: item.orders.order_type,
-    total_amount: item.orders.total_amount,
-    payment_status: item.orders.payment_status,
-    order_status: item.orders.order_status,
-    payment_method: item.orders.payment_method,
-    address: item.orders.address,
-   
-    view:(
-      <button onClick={() => handleViewDetails(item)}>
-        <FaEye size={25} />
-      </button>
-    ),
-  }));
+  const data = assignOrders.map((item, index) => ({
+     serialNo: index + 1,
+ 
+     order_id: item.id,
+     user_id: item.user_id,
+     total_amount: item.total_amount,
+     payment_status: item.payment_status,
+     order_status: item.order_status,
+     payment_method: item.payment_method,
+     address: item.address,
+ 
+     view: (
+       <button onClick={() => handleViewDetails(item.id)}>
+         <FaEye size={25} />
+       </button>
+     ),
+   }));
+ 
 
   return (
     <div className="relative w-[calc(100%-300px)] ml-[300px]">
@@ -211,7 +189,7 @@ const OrderTable = () => {
             ></div>
             <div className="absolute z-1000">
               <ViewOrderDetails
-                orders={showOrder}
+                orderId={showOrder}
                 onClose={handleProductDetailClose}
               />
             </div>

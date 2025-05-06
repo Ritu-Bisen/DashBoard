@@ -5,7 +5,7 @@ import { getAssignedDeliveryBoy, getRestaurantOrders } from "../../Redux/Slices/
 
 
 const RestaurantViewOrderdetails = ({orderId, onClose}) => {
-    console.log(orderId);
+   console.log(orderId);
     
   const { orders } = useSelector((state) => state.restaurantOrder);
    const { assignedDeliveryBoy } = useSelector((state) => state.restaurantOrder); 
@@ -30,9 +30,14 @@ const RestaurantViewOrderdetails = ({orderId, onClose}) => {
 
   const orderInfo = orders[0].orders;
   const userInfo = orderInfo.users;
+  const deliveryBoy = assignedDeliveryBoy[0].delivery_boys 
+console.log("orders",orders);
+
+  console.log(deliveryBoy);
+  
 
   return (
-    <div className="fixed top-20 right-30 h-150 w-250 overflow-y-scroll bg-gray-300 pb-5">
+    <div className="fixed top-1/2 right-1/2 transition translate-x-1/2 -translate-y-1/2 h-150 w-250 overflow-y-scroll bg-gray-300 pb-5">
       <div className="border-b border-gray-700 py-8 flex justify-between p-5">
         <h3 className="font-bold text-3xl">Order Products Details</h3>
         <button onClick={onClose} className="bg-red-500 p-2 rounded-full w-20 text-white">
@@ -51,7 +56,7 @@ const RestaurantViewOrderdetails = ({orderId, onClose}) => {
               <tr><th className="border p-2">Order Type :</th><td className="border p-2">{orderInfo.order_type}</td></tr>
               <tr><th className="border p-2">Payment Method :</th><td className="border p-2">{orderInfo.payment_method}</td></tr>
               <tr><th className="border p-2">Payment Status :</th><td className="border p-2">{orderInfo.payment_status}</td></tr>
-              <tr><th className="border p-2">Delivery Boys :</th><td className="border p-2">{assignedDeliveryBoy?.delivery_boys?.full_name}</td></tr>
+              <tr><th className="border p-2">Delivery Boys :</th><td className="border p-2">{deliveryBoy.full_name}</td></tr>
               <tr><th className="border p-2">Total Amount :</th><td className="border p-2">{orderInfo.total_amount}</td></tr>
             </tbody>
           </table>

@@ -54,13 +54,10 @@ useEffect(() => {
         selector: (row) => row.discounted_price,
       },
       {
-        name: "Category",
-        selector: (row) => row.category,
+        name: "Taxable Price",
+        selector: (row) => row.taxable_price,
       },
-      {
-        name: "Brand",
-        selector: (row) => row.brand,
-      },
+      
       {
         name: "Final Price",
         selector: (row) => row.price,
@@ -69,16 +66,7 @@ useEffect(() => {
         name: "Quantity",
         selector: (row) => row.stock_quantity,
       }, 
-        {
-        name: "Gender",
-        selector: (row) => row.gender,
-      },
-      {
-        name: "Weight",
-        selector: (row) => row.weight,
-      },
-
-
+    
       {
         name: "Status",
         selector: (row) => row.status,
@@ -123,13 +111,12 @@ useEffect(() => {
         id:item.id,
         image_urls:(<img src={item.image_urls[0]}/>),
         name:item.name,
-        discounted_percentage:item.discounted_percentage,
-        discounted_price:item.discounted_price,
-        category:item.category,
-        brand:item.brand,
+        discounted_percentage:item.discount_percentage,
+        discounted_price:item.discount_price,
+      
         stock_quantity:item.stock_quantity,
-        gender:item.gender,
-        weight:item.weight,
+        taxable_price:item.taxable_price,
+       
         price:item.price,
         status:(item.stock_quantity>0?<p className='bg-green-800  rounded-lg p-3'>Available</p>:<p className='bg-red-700 rounded-lg p-3'>Not Available</p>),
         view:( <button onClick={() => handleViewDetails(item)}>

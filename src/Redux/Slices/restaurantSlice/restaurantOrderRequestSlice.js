@@ -62,9 +62,13 @@ const restaurantOrderRequestSlice = createSlice({
             })
             .addCase(updateAssignedRestaurantOrder.fulfilled, (state, action) => {
                 state.loading = false;
-                const updatedAssigned = action.payload;
-                state.orderRequest = state.orderRequest.map((order) =>
-                  order?.id === updatedAssigned.id ? updatedAssigned : order)
+        const updatedAssigned = action.payload;
+      
+        if (!updatedAssigned) return; //  Avoid crashing
+      
+        state.orderRequest = state.orderRequest.map((order) =>
+          order.id === updatedAssigned.id ? updatedAssigned : order
+        );
             })
             .addCase(updateAssignedRestaurantOrder.rejected, (state, action) => {
                 state.loading = false;
