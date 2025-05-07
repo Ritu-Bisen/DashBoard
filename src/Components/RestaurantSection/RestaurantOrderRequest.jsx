@@ -32,6 +32,7 @@ const RestaurantOrderRequest = () => {
 
   const { orderRequest } = useSelector((state) => state.restaurantOrderRequest);
   const { deliveryBoys } = useSelector((state) => state.restaurantDeliveryBoy);
+    const{sellerDetails}=useSelector((state)=>state.seller)
 
   console.log("hii",orderRequest)
 
@@ -39,7 +40,7 @@ const RestaurantOrderRequest = () => {
 
   useEffect(() => {
     dispatch(getRestaurantDeliveryBoyData());
-    dispatch(getRestaurantOrderRequest());
+    dispatch(getRestaurantOrderRequest(sellerDetails));
   }, [dispatch]);
 
   useEffect(() => {

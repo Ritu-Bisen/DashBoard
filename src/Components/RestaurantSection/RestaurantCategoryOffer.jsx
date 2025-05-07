@@ -8,12 +8,13 @@ import { getRestaurantCategory } from '../../Redux/Slices/restaurantSlice/restau
 const RestaurantCategoryOffer = () => {
 
     const { category } = useSelector((state) => state.restaurantCategory);
+     const{sellerDetails}=useSelector((state)=>state.seller)
     console.log(category);
   
     const dispatch = useDispatch();
   
     useEffect(() => {
-      dispatch(getRestaurantCategory());
+      dispatch(getRestaurantCategory(sellerDetails.segment));
     }, [dispatch]);
   
 

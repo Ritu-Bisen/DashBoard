@@ -2,6 +2,7 @@ import { toast } from "react-toastify";
 import { v4 as uuidv4 } from 'uuid';
 import { restaurant_seller_id } from "../../../Components/RestaurantSection/RestaurantAddDeliveryBoy";
 import supabase from "../../../SupaBaseClient";
+import { useSelector } from "react-redux";
 
 export const checkExistingEmployee = async(phone)=>{
   try {
@@ -20,12 +21,12 @@ export const checkExistingEmployee = async(phone)=>{
 
 const uploadEmployeePhoto = async (employee_id,employeePhoto)=>{
     try{
-
+      const{sellerDetails}=useSelector((state)=>state.seller)
         console.log(employeePhoto);
         console.log(employee_id);
         
         
-        const filePath=`restaurant/${restaurant_seller_id}/${employee_id}/profile_pic`;
+        const filePath=`${sellerDetails.segment}/${sellerDetails.id}/${employee_id}/profile_pic`;
 
         const {error} = await supabase.storage
         .from("employees")
@@ -48,6 +49,7 @@ const uploadEmployeePhoto = async (employee_id,employeePhoto)=>{
 
 const uploadAadhar = async(employee_id, aadharPhoto) =>{
   try {
+    const{sellerDetails}=useSelector((state)=>state.seller)
     console.log(aadharPhoto);
     
     const uploadUrls = await Promise.all(
@@ -65,7 +67,7 @@ const uploadAadhar = async(employee_id, aadharPhoto) =>{
           fileLabel = `AadharCardBack`
         }
         const fileName = fileLabel
-        const filePath = `restaurant/${restaurant_seller_id}/${employee_id}/${fileName}`
+        const filePath = `${sellerDetails.segment}/${sellerDetails.id}/${employee_id}/${fileName}`
 
         const {error} = await supabase.storage
         .from("employees")
@@ -90,8 +92,8 @@ const uploadAadhar = async(employee_id, aadharPhoto) =>{
 
 const uploadPanCardPhoto = async (employee_id,employeePanCard)=>{
   try{
-
-      const filePath=`restaurant/${restaurant_seller_id}/${employee_id}/PanCard_image`;
+    const{sellerDetails}=useSelector((state)=>state.seller)
+      const filePath=`${sellerDetails.segment}/${sellerDetails.id}/${employee_id}/PanCard_image`;
 
       const {error} = await supabase.storage
       .from("employees")
@@ -114,8 +116,8 @@ const uploadPanCardPhoto = async (employee_id,employeePanCard)=>{
 
 const uploadPassbookPhoto = async (employee_id,employeePassBook)=>{
   try{
-
-      const filePath=`restaurant/${restaurant_seller_id}/${employee_id}/Passbook`;
+    const{sellerDetails}=useSelector((state)=>state.seller)
+      const filePath=`${sellerDetails.segment}/${sellerDetails.id}/${employee_id}/Passbook`;
 
       const {error} = await supabase.storage
       .from("employees")
@@ -137,8 +139,8 @@ const uploadPassbookPhoto = async (employee_id,employeePassBook)=>{
 
 const uploadCancelChequePhoto = async (employee_id,employeeCancelCheque)=>{
   try{
-
-      const filePath=`restaurant/${restaurant_seller_id}/${employee_id}/Cancel_cheque`;
+    const{sellerDetails}=useSelector((state)=>state.seller)
+      const filePath=`${sellerDetails.segment}/${sellerDetails.id}/${employee_id}/Cancel_cheque`;
 
       const {error} = await supabase.storage
       .from("employees")
@@ -160,8 +162,8 @@ const uploadCancelChequePhoto = async (employee_id,employeeCancelCheque)=>{
 
 const uploadBankStatementPhoto = async (employee_id,employeeBankStatementImage)=>{
   try{
-
-      const filePath=`restaurant/${restaurant_seller_id}/${employee_id}/bank_Statement`;
+    const{sellerDetails}=useSelector((state)=>state.seller)
+      const filePath=`${sellerDetails.segment}/${sellerDetails.id}/${employee_id}/bank_Statement`;
 
       const {error} = await supabase.storage
       .from("employees")
@@ -181,9 +183,10 @@ const uploadBankStatementPhoto = async (employee_id,employeeBankStatementImage)=
   }
 };
 
-export const restaurantEmployeeDataApi = async (formData, restaurant_seller_id) => {
+export const restaurantEmployeeDataApi = async (formData) => {
 
   try {
+    const{sellerDetails}=useSelector((state)=>state.seller)
     const {
     data: { user },
     error: authError,
@@ -220,10 +223,10 @@ export const restaurantEmployeeDataApi = async (formData, restaurant_seller_id) 
       const employee_data = {
         employeeId,
         name: formData.name,
-         seller_id: restaurant_seller_id,
+         seller_id: sellerDetails.id,
         phone: formData.phone,
         email: formData.email,
-        section: "restaurant",
+        section: sellerDetails.segment,
         role: formData.designation,
         aadhaar_number: formData.aadhar_no,
         pan_number: formData.pan_no,
@@ -261,10 +264,11 @@ export const restaurantEmployeeDataApi = async (formData, restaurant_seller_id) 
 
   export const fetchRestaurantEmployeeData = async () => {
     try {
+      const{sellerDetails}=useSelector((state)=>state.seller)
       const { data, error } = await supabase
       .from("employees")
       .select('*')
-      .match({section:"restaurant",seller_id:restaurant_seller_id})
+      .match({section:sellerDetails.segment,seller_id:sellerDetails.id})
       if (!error) {
         console.log("fetching data succesfully", data);
       } else {

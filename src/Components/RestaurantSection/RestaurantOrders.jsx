@@ -26,6 +26,7 @@ const RestaurantOrders = () => {
   };
 
   const { assignedOrder } = useSelector((state) => state.restaurantOrder);
+   const{sellerDetails}=useSelector((state)=>state.seller)
 
 //  console.log("hii", assignedDeliveryBoy);
 
@@ -34,7 +35,7 @@ const RestaurantOrders = () => {
   
 
   useEffect(() => {
-    dispatch(getOrderAssignedData());
+    dispatch(getOrderAssignedData(sellerDetails));
     
   }, [dispatch]);
 
@@ -196,6 +197,7 @@ const RestaurantOrders = () => {
             ></div>
             <div className="absolute z-1000">
               <RestaurantViewOrderdetails
+              sellerDetails={sellerDetails}
                 orderId={showOrder}
                 onClose={handleProductDetailClose}
               />

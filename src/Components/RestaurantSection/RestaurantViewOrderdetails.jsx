@@ -4,14 +4,14 @@ import { getAssignedDeliveryBoy, getRestaurantOrders } from "../../Redux/Slices/
 
 
 
-const RestaurantViewOrderdetails = ({orderId, onClose}) => {
+const RestaurantViewOrderdetails = ({orderId, onClose,sellerDetails}) => {
    console.log(orderId);
     
   const { orders } = useSelector((state) => state.restaurantOrder);
    const { assignedDeliveryBoy } = useSelector((state) => state.restaurantOrder); 
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getRestaurantOrders(orderId));
+    dispatch(getRestaurantOrders(orderId,sellerDetails));
     dispatch(getAssignedDeliveryBoy(orderId));
   }, [dispatch]);
 

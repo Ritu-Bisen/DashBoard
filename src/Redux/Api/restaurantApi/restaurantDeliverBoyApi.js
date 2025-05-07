@@ -1,8 +1,9 @@
 import { toast } from "react-toastify";
 //import { seller_id } from "../../Components/MartSection/StockManagementForm";
 //import supabase from "../../SupaBaseClient"
-import { restaurant_seller_id } from "../../../Components/RestaurantSection/RestaurantAddDeliveryBoy";
+//import { restaurant_seller_id } from "../../../Components/RestaurantSection/RestaurantAddDeliveryBoy";
 import supabase from "../../../SupaBaseClient";
+import { useSelector } from "react-redux";
 
 
 
@@ -23,7 +24,8 @@ export const checkExistingDeliveryBoy = async(phone)=>{
 
 const uploadDeliveryBoyPhoto = async(id,deliveryBoyPhoto)=>{
     try {
-        const filepath = `restaurant/${restaurant_seller_id}/${id}/deliveryBoy_profile`;
+      const{sellerDetails}=useSelector((state)=>state.seller)
+        const filepath = `${sellerDetails.segment}/${sellerDetails.id}/${id}/deliveryBoy_profile`;
 
         const {error}= await supabase.storage
         .from("delivery-boys")
@@ -48,6 +50,7 @@ const uploadDeliveryBoyPhoto = async(id,deliveryBoyPhoto)=>{
 
 const uploadAadhar = async(id, aadharPhoto) =>{
     try {
+      const{sellerDetails}=useSelector((state)=>state.seller)
       console.log(aadharPhoto);
       
       const uploadUrls = await Promise.all(
@@ -65,7 +68,7 @@ const uploadAadhar = async(id, aadharPhoto) =>{
             fileLabel = `AadharCardBack`
           }
           const fileName = fileLabel
-          const filePath = `restaurant/${restaurant_seller_id}/${id}/${fileName}`
+          const filePath = `${sellerDetails.segment}/${sellerDetails.id}/${id}/${fileName}`
   
           const {error} = await supabase.storage
           .from("delivery-boys")
@@ -90,7 +93,8 @@ const uploadAadhar = async(id, aadharPhoto) =>{
 
 const uploadPanCardPhoto = async (id,panCardPhoto)=>{
     try {
-        const filePath = `restaurant/${restaurant_seller_id}/${id}/panCard`;
+      const{sellerDetails}=useSelector((state)=>state.seller)
+        const filePath = `${sellerDetails.segment}/${sellerDetails.id}/${id}/panCard`;
 
         const { error } = await supabase.storage
         .from("delivery-boys")
@@ -113,7 +117,8 @@ const uploadPanCardPhoto = async (id,panCardPhoto)=>{
 
 const uploadRcPhoto = async (id,rcPhoto)=>{
     try {
-        const filePath = `restaurant/${restaurant_seller_id}/${id}/rcPhoto`;
+      const{sellerDetails}=useSelector((state)=>state.seller)
+        const filePath = `${sellerDetails.segment}/${sellerDetails.id}/${id}/rcPhoto`;
 
         const { error } = await supabase.storage
         .from("delivery-boys")
@@ -136,7 +141,8 @@ const uploadRcPhoto = async (id,rcPhoto)=>{
 
 const uploadDrivingLicensePhoto = async (id,drivingLicensePhoto)=>{
     try {
-        const filePath = `restaurant/${restaurant_seller_id}/${id}/driving_License`;
+      const{sellerDetails}=useSelector((state)=>state.seller)
+        const filePath = `${sellerDetails.segment}/${sellerDetails.id}/${id}/driving_License`;
 
         const { error } = await supabase.storage
         .from("delivery-boys")
@@ -159,7 +165,8 @@ const uploadDrivingLicensePhoto = async (id,drivingLicensePhoto)=>{
 
 const uploadPassBookPhoto = async (id,passBookPhoto)=>{
     try {
-        const filePath = `restaurant/${restaurant_seller_id}/${id}/passBook_image`;
+      const{sellerDetails}=useSelector((state)=>state.seller)
+        const filePath = `${sellerDetails.segment}/${sellerDetails.id}/${id}/passBook_image`;
 
         const { error } = await supabase.storage
         .from("delivery-boys")
@@ -180,8 +187,9 @@ const uploadPassBookPhoto = async (id,passBookPhoto)=>{
     }
 }
 
-export const restaurantdeliveryBoyRegisterApi = async ({formData,restaurant_seller_id})=>{
+export const restaurantdeliveryBoyRegisterApi = async ({formData})=>{
     try {
+      const{sellerDetails}=useSelector((state)=>state.seller)
         const{data:{user},error:authError}=await supabase.auth.getUser();
 
         if(authError) throw authError;
@@ -228,8 +236,8 @@ const {data , error }= await supabase
         account_number:formData.account_no,
         ifsc_code:formData.bank_ifsc,
         bank_passbook_image_url:passBookUrl,
-        section:"restaurant",
-        seller_id:restaurant_seller_id,
+        section:sellerDetails.segment,
+        seller_id:sellerDetails.id,
         address:formData.address,
 
 
@@ -249,10 +257,11 @@ return data;
 
 export const fetchRestaurantDeliveryBoyData = async () =>{
     try {
+      const{sellerDetails}=useSelector((state)=>state.seller)
         const{data,error}= await supabase
         .from("delivery_boys")
         .select('*')
-       .match({"seller_id":restaurant_seller_id,"section":"restaurant"})
+       .match({"seller_id":sellerDetails.id,"section":sellerDetails.segment})
        
         if (!error) {
            console.log("fetch succefully",data)

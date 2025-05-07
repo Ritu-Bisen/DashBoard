@@ -1,10 +1,10 @@
 import React from 'react'
 import { Navigate, Outlet } from 'react-router-dom';
 
-const ProtectedRoute = ({children,role}) => {
-    const user = JSON.parse(localStorage.getItem("user"));
+const ProtectedRoute = ({children,segment}) => {
+    const seller = JSON.parse(localStorage.getItem("seller"));
 
-    if(!user || user.role !== role){
+    if(!seller || seller.segment !== segment){
       return <Navigate to='/'/>;
     }
   return children;

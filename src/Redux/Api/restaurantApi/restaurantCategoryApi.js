@@ -1,14 +1,18 @@
 
 
+import { useSelector } from "react-redux";
 import supabase from "../../../SupaBaseClient";
 
 
-export const fetchRestaurantCategoryApi = async () =>{
+export const fetchRestaurantCategoryApi = async (segment) =>{
     try {
+      // const{sellerDetails}=useSelector((state)=>state.seller)
+      // console.log(sellerDetails.segment);
+      
         const{data,error}= await supabase
         .from("categories")
         .select(`*`)
-        .eq("section","restaurant")
+        .eq("section",segment)
         if (!error) {
            console.log("fetch succefully",data)
             

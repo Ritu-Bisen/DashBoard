@@ -5,6 +5,7 @@ import supabase from "../../../SupaBaseClient";
 
 export const fetchRestaurantMenuApi = async () =>{
     try {
+      
         const{data,error}= await supabase
         .from("restaurant_products")
         .select(`*`)

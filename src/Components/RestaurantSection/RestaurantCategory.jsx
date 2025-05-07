@@ -7,12 +7,14 @@ import { fetchRestaurantCategoryApi } from '../../Redux/Api/restaurantApi/restau
 
 const RestaurantCategory = () => {
     const { category } = useSelector((state) => state.restaurantCategory);
+    const{sellerDetails}=useSelector((state)=>state.seller)
     const dispatch =useDispatch();
     useEffect(() => {
-     dispatch(getRestaurantCategory())
+     dispatch(getRestaurantCategory(sellerDetails.segment))
     }, [dispatch])
     
     console.log(fetchRestaurantCategoryApi());
+   
     
     
       const columns = [ {

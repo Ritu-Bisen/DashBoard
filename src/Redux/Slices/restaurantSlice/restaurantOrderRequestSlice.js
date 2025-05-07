@@ -2,8 +2,8 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 import { fetchRestaurantOrderRequestAPI, RestaurantOrdersAssigned, updateRestaurantAssignedOrder } from "../../Api/restaurantApi/restaurantOrderRequestApi";
 
-export const getRestaurantOrderRequest = createAsyncThunk("order-request/fetch", async () => {
-        const ordersRequest = await fetchRestaurantOrderRequestAPI();
+export const getRestaurantOrderRequest = createAsyncThunk("order-request/fetch", async (sellerDetails) => {
+        const ordersRequest = await fetchRestaurantOrderRequestAPI(sellerDetails);
         // console.log(orders);
         return ordersRequest;
 });

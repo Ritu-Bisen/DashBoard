@@ -1,17 +1,19 @@
 //import supabase from "../../SupaBaseClient";
 
-import { restaurant_seller_id } from "../../../Components/RestaurantSection/RestaurantAddDeliveryBoy";
+import { useSelector } from "react-redux";
+//import { restaurant_seller_id } from "../../../Components/RestaurantSection/RestaurantAddDeliveryBoy";
 import supabase from "../../../SupaBaseClient";
 
-export const fetchRestaurantOrderAPI = async (orderId) => {
+export const fetchRestaurantOrderAPI = async (orderId,sellerDetails) => {
   try {
+   
     console.log(orderId);
     
     const { data, error } = await supabase
       .from("restaurant_order_items")
       .select(`*,orders(*,users(*)),restaurant_products(*)`)
-      .eq('orders.order_type', 'restaurant')  // condition 1
-     .eq('orders.seller_id', restaurant_seller_id)
+      .eq('orders.order_type', sellerDetails.segment)  // condition 1
+     .eq('orders.seller_id',sellerDetails.id)
      .eq('order_id',`${orderId}`)
     if (!error) {
       console.log("fetch the order data", data);
@@ -31,6 +33,7 @@ export const fetchAssignedDeliveryBoy=async(orderId)=>{
   console.log(orderId);
   
   try{
+   
     const{data,error}=await supabase
     .from("delivery_boy_orders")
     .select(`*,delivery_boys(*)`)
@@ -48,13 +51,14 @@ export const fetchAssignedDeliveryBoy=async(orderId)=>{
 
 
 
-export const fetchAssignedData= async()=>{
+export const fetchAssignedData= async(sellerDetails)=>{
   try {
+    
     const {data,error}=await supabase
     .from("orders")
     .select('*')
-    .eq("order_type","restaurant")
-    .eq("seller_id","a10d0cab-e757-4f32-bc91-6adf2c79b786")
+    .eq("order_type",sellerDetails.segment)
+    .eq("seller_id",sellerDetails.id)
     .eq("is_assigned",true)
     if (!error) {
       console.log("fetch the order data", data);

@@ -158,7 +158,7 @@ const RestaurantAddEmployee = () => {
     }
     setErrors({});
     console.log(formData);
-    dispatch(restaurantEmployeeDetailsList({ formData, restaurant_seller_id }));
+    dispatch(restaurantEmployeeDetailsList({ formData }));
     handleClear()
   };
 

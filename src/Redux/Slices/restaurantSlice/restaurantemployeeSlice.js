@@ -3,8 +3,8 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { fetchRestaurantEmployeeData, restaurantEmployeeDataApi } from "../../Api/restaurantApi/restaurantEmployeeApi";
 //import { seller_id } from "../../../Components/MartSection/StockManagementForm";
 
-export const restaurantEmployeeDetailsList = createAsyncThunk ("employee-details/fetch",async({formData,restaurant_seller_id})=>{
-    const employeeDetails = await restaurantEmployeeDataApi(formData,restaurant_seller_id);
+export const restaurantEmployeeDetailsList = createAsyncThunk ("employee-details/fetch",async({formData})=>{
+    const employeeDetails = await restaurantEmployeeDataApi(formData);
    // console.log(formData);
     
     return employeeDetails;

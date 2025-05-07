@@ -4,9 +4,10 @@ import { fetchRestaurantCategoryApi } from "../../Api/restaurantApi/restaurantCa
 
 
 
-export const getRestaurantCategory=createAsyncThunk("product/fetch",async () =>{
-    const category = await fetchRestaurantCategoryApi();
+export const getRestaurantCategory=createAsyncThunk("category/fetch",async (segment) =>{
+    const category = await fetchRestaurantCategoryApi(segment);
     
+    console.log(category);
     
      return category;
 })

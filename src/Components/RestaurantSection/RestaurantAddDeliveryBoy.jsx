@@ -242,7 +242,7 @@ const RestaurantAddDeliveryBoy = () => {
       return;
     }
     setErrors({});
-    dispatch(restaurantDeliveryBoyRegister({ formData, restaurant_seller_id }));
+    dispatch(restaurantDeliveryBoyRegister({ formData}));
     // console.log("Form Submitted:", formData);
     handleClear();
   };
