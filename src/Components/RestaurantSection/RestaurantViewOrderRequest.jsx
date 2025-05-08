@@ -2,13 +2,13 @@ import React, { useEffect } from 'react'
 import { getRestaurantOrders } from '../../Redux/Slices/restaurantSlice/restaurantOrderSlice';
 import { useDispatch, useSelector } from 'react-redux';
 
-const RestaurantViewOrderRequest = ({orderId ,onClose}) => {
+const RestaurantViewOrderRequest = ({sellerDetails,orderId ,onClose}) => {
   console.log(orderId);
   const { orders } = useSelector((state) => state.restaurantOrder);
 
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getRestaurantOrders(orderId));
+    dispatch(getRestaurantOrders({sellerDetails,orderId}));
  
   }, [dispatch]);
 

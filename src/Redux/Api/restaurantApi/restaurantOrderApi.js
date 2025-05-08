@@ -4,10 +4,10 @@ import { useSelector } from "react-redux";
 //import { restaurant_seller_id } from "../../../Components/RestaurantSection/RestaurantAddDeliveryBoy";
 import supabase from "../../../SupaBaseClient";
 
-export const fetchRestaurantOrderAPI = async (orderId,sellerDetails) => {
+export const fetchRestaurantOrderAPI = async ({orderId,sellerDetails}) => {
   try {
    
-    console.log(orderId);
+   
     
     const { data, error } = await supabase
       .from("restaurant_order_items")

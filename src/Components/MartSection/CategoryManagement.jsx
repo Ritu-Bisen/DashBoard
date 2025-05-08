@@ -7,12 +7,14 @@ import { getCategories } from "../../Redux/Slices/categoriesSlice";
 const CategoryManagement = () => {
   const [searchQuery,setSearchQuery] = useState("")
   const { categories } = useSelector((state) => state.category);
+  const{sellerDetails}=useSelector((state)=>state.seller)
   console.log(categories);
 
   const dispatch = useDispatch();
 
+
   useEffect(() => {
-    dispatch(getCategories());
+    dispatch(getCategories(sellerDetails.segment));
   }, [dispatch]);
 
   const searchthedata = Array.isArray(categories)
@@ -31,6 +33,7 @@ const CategoryManagement = () => {
   : [];
 
   const columns = [
+  
     {
       name: "Id",
       selector: (row) => row.category_id,
@@ -77,17 +80,18 @@ const CategoryManagement = () => {
   
 
   const data = searchthedata.map((item, index) => ({
+   
     category_id: (item.id).slice(0,8),
     name: item.name,
-    icon: <img src={item.icon} className="h-13 p-2 w-13 " />,
+    icon: <img src={item.icon} className="h-15 p-2 w-15 " />,
   }));
 
  
 
   return (
     <div className="w-[calc(100%-300px) ml-[300px]">
-      <Header />
-      <div className=" mt-25">
+    
+      <div className=" pt-[120px]">
         <div className="flex justify-between gap-3">
           <h1 className="  ml-2  text-3xl font-bold ">Category Management</h1>
           <input

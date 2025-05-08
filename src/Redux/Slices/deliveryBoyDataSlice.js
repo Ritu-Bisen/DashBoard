@@ -4,8 +4,8 @@ import { deliveryBoyRegisterApi, fetchDeliveryBoyData } from "../Api/deliveryBoy
 // Async thunk to fetch delivery boys
 export const getdeliveryBoyData = createAsyncThunk(
   'deliveryBoyData/fetch',
-  async () => {
-    const deliveryBoyDetails = await fetchDeliveryBoyData();
+  async (sellerDetails) => {
+    const deliveryBoyDetails = await fetchDeliveryBoyData(sellerDetails);
     console.log(deliveryBoyDetails);
     return deliveryBoyDetails;
   }
@@ -14,8 +14,8 @@ export const getdeliveryBoyData = createAsyncThunk(
 // Async thunk to register a new delivery boy
 export const deliveryBoyRegister = createAsyncThunk(
   "deliveryBoy/register",
-  async ({ formData, seller_id }) => {
-    const deliveryBoys = await deliveryBoyRegisterApi({ formData, seller_id });
+  async ({ formData, sellerDetails }) => {
+    const deliveryBoys = await deliveryBoyRegisterApi({ formData,sellerDetails});
     return deliveryBoys;
   }
 );

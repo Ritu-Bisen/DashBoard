@@ -76,7 +76,7 @@ const LoginPage = () => {
   <h1 className='text-xl mt-5 font-semibold'>Sign up with Phone No.</h1>
    <input type='number'
     required value={phone}
-     className='mt-5 border-b border-white  h-10 w-80 p-2'
+     className=' no-arrows mt-5 border-b border-white  h-10 w-80 p-2'
       placeholder='Enter Phone No.'
        onChange={(e)=>setPhone(e.target.value)}/>
        <button
@@ -91,7 +91,7 @@ const LoginPage = () => {
          value={otp}
          placeholder="Enter OTP"
          onChange={(e) => setOtp(e.target.value)}
-         className="mt-5 border-b border-white  h-10 w-80 p-2"
+         className="no-arrows mt-5 border-b border-white  h-10 w-80 p-2"
        />
        <button
          type="button"

@@ -1,14 +1,14 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { fetchMartAssignedOrderAPI, fetchMartOrderDetailsAPI} from "../Api/orderapi";
 
-export const getAssignedOrders = createAsyncThunk("assign-orders/fetch", async () => {
-        const assignOrders = await fetchMartAssignedOrderAPI();
+export const getAssignedOrders = createAsyncThunk("assign-orders/fetch", async (sellerDetails) => {
+        const assignOrders = await fetchMartAssignedOrderAPI(sellerDetails);
         // console.log(orders);
         return assignOrders;
 });
 
-export const getMartOrdersDetails=createAsyncThunk('orders-details/fetch',async(orderId)=>{
-    const ordersDetails = await fetchMartOrderDetailsAPI(orderId);
+export const getMartOrdersDetails=createAsyncThunk('orders-details/fetch',async({orderId,sellerDetails})=>{
+    const ordersDetails = await fetchMartOrderDetailsAPI({orderId,sellerDetails});
     return ordersDetails;
 })
 

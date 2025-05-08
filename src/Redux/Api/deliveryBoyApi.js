@@ -25,9 +25,9 @@ export const checkExistingDeliveryBoy = async(phone)=>{
     }
 }
 
-const uploadDeliveryBoyPhoto = async(id,deliveryBoyPhoto)=>{
+const uploadDeliveryBoyPhoto = async(id,deliveryBoyPhoto,sellerDetails)=>{
     try {
-        const filepath = `mart/${seller_id}/${id}/deliveryBoy_profile`;
+        const filepath = `${sellerDetails.segment}/${sellerDetails.id}/${id}/deliveryBoy_profile`;
 
         const {error}= await supabase.storage
         .from("delivery-boys")
@@ -50,7 +50,7 @@ const uploadDeliveryBoyPhoto = async(id,deliveryBoyPhoto)=>{
     }
 }
 
-const uploadAadhar = async(id, aadharPhoto) =>{
+const uploadAadhar = async(id, aadharPhoto,sellerDetails) =>{
     try {
       console.log(aadharPhoto);
       
@@ -69,7 +69,7 @@ const uploadAadhar = async(id, aadharPhoto) =>{
             fileLabel = `AadharCardBack`
           }
           const fileName = fileLabel
-          const filePath = `mart/${seller_id}/${id}/${fileName}`
+          const filePath = `${sellerDetails.segment}/${sellerDetails.id}/${id}/${fileName}`
   
           const {error} = await supabase.storage
           .from("delivery-boys")
@@ -92,9 +92,9 @@ const uploadAadhar = async(id, aadharPhoto) =>{
     }
   }
 
-const uploadPanCardPhoto = async (id,panCardPhoto)=>{
+const uploadPanCardPhoto = async (id,panCardPhoto,sellerDetails)=>{
     try {
-        const filePath = `mart/${seller_id}/${id}/panCard`;
+        const filePath = `${sellerDetails.segment}/${sellerDetails.id}/${id}/panCard`;
 
         const { error } = await supabase.storage
         .from("delivery-boys")
@@ -115,9 +115,9 @@ const uploadPanCardPhoto = async (id,panCardPhoto)=>{
     }
 }
 
-const uploadRcPhoto = async (id,rcPhoto)=>{
+const uploadRcPhoto = async (id,rcPhoto,sellerDetails)=>{
     try {
-        const filePath = `mart/${seller_id}/${id}/rcPhoto`;
+        const filePath = `${sellerDetails.segment}/${sellerDetails.id}/${id}/rcPhoto`;
 
         const { error } = await supabase.storage
         .from("delivery-boys")
@@ -138,9 +138,9 @@ const uploadRcPhoto = async (id,rcPhoto)=>{
     }
 }
 
-const uploadDrivingLicensePhoto = async (id,drivingLicensePhoto)=>{
+const uploadDrivingLicensePhoto = async (id,drivingLicensePhoto,sellerDetails)=>{
     try {
-        const filePath = `mart/${seller_id}/${id}/driving_License`;
+        const filePath = `${sellerDetails.segment}/${sellerDetails.id}/${id}/driving_License`;
 
         const { error } = await supabase.storage
         .from("delivery-boys")
@@ -161,9 +161,9 @@ const uploadDrivingLicensePhoto = async (id,drivingLicensePhoto)=>{
     }
 }
 
-const uploadPassBookPhoto = async (id,passBookPhoto)=>{
+const uploadPassBookPhoto = async (id,passBookPhoto,sellerDetails)=>{
     try {
-        const filePath = `mart/${seller_id}/${id}/passBook_image`;
+        const filePath = `${sellerDetails.segment}/${sellerDetails.id}/${id}/passBook_image`;
 
         const { error } = await supabase.storage
         .from("delivery-boys")
@@ -184,7 +184,7 @@ const uploadPassBookPhoto = async (id,passBookPhoto)=>{
     }
 }
 
-export const deliveryBoyRegisterApi = async ({formData,seller_id})=>{
+export const deliveryBoyRegisterApi = async ({formData,sellerDetails})=>{
     try {
         const{data:{user},error:authError}=await supabase.auth.getUser();
 
@@ -198,13 +198,14 @@ export const deliveryBoyRegisterApi = async ({formData,seller_id})=>{
           const drivingLicensePhoto  = formData.driving_license_image;  
           const passBookPhoto = formData.passbook_image;
           const deliveryBoyPhoto = formData.profile_image;
+         
 
-const ProfilePicUrl = await uploadDeliveryBoyPhoto(id,deliveryBoyPhoto);
-const AadharUrl = await uploadAadhar(id,aadharPhoto);
-const RcUrl = await uploadRcPhoto(id,rcPhoto);
-const panCardUrl = await uploadPanCardPhoto(id,panCardPhoto);
-const drivingLicenseUrl= await uploadDrivingLicensePhoto(id,drivingLicensePhoto);
-const passBookUrl = await uploadPassBookPhoto(id,passBookPhoto);
+const ProfilePicUrl = await uploadDeliveryBoyPhoto(id,deliveryBoyPhoto,sellerDetails);
+const AadharUrl = await uploadAadhar(id,aadharPhoto,sellerDetails);
+const RcUrl = await uploadRcPhoto(id,rcPhoto,sellerDetails);
+const panCardUrl = await uploadPanCardPhoto(id,panCardPhoto,sellerDetails);
+const drivingLicenseUrl= await uploadDrivingLicensePhoto(id,drivingLicensePhoto,sellerDetails);
+const passBookUrl = await uploadPassBookPhoto(id,passBookPhoto,sellerDetails);
 
 const {data , error }= await supabase
 .from("delivery_boys")
@@ -232,8 +233,8 @@ const {data , error }= await supabase
         account_number:formData.account_no,
         ifsc_code:formData.bank_ifsc,
         bank_passbook_image_url:passBookUrl,
-        section:"mart",
-        seller_id:"1b5e07c8-7e20-4728-ac91-a100546bc1b1",
+        section:sellerDetails.segment,
+        seller_id:sellerDetails.id,
         address:formData.address,
 
 
@@ -251,12 +252,12 @@ return data;
     }
 };
 
-export const fetchDeliveryBoyData = async () =>{
+export const fetchDeliveryBoyData = async (sellerDetails) =>{
     try {
         const{data,error}= await supabase
         .from("delivery_boys")
         .select('*')
-       .match({"seller_id":seller_id,"section":"mart"})
+       .match({"seller_id":sellerDetails.id,"section":sellerDetails.segment})
         if (!error) {
            console.log("fetch succefully",data)
             

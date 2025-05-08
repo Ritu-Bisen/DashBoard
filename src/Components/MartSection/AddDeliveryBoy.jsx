@@ -18,6 +18,7 @@ import bank_name from "../../constant/bank_names";
 const AddDeliveryBoy = () => {
   const dispatch = useDispatch();
   const { otpSent, otpVerified } = useSelector((state) => state.auth);
+      const{sellerDetails}=useSelector((state)=>state.seller)
 
   const [phone, setPhone] = useState("");
   const [otp, setOtp] = useState("");
@@ -242,19 +243,20 @@ const AddDeliveryBoy = () => {
       return;
     }
     setErrors({});
-    dispatch(deliveryBoyRegister({ formData, seller_id }));
+    dispatch(deliveryBoyRegister({ formData, sellerDetails}));
     // console.log("Form Submitted:", formData);
     handleClear();
   };
 
   return (
-    <div className="w-[calc(100%-300px)] ml-[300px] bg-gray-300  ">
-    <div className="p-5">
+    <div className="w-[calc(100%-300px)] ml-[300px]  pt-[110px]  ">
+  <div className="rounded-2xl bg-gray-300"> 
+     <div className="p-5">
       <h1 className="text-3xl font-bold p-5"> Create Delivery Boy</h1>
     </div>
     <div className=" p-5">
       <form >
-        <div className=" bg-white  rounded-xl p-5 flex gap-10 ">
+        <div className=" bg-white  rounded-xl p-5 m-5 flex gap-10 ">
           <div className="flex flex-col">
             <label className="text-lg font-semibold">
               {" "}
@@ -296,7 +298,7 @@ const AddDeliveryBoy = () => {
           )}
         </div>
 
-        <div className="">
+        <div className="mt-5">
         {otpVerified && (
           <div className="flex flex-col w-full gap-6 justify-center px-5">
             {/* Seller Personal Informations name, email, mobile, address, aadhaar number, pan number, profile pic, aadhaar image, Pan card image */}
@@ -676,7 +678,7 @@ const AddDeliveryBoy = () => {
         )}
         </div>
       </form>
-    </div>
+    </div></div>
   </div>
   );
 };

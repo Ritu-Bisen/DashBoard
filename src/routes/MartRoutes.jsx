@@ -21,11 +21,13 @@ import OrderRequest from '../Components/MartSection/OrderRequest'
 import AddEmployee from '../Components/MartSection/AddEmployee'
 import EmployeeList from '../Components/MartSection/EmployeeList'
 import DeliveryBoyManagement from '../Components/MartSection/DeliveryBoyManagement'
+import Header from '../Components/MartSection/Header'
 
 
 const MartLayout = () => {
     return (
       <div >
+        <Header/>
         <Sidebar/>
         
         <div >

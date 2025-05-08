@@ -255,9 +255,9 @@ return data;
     }
 };
 
-export const fetchRestaurantDeliveryBoyData = async () =>{
+export const fetchRestaurantDeliveryBoyData = async (sellerDetails) =>{
     try {
-      const{sellerDetails}=useSelector((state)=>state.seller)
+     
         const{data,error}= await supabase
         .from("delivery_boys")
         .select('*')

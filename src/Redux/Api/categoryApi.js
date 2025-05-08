@@ -1,12 +1,12 @@
 import supabase from "../../SupaBaseClient"
 
 
-export const fetchCategoryApi = async () =>{
+export const fetchCategoryApi = async (segment) =>{
     try {
         const{data,error}= await supabase
         .from("categories")
         .select("*")
-        .eq("section","mart")
+        .eq("section",segment)
         if (!error) {
             console.log("fetch succefully",data)
             

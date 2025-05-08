@@ -34,12 +34,12 @@ const RestaurantOrderRequest = () => {
   const { deliveryBoys } = useSelector((state) => state.restaurantDeliveryBoy);
     const{sellerDetails}=useSelector((state)=>state.seller)
 
-  console.log("hii",orderRequest)
+  console.log("hii",deliveryBoys)
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getRestaurantDeliveryBoyData());
+    dispatch(getRestaurantDeliveryBoyData(sellerDetails));
     dispatch(getRestaurantOrderRequest(sellerDetails));
   }, [dispatch]);
 
@@ -175,7 +175,7 @@ const RestaurantOrderRequest = () => {
           }
         >
           <option value="">Select</option>
-          {deliveryBoys.map((boy, index) => (
+          {deliveryBoys?.map((boy, index) => (
             <option value={boy.id} key={index}>
               {boy.full_name}
             </option>
@@ -227,6 +227,7 @@ const RestaurantOrderRequest = () => {
             ></div>
             <div className="absolute z-1000">
               <RestaurantViewOrderRequest
+              sellerDetails={sellerDetails}
                 orderId={showProducts}
                 onClose={handleProductsClose}
               />

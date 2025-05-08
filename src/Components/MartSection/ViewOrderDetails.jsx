@@ -2,12 +2,12 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { getMartOrdersDetails } from '../../Redux/Slices/OrderSlice';
 
-const ViewOrderDetails = ({onClose,orderId}) => {
+const ViewOrderDetails = ({onClose,orderId,sellerDetails}) => {
 
     const { orders } = useSelector((state) => state.order); //order=store,orders=initialstate
     const dispatch=useDispatch();
     useEffect(() => {
-    dispatch(getMartOrdersDetails(orderId))
+    dispatch(getMartOrdersDetails({orderId,sellerDetails}))
     }, [dispatch])
         console.log(orders)
         if (!orders || orders.length === 0 || !orders[0]?.orders) {

@@ -15,7 +15,7 @@ const ViewDeliveryBoyDEtails = ({ deliveryBoys, onClose }) => {
     ]
     
   return (
-    <div className="fixed top-20 right-30  h-150 w-250 bg-white ">
+    <div className="fixed top-1/2 right-1/2 transition translate-x-1/2 -translate-y-1/2  overflow-y-scroll  h-150 w-250 bg-white ">
       <div className="border-b border-gray-700  py-8 flex justify-between p-5">
         <h3 className="font-bold text-3xl">DeliveryBoys Details</h3>
         <button
@@ -25,7 +25,10 @@ const ViewDeliveryBoyDEtails = ({ deliveryBoys, onClose }) => {
           Close
         </button>
       </div>
-      <div className="flex pl-10">
+      <div className="flex mt-5">
+         <div className="ml-10 px-5" >
+            <Carousel className="h-80 w-100"  image={image}/>
+        </div>
         <div>
           <table>
             <tr>
@@ -55,11 +58,9 @@ const ViewDeliveryBoyDEtails = ({ deliveryBoys, onClose }) => {
           </table>
         </div>
         
-        <div className="ml-10" >
-            <Carousel className="h-60 w-100"  image={image}/>
-        </div>
+       
       </div>
-      <div className="flex pl-10">
+      <div className="flex pl-10 mt-5 mb-10">
         <table>
         <tr>
               <th className="border-gray-300 border p-0.5 px-5">Aadhar No.</th>

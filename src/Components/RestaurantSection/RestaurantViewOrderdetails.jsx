@@ -1,21 +1,24 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAssignedDeliveryBoy, getRestaurantOrders } from "../../Redux/Slices/restaurantSlice/restaurantOrderSlice";
+import { fetchRestaurantOrderAPI } from "../../Redux/Api/restaurantApi/restaurantOrderApi";
 
 
 
 const RestaurantViewOrderdetails = ({orderId, onClose,sellerDetails}) => {
-   console.log(orderId);
+  // console.log(orderId);
+   
+   
     
   const { orders } = useSelector((state) => state.restaurantOrder);
    const { assignedDeliveryBoy } = useSelector((state) => state.restaurantOrder); 
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getRestaurantOrders(orderId,sellerDetails));
+    dispatch(getRestaurantOrders({orderId,sellerDetails}));
     dispatch(getAssignedDeliveryBoy(orderId));
   }, [dispatch]);
 
-  console.log("hli", assignedDeliveryBoy);
+ // console.log("hli",fetchRestaurantOrderAPI());
 
   if (!orders || orders.length === 0 || !orders[0]?.orders) {
     return (
@@ -30,10 +33,10 @@ const RestaurantViewOrderdetails = ({orderId, onClose,sellerDetails}) => {
 
   const orderInfo = orders[0].orders;
   const userInfo = orderInfo.users;
-  const deliveryBoy = assignedDeliveryBoy[0].delivery_boys 
-console.log("orders",orders);
+  const deliveryBoy = assignedDeliveryBoy[0]?.delivery_boys 
+//console.log("orders",orders);
 
-  console.log(deliveryBoy);
+ // console.log(deliveryBoy);
   
 
   return (
@@ -56,7 +59,7 @@ console.log("orders",orders);
               <tr><th className="border p-2">Order Type :</th><td className="border p-2">{orderInfo.order_type}</td></tr>
               <tr><th className="border p-2">Payment Method :</th><td className="border p-2">{orderInfo.payment_method}</td></tr>
               <tr><th className="border p-2">Payment Status :</th><td className="border p-2">{orderInfo.payment_status}</td></tr>
-              <tr><th className="border p-2">Delivery Boys :</th><td className="border p-2">{deliveryBoy.full_name}</td></tr>
+              <tr><th className="border p-2">Delivery Boys :</th><td className="border p-2">{deliveryBoy?.full_name}</td></tr>
               <tr><th className="border p-2">Total Amount :</th><td className="border p-2">{orderInfo.total_amount}</td></tr>
             </tbody>
           </table>

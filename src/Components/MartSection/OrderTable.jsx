@@ -24,7 +24,7 @@ const OrderTable = () => {
   };
 
   const { assignOrders } = useSelector((state) => state.order); 
-  
+  const{sellerDetails}=useSelector((state)=>state.seller) 
 
  
   
@@ -32,7 +32,7 @@ const OrderTable = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getAssignedOrders());
+    dispatch(getAssignedOrders(sellerDetails));
  
   }, [dispatch]);
 
@@ -130,8 +130,8 @@ const OrderTable = () => {
   return (
     <div className="relative w-[calc(100%-300px)] ml-[300px]">
       {" "}
-      <Header />
-      <div className="  mt-25 ">
+   
+      <div className=" pt-[120px]">
         <div className="flex gap-5 justify-between">
           <h1 className=" mt-9 ml-2  text-3xl font-bold ">Latest Orders</h1>
           <div className="flex gap-8 mt-3">
@@ -189,6 +189,7 @@ const OrderTable = () => {
             ></div>
             <div className="absolute z-1000">
               <ViewOrderDetails
+              sellerDetails={sellerDetails}
                 orderId={showOrder}
                 onClose={handleProductDetailClose}
               />

@@ -24,12 +24,14 @@ const DeliveryBoyList  = () => {
     };
 
 const { deliveryBoys}=useSelector((state)=>state.deliveryBoyData);
+const{sellerDetails}=useSelector((state)=>state.seller)
+
 console.log( deliveryBoys);
 
 const dispatch =useDispatch();
 
 useEffect(() => {
-dispatch(getdeliveryBoyData())
+dispatch(getdeliveryBoyData(sellerDetails))
 }, [dispatch])
 
 
@@ -129,8 +131,8 @@ dispatch(getdeliveryBoyData())
 
   return (
     <div className="w-[calc(100%-300px) ml-[300px]">
-      <Header/>
-      <div className='mt-25'>
+      
+      <div className='pt-[120px]'>
         <div className='flex justify-between '> 
         <h1 className="  ml-2  text-3xl font-bold ">Delivery Boys List</h1>
           <input className="border-2 border-gray-400 w-95 h-10 rounded-full p-3" type='text' placeholder='Search'/>
@@ -150,6 +152,7 @@ dispatch(getdeliveryBoyData())
               ></div>
               <div className="absolute z-1000">
                 <ViewDeliveryBoyDEtails
+                
                   deliveryBoys={showDeliveryBoy}
                   onClose={handleDeliveryBoyDetailClose}
                 />

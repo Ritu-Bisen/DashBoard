@@ -5,8 +5,8 @@ import { fetchRestaurantDeliveryBoyData, restaurantdeliveryBoyRegisterApi } from
 // Async thunk to fetch delivery boys
 export const getRestaurantDeliveryBoyData = createAsyncThunk(
   'deliveryBoyData/fetch',
-  async () => {
-    const deliveryBoyDetails = await fetchRestaurantDeliveryBoyData();
+  async (sellerDetails) => {
+    const deliveryBoyDetails = await fetchRestaurantDeliveryBoyData(sellerDetails);
     console.log(deliveryBoyDetails);
     return deliveryBoyDetails;
   }

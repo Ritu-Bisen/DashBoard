@@ -254,7 +254,7 @@ const RestaurantAddDeliveryBoy = () => {
       </div>
       <div className="p-5 ">
         <form>
-          <div className=" bg-white  rounded-xl p-5 flex gap-10">
+          <div className=" bg-white  rounded-xl p-5 m-5 flex gap-10">
             <div className="flex flex-col">
               <label className="text-lg font-semibold">
                 {" "}
@@ -296,7 +296,7 @@ const RestaurantAddDeliveryBoy = () => {
             )}
           </div>
 
-          <div className="">
+          <div className="mt-5">
           {otpVerified && (
             <div className="flex flex-col w-full gap-6 justify-center px-5">
               {/* Seller Personal Informations name, email, mobile, address, aadhaar number, pan number, profile pic, aadhaar image, Pan card image */}
