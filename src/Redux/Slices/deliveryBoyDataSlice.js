@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { deliveryBoyRegisterApi, fetchDeliveryBoyData } from "../Api/deliveryBoyApi";
+import { deliveryBoyRegisterApi,  fetchActiveVerifiedDeliveryBoyApi,  fetchDeliveryBoyData, fetchInactiveVerifiedDeliveryBoyApi,  fetchVerifiedDeliveryBoyApi, updateActiveDeliveryBoysAPI, updateInactiveDeliveryBoysAPI } from "../Api/deliveryBoyApi";
 
 // Async thunk to fetch delivery boys
 export const getdeliveryBoyData = createAsyncThunk(
@@ -20,9 +20,35 @@ export const deliveryBoyRegister = createAsyncThunk(
   }
 );
 
+export const getVerifiedDeliveryBoy=createAsyncThunk("verified-deliveryBoy/fetch",async(sellerDetails)=>{
+const verifiedDeliveryBoy=await fetchVerifiedDeliveryBoyApi(sellerDetails)
+return verifiedDeliveryBoy
+})
+
+export const getActiveVerifiedDeliveryBoys = createAsyncThunk("ActiveVerified/deliverBoys", async(sellerDetails)=>{
+  const deliverBoys = await fetchActiveVerifiedDeliveryBoyApi(sellerDetails)
+  return deliverBoys
+})
+
+export const getInactiveVerifiedDeliveryBoys = createAsyncThunk("InactiveVerified/deliverBoys", async(sellerDetails)=>{
+  const deliverBoys = await fetchInactiveVerifiedDeliveryBoyApi(sellerDetails)
+  return deliverBoys
+})
+
+export const updateActiveDeliveryBoys=createAsyncThunk('active/update',async(deliveryBoyId)=>{
+  const activeDeliveryBoy=await updateActiveDeliveryBoysAPI(deliveryBoyId)
+  return activeDeliveryBoy
+})
+
+export const updateInactiveDeliveryBoys=createAsyncThunk('inactive/update',async(deliveryBoyId)=>{
+  const inactiveDeliveryBoy=await updateInactiveDeliveryBoysAPI(deliveryBoyId)
+  return inactiveDeliveryBoy
+})
+
 // Slice
 const deliveryBoyDataSlice = createSlice({
   name: "deliveryBoys",
+ 
   initialState: {
     deliveryBoys: [],
     loading: false,
@@ -50,6 +76,39 @@ const deliveryBoyDataSlice = createSlice({
         state.deliveryBoys = action.payload;
       })
       .addCase(getdeliveryBoyData.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error;
+      })
+      .addCase(getVerifiedDeliveryBoy.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(getVerifiedDeliveryBoy.fulfilled, (state, action) => {
+        state.loading = false;
+        state.deliveryBoys = action.payload;
+      })
+      .addCase(getVerifiedDeliveryBoy.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error;
+      })
+      .addCase(getActiveVerifiedDeliveryBoys.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(getActiveVerifiedDeliveryBoys.fulfilled, (state, action) => {
+        state.loading = false;
+        state.deliveryBoys = action.payload;
+      })
+      .addCase(getActiveVerifiedDeliveryBoys.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error;
+      })
+      .addCase(getInactiveVerifiedDeliveryBoys.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(getInactiveVerifiedDeliveryBoys.fulfilled, (state, action) => {
+        state.loading = false;
+        state.deliveryBoys = action.payload;
+      })
+      .addCase(getInactiveVerifiedDeliveryBoys.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error;
       });

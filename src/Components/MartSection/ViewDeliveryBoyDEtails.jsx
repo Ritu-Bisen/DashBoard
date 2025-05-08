@@ -6,7 +6,8 @@ const ViewDeliveryBoyDEtails = ({ deliveryBoys, onClose }) => {
 
     const image=[
         deliveryBoys.profile_image_url,
-        deliveryBoys.aadhaar_image_url,
+        deliveryBoys.aadhaar_image_url[0],
+        deliveryBoys.aadhaar_image_url[1],
         deliveryBoys.pan_image_url,
         deliveryBoys.rc_image_url,
         deliveryBoys.driving_license_image_url,

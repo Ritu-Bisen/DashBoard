@@ -14,15 +14,15 @@ const RestaurantDeliveryBoysManagement = () => {
   const [isShowDeliveryBoy, setIsShowDeliveryBoy] = useState(false);
   const [deliveryBoy, setDeliveryBoy] = useState(null);
 
-  const handleShowDeliveryBoy = (item) => {
-    setIsShowDeliveryBoy(true);
-    setDeliveryBoy(item);
-  };
+  // const handleShowDeliveryBoy = (item) => {
+  //   setIsShowDeliveryBoy(true);
+  //   setDeliveryBoy(item);
+  // };
 
-  const handleOnClose = () => {
-    setIsShowDeliveryBoy(false);
-    setDeliveryBoy(null);
-  };
+  // const handleOnClose = () => {
+  //   setIsShowDeliveryBoy(false);
+  //   setDeliveryBoy(null);
+  // };
 
   const columns = [
     {
@@ -72,6 +72,17 @@ const RestaurantDeliveryBoysManagement = () => {
     },
   ];
 
+  const data =Array(25).fill({
+    serialNo:1,
+    deliveryBoy_id:'8743yfie',
+    name:'Rohan',
+    dob:'18-02-2001',
+    mobileNo:'3928487451',
+    city:'Raipur',
+    accountNo:'y4823921093100',
+    drivingLicense:<img src='https://th.bing.com/th/id/OIP.E3UNwm389l_qdOdJ6zbhCAHaE8?w=275&h=184&c=7&r=0&o=5&dpr=1.3&pid=1.7'/>,
+    status:<div className='space-x-2 text-white font-semibold'><button className='bg-green-700 h-10 w-20 rounded-lg'>Approval</button><button className='bg-red-700 h-10 w-20 rounded-lg'>Reject</button></div>,
+  })
   // const data = deliveryBoys?.map((item, index) => ({
   //   serialNo: index + 1,
   //   segment: item.section,

@@ -216,7 +216,7 @@ const {data , error }= await supabase
         phone_number:formData.phone,
         email:formData.email,
         profile_image_url:ProfilePicUrl,
-        is_active:true,
+        is_active:false,
         is_verified:false,
         vehicle_type:formData.vehicle_type,
         vehicle_number:formData.vehicle_no,
@@ -270,4 +270,107 @@ export const fetchDeliveryBoyData = async (sellerDetails) =>{
         
     }
 }
+
+export const fetchVerifiedDeliveryBoyApi = async (sellerDetails) =>{
+  try {
+      const{data,error}= await supabase
+      .from("delivery_boys")
+      .select('*')
+      .eq("is_verified",true)
+     .match({"seller_id":sellerDetails.id,"section":sellerDetails.segment})
+      if (!error) {
+         console.log("fetch succefully",data)
+          
+      } else {
+         console.log("error when fetching data",error) 
+      } 
+      return data;
+  } catch (error) {
+     console.log("error from supabase",error);
+      
+  }
+}
+export const fetchActiveVerifiedDeliveryBoyApi = async (sellerDetails) =>{
+  try {
+      const{data,error}= await supabase
+      .from("delivery_boys")
+      .select('*')
+      .eq("is_verified",true)
+      .eq("is_active",true)
+     .match({"seller_id":sellerDetails.id,"section":sellerDetails.segment})
+      if (!error) {
+         console.log("fetch succefully",data)
+          
+      } else {
+         console.log("error when fetching data",error) 
+      } 
+      return data;
+  } catch (error) {
+     console.log("error from supabase",error);
+      
+  }
+}
+export const fetchInactiveVerifiedDeliveryBoyApi = async (sellerDetails) =>{
+  try {
+      const{data,error}= await supabase
+      .from("delivery_boys")
+      .select('*')
+      .eq("is_verified",true)
+      .eq("is_active",false)
+     .match({"seller_id":sellerDetails.id,"section":sellerDetails.segment})
+      if (!error) {
+         console.log("fetch succefully",data)
+          
+      } else {
+         console.log("error when fetching data",error) 
+      } 
+      return data;
+  } catch (error) {
+     console.log("error from supabase",error);
+      
+  }
+}
+
+export const updateActiveDeliveryBoysAPI= async(deliveryBoyId)=>{
+  try{ 
+  
+    
+    const {data,error}=await supabase
+    .from("delivery-boys")
+    .update({is_assigned: true})
+    .eq("id", deliveryBoyId)
+    .single();
+    if (error) {
+      console.error(" error when update", error);
+    } else {
+      console.log("update successful",data);
+    
+    }
+  } catch (error) {
+    console.error("Error updating assigned", error.message);
+    
+    throw error;
+  }
+};
+
+
+export const updateInactiveDeliveryBoysAPI= async(deliveryBoyId)=>{
+  try{ 
+    const {data,error}=await supabase
+    .from("delivery-boys")
+    .update({is_assigned: false})
+    .eq("id", deliveryBoyId)
+    .single();
+    if (error) {
+      console.error(" error when update", error);
+    } else {
+      console.log("update successful",data);
+    
+    }
+  } catch (error) {
+    console.error("Error updating assigned", error.message);
+    
+    throw error;
+  }
+};
 
