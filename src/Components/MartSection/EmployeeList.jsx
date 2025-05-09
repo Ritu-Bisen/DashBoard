@@ -6,9 +6,11 @@ import { FaEye } from "react-icons/fa";
 
 // import ViewGymEmployeeDeatils from './ViewGymEmployeeDeatils';
 // import { getGymemployeeList } from '../../Redux/Slices/gymSlice/gymEmployeeSlice';
-import ViewMartEmployeeDetails from './ViewMartEmployeeDetails';
-import { getmartEmployeeList } from '../../Redux/Slices/martEmployeeSlice';
+//import ViewMartEmployeeDetails from './ViewMartEmployeeDetails';
+//import { getmartEmployeeList } from '../../Redux/Slices/martEmployeeSlice';
 import Header from './Header';
+import { getEmployeeDetails } from '../../Redux/Slices/employeeSlice';
+import ViewEmployeeDetails from './ViewEmployeeDetails';
 
 const EmployeeList = () => {
 const [isShowDetail, setIsShowDetail] = useState(false);
@@ -23,13 +25,14 @@ const [isShowDetail, setIsShowDetail] = useState(false);
       setIsShowDetail(false);
     };
 
-const {employeeData} =useSelector((state)=>state.martEmployee)
-console.log(employeeData);
+const {employees} =useSelector((state)=>state.employee)
+ const { sellerDetails } = useSelector((state) => state.seller);
+
 
 const dispatch =useDispatch();
 
 useEffect(() => {
-  dispatch(getmartEmployeeList())
+  dispatch(getEmployeeDetails(sellerDetails))
 }, [dispatch])
 
 
@@ -103,7 +106,7 @@ useEffect(() => {
       },
     };
     
-      const data = employeeData.map((item,index)=>({
+      const data = employees.map((item,index)=>({
         serial_no:index+1,
         employee_id:item.id,
         name:item.name,
@@ -136,7 +139,7 @@ useEffect(() => {
                 }}
               ></div>
               <div className="absolute z-1000">
-                <ViewMartEmployeeDetails
+                <ViewEmployeeDetails
                   employeeData={showEmployee}
                   onClose={handleEmployeeClose}
                 />

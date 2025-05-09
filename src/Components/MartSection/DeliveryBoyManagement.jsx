@@ -2,14 +2,16 @@ import React, { useEffect, useState } from 'react'
 
 import DataTable from 'react-data-table-component';
 import { useDispatch, useSelector } from 'react-redux';
-import { getActiveVerifiedDeliveryBoys, getInactiveVerifiedDeliveryBoys, getVerifiedDeliveryBoy } from '../../Redux/Slices/deliveryBoyDataSlice';
+import { getActiveVerifiedDeliveryBoys, getInactiveVerifiedDeliveryBoys, getVerifiedDeliveryBoy, updateActiveDeliveryBoys, updateInactiveDeliveryBoys } from '../../Redux/Slices/deliveryBoyDataSlice';
 import { FaEye } from 'react-icons/fa';
+import ViewDeliveryBoyDEtails from './ViewDeliveryBoyDEtails';
 
 const DeliveryBoyManagement = () => {
 const [active, setActive] = useState("all");
 
- const [isShowDeliveryBoy, setIsShowDeliveryBoy] = useState(false);
-  const [deliveryBoy, setDeliveryBoy] = useState(null);
+  const [isShowDetail, setIsShowDetail] = useState(false);
+    const [showDeliveryBoy, setShowDeliveryBoy] = useState(null);
+  
 
   const { deliveryBoys}=useSelector((state)=>state.deliveryBoyData);
   const{sellerDetails}=useSelector((state)=>state.seller)
@@ -21,15 +23,14 @@ const [active, setActive] = useState("all");
   
 console.log(deliveryBoys);
 
-  const handleShowDeliveryBoy = (item) => {
-    setIsShowDeliveryBoy(true);
-    setDeliveryBoy(item);
-  };
+const handleViewDetails = (deliveryBoys) => {
+  setIsShowDetail(true);
+  setShowDeliveryBoy(deliveryBoys);
+};
 
-  const handleOnClose = () => {
-    setIsShowDeliveryBoy(false);
-    setDeliveryBoy(null);
-  };
+const handleDeliveryBoyDetailClose = () => {
+  setIsShowDetail(false);
+};
 
   const columns = [
     {
@@ -90,15 +91,17 @@ console.log(deliveryBoys);
   ];
 
   const handleActive=(deliveryBoyId)=>{
+   
     
+    dispatch(updateActiveDeliveryBoys(deliveryBoyId))
   }
   const handleInactive=(deliveryBoyId)=>{
-    
+    dispatch(updateInactiveDeliveryBoys(deliveryBoyId))
   }
 
   const data =deliveryBoys.map((item,index)=>({
     serialNo:index+1,
-    id:(item.id).slice(0,8),
+    id:(item.id),
     user_name:item.full_name,
     email:item.email,
     phone_number:item.phone_number,
@@ -120,7 +123,7 @@ console.log(deliveryBoys);
         ),
         preview: (
                   <button
-                    onClick={() => handleShowDeliveryBoy(item)}
+                  onClick={() => handleViewDetails(item)}
                     className="text-3xl cursor-pointer"
                   >
                     <FaEye />
@@ -214,18 +217,24 @@ console.log(deliveryBoys);
         defaultSortFieldId={1}
       />
     </div>
-    {/* {isShowDeliveryBoy && (
-      <>
-        <div
-          className="fixed inset-0 bg-black/75 z-20 "
-          onClick={() => setIsShowDeliveryBoy(false)}
-        ></div>
-        <ViewDeliveryBoyRequests
-          deliveryBoy={deliveryBoy}
-          onClose={() => handleOnClose()}
-        />
-      </>
-    )} */}
+    {
+          isShowDetail && (
+            <>
+              <div
+                className="fixed inset-0 z-50 bg-black/70 "
+                onClick={() => {
+                  setIsShowDetail(false);
+                }}
+              ></div>
+              <div className="absolute z-1000">
+                <ViewDeliveryBoyDEtails
+                
+                  deliveryBoys={showDeliveryBoy}
+                  onClose={handleDeliveryBoyDetailClose}
+                />
+              </div>
+            </>
+          )}
   </div>
   )
 }

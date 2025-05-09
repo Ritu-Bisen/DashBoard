@@ -71,8 +71,8 @@ const SalonAddEmployee = () => {
      passbook_image: null,
      aadhar_image: [],
      panCard_image: null,
-     cancel_cheque_image: null,
-     bank_statement_image: null,
+    //  cancel_cheque_image: null,
+    //  bank_statement_image: null,
      
    
     
@@ -184,8 +184,8 @@ const SalonAddEmployee = () => {
      passbook_image: null,
      adhar_image: [],
      panCard_image: null,
-     cancel_cheque_image: null,
-     bank_statement_image: null,
+    //  cancel_cheque_image: null,
+    //  bank_statement_image: null,
     
     
     });
@@ -566,7 +566,7 @@ const SalonAddEmployee = () => {
                     )}
                 </div>
 
-                <div className="flex flex-col font-semibold">
+                {/* <div className="flex flex-col font-semibold">
                   <label className="font-semibold pl-3">Cancel Cheque Image </label>
                   <input
                     type="file"
@@ -586,7 +586,7 @@ const SalonAddEmployee = () => {
                     onChange={handleImageChange}
                     className="file:bg-gray-400 file:rounded file:px-1 file:cursor-pointer rounded-lg pl-3 py-2 max-w-[20vw] bg-gray-200"
                   />
-                </div>
+                </div> */}
 
                 </div>
               </div>

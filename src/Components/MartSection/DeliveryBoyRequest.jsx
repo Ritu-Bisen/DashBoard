@@ -1,49 +1,74 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import DataTable from 'react-data-table-component';
-import Header from '../MartSection/Header';
+
+import { useDispatch, useSelector } from 'react-redux';
+import { getDeliveryBoyRequest } from '../../Redux/Slices/deliveryBoyDataSlice';
+import { FaEye } from 'react-icons/fa';
+import ViewDeliveryBoyDEtails from './ViewDeliveryBoyDEtails';
 
 const DeliveryBoyRequest = () => {
+  const [isShowDetail, setIsShowDetail] = useState(false);
+      const [showDeliveryBoy, setShowDeliveryBoy] = useState(null);
+    
+      const handleViewDetails = (deliveryBoys) => {
+        setIsShowDetail(true);
+        setShowDeliveryBoy(deliveryBoys);
+      };
+  
+      const handleDeliveryBoyDetailClose = () => {
+        setIsShowDetail(false);
+      };
+
+  const { deliveryBoys}=useSelector((state)=>state.deliveryBoyData);
+  const{sellerDetails}=useSelector((state)=>state.seller)
+  const dispatch = useDispatch();
+useEffect(() => {
+dispatch(getDeliveryBoyRequest(sellerDetails))
+}, [dispatch])
+console.log(deliveryBoys);
+
 
     const columns = [
+      {
+        name: "S.No.",
+        selector: (row) => row.serialNo,
+        width: "100px",
+      },
         {
           name: "Id",
           selector: (row) => row.deliveryBoy_id,
           width: "150px",
         },
-        
+        {
+          name: "Profile",
+          selector: (row) => row.profile_image,
+         
+        },
         {
           name: "Name",
           selector: (row) => row.name,
         },
         {
-          name: "Date Of Birth",
-          selector: (row) => row.dob,
-         width:'200px'
-
+          name: "email",
+          selector: (row) => row.email,
         },
-    
+       
+       
         {
-          name: "Mobile No",
-          selector: (row) => row.mobileNo,
+          name: "Phone No",
+          selector: (row) => row.phone,
         },
-        {
-            name: "City",
-            selector: (row) => row.city,
+         {
+            name: "Address",
+            selector: (row) => row.address,
           },
+      
           {
-            name: "Account No",
-            selector: (row) => row.accountNo,
-            width:'200px'
+            name: "View",
+            selector: (row) => row.view,
+            center:true,
           },
-          {
-            name: "Driving License",
-            selector: (row) => row.drivingLicense,
-          },
-          {
-            name: "Status",
-            selector: (row) => row.status,
-            width:'200px'
-          },
+         
       ]; 
 
       const customStyles = {
@@ -72,21 +97,24 @@ const DeliveryBoyRequest = () => {
 
       
 
-      const data =Array(25).fill({
-        deliveryBoy_id:'8743yfie',
-        name:'Rohan',
-        dob:'18-02-2001',
-        mobileNo:'3928487451',
-        city:'Raipur',
-        accountNo:'y4823921093100',
-        drivingLicense:<img src='https://th.bing.com/th/id/OIP.E3UNwm389l_qdOdJ6zbhCAHaE8?w=275&h=184&c=7&r=0&o=5&dpr=1.3&pid=1.7'/>,
-        status:<div className='space-x-2 text-white font-semibold'><button className='bg-green-700 h-10 w-20 rounded-lg'>Approval</button><button className='bg-red-700 h-10 w-20 rounded-lg'>Reject</button></div>,
-      })
+      const data = deliveryBoys.map((item, index) => ({
+        serialNo: index + 1,
+        deliveryBoy_id: item?.id,
+        profile_image: (<img src={item.profile_image_url}/>),
+        name: item?.full_name,
+        email: item?.email,
+        phone: item?.phone_number,
+        address: item?.address,
+       view:( <button onClick={() => handleViewDetails(item)}>
+                     <FaEye size={25} />
+                   </button>),
+      }));
+      
 
   return (
     <div  className="w-[calc(100%-300px)] ml-[300px]">
-        <Header/>
-        <div className='mt-25'>
+       
+        <div className='pt-[120px]'>
         <div className="flex justify-between gap-3">
           <h1 className="  ml-2  text-3xl font-bold ">Delivery Boys Request</h1>
           <input
@@ -99,7 +127,24 @@ const DeliveryBoyRequest = () => {
             <DataTable fixedHeader columns={columns} data={data} pagination customStyles={customStyles} defaultSortFieldId={1} fixedHeaderScrollHeight='67vh' />
 
         </div>
-             
+        {
+          isShowDetail && (
+            <>
+              <div
+                className="fixed inset-0 z-50 bg-black/70 "
+                onClick={() => {
+                  setIsShowDetail(false);
+                }}
+              ></div>
+              <div className="absolute z-1000">
+                <ViewDeliveryBoyDEtails
+                
+                  deliveryBoys={showDeliveryBoy}
+                  onClose={handleDeliveryBoyDetailClose}
+                />
+              </div>
+            </>
+          )}
              </div>
     
     </div>

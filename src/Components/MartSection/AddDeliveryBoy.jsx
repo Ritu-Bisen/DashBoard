@@ -277,7 +277,7 @@ const AddDeliveryBoy = () => {
           >
             Send OTP
           </button>
-          {errors.phone && <p>{errors.phone}</p>}
+         
           {otpSent && (
             <div className="mt-4">
               <input

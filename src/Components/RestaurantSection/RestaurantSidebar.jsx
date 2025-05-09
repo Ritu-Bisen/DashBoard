@@ -71,6 +71,7 @@ const RestaurantSidebar = () => {
         
         { title: "Delivery Boy List", path: "/restaurant/deliveryboy/delivery-boy-list" },
         { title: "Delivery Boy Management", path: "/restaurant/deliveryboy/delivery-boy-management" },
+        { title: "Delivery Boy Request", path: "/restaurant/deliveryboy/delivery-boy-request"},
         ],
       },
       {
@@ -91,7 +92,7 @@ const RestaurantSidebar = () => {
     ];
   
     return (
-      <div className="fixed mt-26 w-[300px] h-full  rounded-tr-4xl rounded-br-4xl shadow-gray-900 shadow-lg  bg-white">
+      <div className=" fixed mt-26 w-[300px] h-full  rounded-tr-4xl rounded-br-4xl shadow-gray-900 shadow-lg  bg-white">
         <div className="pt-10">
           {itemList.map((item) => (
             <div key={item.id}>

@@ -18,7 +18,8 @@ const LoginPage = () => {
     // const [password, setPassword] = useState("");
 
    
-     const {sellers}=useSelector((state)=>state.seller)
+     
+    const {sellers}=useSelector((state)=>state.seller)
 
 
      const handleSendOtp = async () => {

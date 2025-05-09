@@ -21,6 +21,10 @@ import CategoryOfferTable from '../Components/MartSection/CategoryOfferTable';
 import DeliveryBoyList from '../Components/MartSection/DeliveryBoyList';
 import AddDeliveryBoy from '../Components/MartSection/AddDeliveryBoy';
 import DeliveryBoyManagement from '../Components/MartSection/DeliveryBoyManagement';
+import DeliveryBoyRequest from '../Components/MartSection/DeliveryBoyRequest';
+import AddEmployee from '../Components/MartSection/AddEmployee';
+import EmployeeList from '../Components/MartSection/EmployeeList';
+import SellerProfile from '../Components/SellerProfile';
 
 
 
@@ -42,14 +46,16 @@ const RestaurantRoutes = () => {
       <Routes>
         <Route element={<RestaurantLayout/>}> 
         <Route index element={<RestaurantDashboard/>}/>
+        <Route path='profile' element={<SellerProfile/>}/>
         <Route path='menu' element={<RestaurantMenu/>}/>
         <Route path="category/category" element={<CategoryManagement/>}/>
          <Route path='category/category-offer' element={<CategoryOfferTable/>}/>
       <Route path='deliveryboy/add-delivery-boy' element={<AddDeliveryBoy/>}/>
       <Route path='deliveryboy/delivery-boy-management' element={<DeliveryBoyManagement/>}/>
         <Route path='deliveryboy/delivery-boy-list' element={<DeliveryBoyList/>}/>
-        <Route path='employee/employee-list' element={<RestaurantEmployeeDataList/>}/>
-        <Route path='employee/add-employee' element={<RestaurantAddEmployee/>}/>
+        <Route path='deliveryboy/delivery-boy-request' element={<DeliveryBoyRequest/>}/>
+        <Route path='employee/employee-list' element={<EmployeeList/>}/>
+        <Route path='employee/add-employee' element={<AddEmployee/>}/>
         <Route path='order/orders' element={<RestaurantOrders/>}/>
         <Route path='order/order-request' element={<RestaurantOrderRequest/>}/>
         <Route path='stock-management' element={<RestaurantStockManagement/>}/>

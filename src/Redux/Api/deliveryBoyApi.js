@@ -271,6 +271,26 @@ export const fetchDeliveryBoyData = async (sellerDetails) =>{
     }
 }
 
+export const fetchDeliveryBoyDataRequestApi = async (sellerDetails) =>{
+  try {
+      const{data,error}= await supabase
+      .from("delivery_boys")
+      .select('*')
+      .eq("is_verified",false)
+     .match({"seller_id":sellerDetails.id,"section":sellerDetails.segment})
+      if (!error) {
+         console.log("fetch succefully",data)
+          
+      } else {
+         console.log("error when fetching data",error) 
+      } 
+      return data;
+  } catch (error) {
+     console.log("error from supabase",error);
+      
+  }
+}
+
 export const fetchVerifiedDeliveryBoyApi = async (sellerDetails) =>{
   try {
       const{data,error}= await supabase
@@ -333,11 +353,11 @@ export const fetchInactiveVerifiedDeliveryBoyApi = async (sellerDetails) =>{
 
 export const updateActiveDeliveryBoysAPI= async(deliveryBoyId)=>{
   try{ 
-  
+   
     
     const {data,error}=await supabase
-    .from("delivery-boys")
-    .update({is_assigned: true})
+    .from("delivery_boys")
+    .update({is_active: true})
     .eq("id", deliveryBoyId)
     .single();
     if (error) {
@@ -357,8 +377,8 @@ export const updateActiveDeliveryBoysAPI= async(deliveryBoyId)=>{
 export const updateInactiveDeliveryBoysAPI= async(deliveryBoyId)=>{
   try{ 
     const {data,error}=await supabase
-    .from("delivery-boys")
-    .update({is_assigned: false})
+    .from("delivery_boys")
+    .update({is_active: false})
     .eq("id", deliveryBoyId)
     .single();
     if (error) {

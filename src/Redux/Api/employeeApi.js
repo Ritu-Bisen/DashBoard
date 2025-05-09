@@ -20,14 +20,14 @@ export const checkExistingEmployee = async(phone)=>{
 }
 
 
-const uploadEmployeePhoto = async (employee_id,employeePhoto)=>{
+const uploadEmployeePhoto = async (employee_id,employeePhoto,sellerDetails)=>{
     try{
 
         console.log(employeePhoto);
         console.log(employee_id);
         
         
-        const filePath=`mart/${seller_id}/${employee_id}/profile_pic`;
+        const filePath=`${sellerDetails.segment}/${sellerDetails.id}/${employee_id}/profile_pic`;
 
         const {error} = await supabase.storage
         .from("employees")
@@ -48,7 +48,7 @@ const uploadEmployeePhoto = async (employee_id,employeePhoto)=>{
 };
 
 
-const uploadAadhar = async(employee_id, aadharPhoto) =>{
+const uploadAadhar = async(employee_id, aadharPhoto,sellerDetails) =>{
   try {
     console.log(aadharPhoto);
     
@@ -67,7 +67,7 @@ const uploadAadhar = async(employee_id, aadharPhoto) =>{
           fileLabel = `AadharCardBack`
         }
         const fileName = fileLabel
-        const filePath = `mart/${seller_id}/${employee_id}/${fileName}`
+        const filePath = `${sellerDetails.segment}/${sellerDetails.id}/${employee_id}/${fileName}`
 
         const {error} = await supabase.storage
         .from("employees")
@@ -90,10 +90,10 @@ const uploadAadhar = async(employee_id, aadharPhoto) =>{
   }
 }
 
-const uploadPanCardPhoto = async (employee_id,employeePanCard)=>{
+const uploadPanCardPhoto = async (employee_id,employeePanCard,sellerDetails)=>{
   try{
 
-      const filePath=`mart/${seller_id}/${employee_id}/PanCard_image`;
+      const filePath=`${sellerDetails.segment}/${sellerDetails.id}/${employee_id}/PanCard_image`;
 
       const {error} = await supabase.storage
       .from("employees")
@@ -114,10 +114,10 @@ const uploadPanCardPhoto = async (employee_id,employeePanCard)=>{
 };
 
 
-const uploadPassbookPhoto = async (employee_id,employeePassBook)=>{
+const uploadPassbookPhoto = async (employee_id,employeePassBook,sellerDetails)=>{
   try{
 
-      const filePath=`mart/${seller_id}/${employee_id}/Passbook`;
+      const filePath=`${sellerDetails.segment}/${sellerDetails.id}/${employee_id}/Passbook`;
 
       const {error} = await supabase.storage
       .from("employees")
@@ -137,53 +137,53 @@ const uploadPassbookPhoto = async (employee_id,employeePassBook)=>{
   }
 };
 
-const uploadCancelChequePhoto = async (employee_id,employeeCancelCheque)=>{
-  try{
+// const uploadCancelChequePhoto = async (employee_id,employeeCancelCheque,sellerDetails)=>{
+//   try{
 
-      const filePath=`mart/${seller_id}/${employee_id}/Cancel_cheque`;
+//       const filePath=`${sellerDetails.segment}/${sellerDetails.id}/${employee_id}/Cancel_cheque`;
 
-      const {error} = await supabase.storage
-      .from("employees")
-     .upload(filePath,employeeCancelCheque,{upsert:true});
-     if (error) {
-      console.error("Error uploading image:", error);
-      return null;
-     }
-     const {data} = await supabase.storage
-     .from("employees")
-     .getPublicUrl(filePath)
-     return data.publicUrl;
-  }
-  catch(error){
-      console.error("Unexpected error uploading image:", error);
-      return null;
-  }
-};
+//       const {error} = await supabase.storage
+//       .from("employees")
+//      .upload(filePath,employeeCancelCheque,{upsert:true});
+//      if (error) {
+//       console.error("Error uploading image:", error);
+//       return null;
+//      }
+//      const {data} = await supabase.storage
+//      .from("employees")
+//      .getPublicUrl(filePath)
+//      return data.publicUrl;
+//   }
+//   catch(error){
+//       console.error("Unexpected error uploading image:", error);
+//       return null;
+//   }
+// };
 
-const uploadBankStatementPhoto = async (employee_id,employeeBankStatementImage)=>{
-  try{
+// const uploadBankStatementPhoto = async (employee_id,employeeBankStatementImage,sellerDetails)=>{
+//   try{
 
-      const filePath=`mart/${seller_id}/${employee_id}/bank_Statement`;
+//       const filePath=`${sellerDetails.segment}/${sellerDetails.id}/${employee_id}/bank_Statement`;
 
-      const {error} = await supabase.storage
-      .from("employees")
-     .upload(filePath,employeeBankStatementImage,{upsert:true});
-     if (error) {
-      console.error("Error uploading image:", error);
-      return null;
-     }
-     const {data} = await supabase.storage
-     .from("employees")
-     .getPublicUrl(filePath)
-     return data.publicUrl;
-  }
-  catch(error){
-      console.error("Unexpected error uploading image:", error);
-      return null;
-  }
-};
+//       const {error} = await supabase.storage
+//       .from("employees")
+//      .upload(filePath,employeeBankStatementImage,{upsert:true});
+//      if (error) {
+//       console.error("Error uploading image:", error);
+//       return null;
+//      }
+//      const {data} = await supabase.storage
+//      .from("employees")
+//      .getPublicUrl(filePath)
+//      return data.publicUrl;
+//   }
+//   catch(error){
+//       console.error("Unexpected error uploading image:", error);
+//       return null;
+//   }
+// };
 
-export const martemployeeDataApi = async (formData,seller_id) => {
+export const createEmployeeApi = async (formData,sellerDetails) => {
 
   try {
     const {
@@ -193,7 +193,7 @@ export const martemployeeDataApi = async (formData,seller_id) => {
 
   if (authError) throw authError;
 
-  const employeeId = user.id;
+  const id = user.id;
     const employeePhoto = formData.profile_image;
     console.log(employeePhoto);
     
@@ -206,25 +206,25 @@ export const martemployeeDataApi = async (formData,seller_id) => {
     const employeeBankStatementImage=formData.bank_statement_image;
     const employeeCancelCheque=formData. cancel_cheque_image;
     const employee_id = uuidv4();
-    const ProfileImageUrl = await uploadEmployeePhoto(employee_id, employeePhoto);
-   const AadharImageUrl = await uploadAadhar(employee_id,aadharPhoto)
-    const PanCardUrl = await uploadPanCardPhoto(employee_id,employeePanCard);
-    const PassBookUrl = await uploadPassbookPhoto(employee_id,employeePassBook);
+    const ProfileImageUrl = await uploadEmployeePhoto(employee_id, employeePhoto,sellerDetails);
+   const AadharImageUrl = await uploadAadhar(employee_id,aadharPhoto,sellerDetails)
+    const PanCardUrl = await uploadPanCardPhoto(employee_id,employeePanCard,sellerDetails);
+    const PassBookUrl = await uploadPassbookPhoto(employee_id,employeePassBook,sellerDetails);
     console.log(PassBookUrl);
     
-    const cancelChequeUrl = await uploadCancelChequePhoto(employee_id,employeeCancelCheque);
-    const BankStatementUrl = await uploadBankStatementPhoto(employee_id,employeeBankStatementImage)
+    // const cancelChequeUrl = await uploadCancelChequePhoto(employee_id,employeeCancelCheque,sellerDetails);
+    // const BankStatementUrl = await uploadBankStatementPhoto(employee_id,employeeBankStatementImage,sellerDetails)
 
     console.log("Profile Image URL:", ProfileImageUrl);
   
     
       const employee_data = {
-        employeeId,
+        id,
         name: formData.name,
-         seller_id: seller_id,
+         seller_id: sellerDetails.id,
         phone: formData.phone,
         email: formData.email,
-        section: "mart",
+        section: sellerDetails.segment,
         role: formData.designation,
         aadhaar_number: formData.aadhar_no,
         pan_number: formData.pan_no,
@@ -233,14 +233,14 @@ export const martemployeeDataApi = async (formData,seller_id) => {
         account_holder_name:formData.bank_account_name,
         bank_name:formData.bank_name,
         passbook_image_url:PassBookUrl,
-        cancelled_cheqce_image_url:cancelChequeUrl,
-        account_statement:BankStatementUrl,
+        // cancelled_cheqce_image_url:cancelChequeUrl,
+        // account_statement:BankStatementUrl,
         profile_image_url: ProfileImageUrl,
         address: formData.address,
         date_of_birth:formData.dateOfBirth,
         pan_card_image_url:PanCardUrl,
         aadhaar_image_urls:AadharImageUrl,
-        
+        active:false
       };
   
       const { data, error } = await supabase
@@ -260,12 +260,12 @@ export const martemployeeDataApi = async (formData,seller_id) => {
   };
   
 
-  export const fetchMartEmployeeData = async () => {
+  export const fetchEmployeeDetailsAPI = async (sellerDetails) => {
     try {
       const { data, error } = await supabase
       .from("employees")
       .select('*')
-      .match({section:"mart",seller_id:seller_id})
+      .match({section:sellerDetails.segment,seller_id:sellerDetails.id})
       if (!error) {
         console.log("fetching data succesfully", data);
       } else {

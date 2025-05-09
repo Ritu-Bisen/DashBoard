@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { loginSellerApi } from "../Api/loginSellerApi";
+import { fetchSellerDetailsAPI, loginSellerApi } from "../Api/loginSellerApi";
 //import { LoginSellerApi } from "../Api/sellerDetailsApi";
 
 export const getLoginSeller=createAsyncThunk("seller/fetch",async(phone)=>{
@@ -9,12 +9,19 @@ export const getLoginSeller=createAsyncThunk("seller/fetch",async(phone)=>{
     return seller;
 })
 
+export const getSellerDetails=createAsyncThunk("seller-details",async(sellerDetails)=>{
+    const sellerDetail= await fetchSellerDetailsAPI(sellerDetails)
+    return sellerDetail;
+})
+
 const loginSellerSlice = createSlice({
     name:"sellers",
     name:"sellerDetails",
+    name:"sellerProfileData",
     initialState:{
         sellers:[],
         sellerDetails:JSON.parse(localStorage.getItem("seller")),
+        sellerProfileData:[],
         loading:false,
         error:null
     },
@@ -30,6 +37,16 @@ const loginSellerSlice = createSlice({
         state.sellers=action.payload;
        })
        .addCase(getLoginSeller.rejected,(state,action)=>{
+        state.error=action.payload;
+       })
+       .addCase(getSellerDetails.pending,(state)=>{
+        state.loading=true,
+        state.error=null
+       })
+       .addCase(getSellerDetails.fulfilled,(state,action)=>{
+        state.sellerProfileData=action.payload;
+       })
+       .addCase(getSellerDetails.rejected,(state,action)=>{
         state.error=action.payload;
        })
     }

@@ -261,6 +261,8 @@ export const fetchRestaurantDeliveryBoyData = async (sellerDetails) =>{
         const{data,error}= await supabase
         .from("delivery_boys")
         .select('*')
+        .eq("is_active",true)
+        .eq("is_verified",true)
        .match({"seller_id":sellerDetails.id,"section":sellerDetails.segment})
        
         if (!error) {
