@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 //import { employeeDataApi, fetchEployeeData } from "../../Api/salonApi/salonEmployeeDetailsApi";
 //import { seller_id } from "../../../Components/MartSection/StockManagementForm";
-import { fetchEmployeeDetailsAPI } from "../Api/employeeApi";
+import { fetchEmployeeDetailsAPI, fetchNotVerifiedEmployeeAPI, fetchVerifiedEmployeeAPI } from "../Api/employeeApi";
 import { createEmployeeApi } from "../Api/employeeApi";
 
 export const createEmployee = createAsyncThunk ("employee/push",async({formData,sellerDetails})=>{
@@ -14,6 +14,19 @@ export const getEmployeeDetails = createAsyncThunk("employee-details/fetch",asyn
 
   return employeesDetails;
 })
+
+export const getVerifiedEmployee = createAsyncThunk("verified-employee/fetch",async(sellerDetails)=>{
+  const verifiedEmployees = await fetchVerifiedEmployeeAPI(sellerDetails);
+
+  return verifiedEmployees;
+})
+
+export const getNotVerifiedEmployee = createAsyncThunk("notverified-employee/fetch",async(sellerDetails)=>{
+  const notverifiedEmployees = await fetchNotVerifiedEmployeeAPI(sellerDetails);
+
+  return notverifiedEmployees;
+})
+
 
 const employeeSlice = createSlice({
     name:"employees",
@@ -45,6 +58,26 @@ const employeeSlice = createSlice({
             .addCase(getEmployeeDetails.rejected,(state,action)=>{
               state.error=action.payload
             })
+            .addCase(getVerifiedEmployee.pending,(state)=>{
+              state.loading=true,
+              state.error=null
+              })
+              .addCase(getVerifiedEmployee.fulfilled,(state,action)=>{
+               state.employees=action.payload
+              })
+              .addCase(getVerifiedEmployee.rejected,(state,action)=>{
+                state.error=action.payload
+              })
+              .addCase(getNotVerifiedEmployee.pending,(state)=>{
+                state.loading=true,
+                state.error=null
+                })
+                .addCase(getNotVerifiedEmployee.fulfilled,(state,action)=>{
+                 state.employees=action.payload
+                })
+                .addCase(getNotVerifiedEmployee.rejected,(state,action)=>{
+                  state.error=action.payload
+                })
 
     }
 })

@@ -50,8 +50,8 @@ export const RegisterWithOtp = createAsyncThunk(
     initialState: {
       loading: false,
       error: null,
-      otpSent:true ,
-      otpVerified:true,
+      otpSent:false ,
+      otpVerified:false,
       sellerData: null,
     },
     reducers: {},

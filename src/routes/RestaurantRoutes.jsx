@@ -1,5 +1,5 @@
 import React from 'react'
-import RestaurantHeader from '../Components/RestaurantSection/RestaurantHeader';
+//import RestaurantHeader from '../Components/RestaurantSection/RestaurantHeader';
 import RestaurantSidebar from '../Components/RestaurantSection/RestaurantSidebar';
 import { Outlet, Route, Routes } from 'react-router-dom';
 import RestaurantDashboard from '../Components/RestaurantSection/RestaurantDashboard';
@@ -25,13 +25,14 @@ import DeliveryBoyRequest from '../Components/MartSection/DeliveryBoyRequest';
 import AddEmployee from '../Components/MartSection/AddEmployee';
 import EmployeeList from '../Components/MartSection/EmployeeList';
 import SellerProfile from '../Components/SellerProfile';
+import WhiteHeader from '../Components/RestaurantSection/WhiteHeader';
 
 
 
 const RestaurantLayout = () => {
   return (
     <div >
-      <RestaurantHeader/>
+      <WhiteHeader/>
       <RestaurantSidebar/>
       
       <div className='ml-2' >

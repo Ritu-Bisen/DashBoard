@@ -5,19 +5,47 @@ import { v4 as uuidv4 } from 'uuid';
 import { seller_id } from "../../Components/MartSection/StockManagementForm";
 import supabase from "../../SupaBaseClient";
 
-export const checkExistingEmployee = async(phone)=>{
+export const checkExistingEmployee = async (phone) => {
   try {
-      const {data,error}= await supabase
+    const results = [];
+
+    // Check in employees table
+    const { data: employeeData, error: employeeError } = await supabase
       .from("employees")
       .select("phone")
-      .eq("phone",phone)
-      if(error) throw error ;
-      return data ;
+      .eq("phone", phone);
+    if (employeeError) throw employeeError;
+    if (employeeData.length > 0) {
+      results.push({ table: "employees", data: employeeData });
+    }
+
+    // Check in delivery_boys table
+    const { data: deliveryData, error: deliveryError } = await supabase
+      .from("delivery_boys")
+      .select("phone_number")
+      .eq("phone_number",phone)
+    if (deliveryError) throw deliveryError;
+    if (deliveryData.length > 0) {
+      results.push({ table: "delivery_boys", data: deliveryData });
+    }
+
+    // Check in sellers table
+    const { data: sellerData, error: sellerError } = await supabase
+      .from("sellers")
+      .select("seller_contact")
+      .eq("seller_contact", phone);
+    if (sellerError) throw sellerError;
+    if (sellerData.length > 0) {
+      results.push({ table: "sellers", data: sellerData });
+    }
+
+    return results; // contains matched tables and phone data
   } catch (error) {
-      console.log("Error to checking existing employee",error);
-      
+    console.error("Error checking phone number in all tables:", error);
+    return [];
   }
-}
+};
+
 
 
 const uploadEmployeePhoto = async (employee_id,employeePhoto,sellerDetails)=>{
@@ -277,3 +305,39 @@ export const createEmployeeApi = async (formData,sellerDetails) => {
     }
   };
   
+
+  export const fetchVerifiedEmployeeAPI = async(sellerDetails)=>{
+    try {
+      const { data, error } = await supabase
+      .from("employees")
+      .select('*')
+      .eq("is_verified",true)
+      .match({section:sellerDetails.segment,seller_id:sellerDetails.id})
+      if (!error) {
+        console.log("fetching data succesfully", data);
+      } else {
+        console.log("fetching data from supabse", error);
+      }
+      return data;
+    } catch (error) {
+      console.log("supabase error", error);
+    }
+  }
+
+  export const fetchNotVerifiedEmployeeAPI = async(sellerDetails)=>{
+    try {
+      const { data, error } = await supabase
+      .from("employees")
+      .select('*')
+      .eq("is_verified",false)
+      .match({section:sellerDetails.segment,seller_id:sellerDetails.id})
+      if (!error) {
+        console.log("fetching data succesfully", data);
+      } else {
+        console.log("fetching data from supabse", error);
+      }
+      return data;
+    } catch (error) {
+      console.log("supabase error", error);
+    }
+  }

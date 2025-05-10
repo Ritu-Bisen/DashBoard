@@ -73,7 +73,7 @@ const ProductManagement = () => {
       name: "Name",
       selector: (row) => row.name,
       sortable: true,
-      width: "150px",
+      width: "350px",
     },
     {
       name: "Category Name",
@@ -174,7 +174,7 @@ const ProductManagement = () => {
 
   return (
     <div className="relative w-[calc(100%-300px)] ml-[300px]">
-      <Header />
+     
       <div className=" mt-25">
         <div className="flex justify-between gap-3">
           <h1 className="  ml-2  text-3xl font-bold ">Product Management</h1>

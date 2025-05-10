@@ -5,6 +5,7 @@ export const loginSellerApi=async(phone)=>{
     const {data,error}=await supabase
     .from("sellers")
     .select('seller_contact,segment,id')
+    .eq("is_activate",true)
     .eq("seller_contact",phone)
     if (!error) {
         console.log("fetch succefully",data)
@@ -24,6 +25,7 @@ export const fetchSellerDetailsAPI=async (sellerDetails)=>{
    const {data,error}=await supabase
     .from("sellers")
     .select('*')
+    .eq("is_activate",true)
     .match({"id":sellerDetails.id,"segment":sellerDetails.segment}) 
     
     if (!error) {

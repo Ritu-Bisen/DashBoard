@@ -162,7 +162,7 @@ const StockManagementForm = () => {
 
   return (
     <div className="w-[calc(100%-300px)] ml-[300px]">
-      <Header />
+    
       <div className="mt-28 flex gap-10">
         <h1 className="ml-2 text-3xl font-bold">Stock Management</h1>
         <select

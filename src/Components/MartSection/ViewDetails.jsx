@@ -5,7 +5,7 @@ import Carousel from "../UI/Carousel";
 const ViewDetails = ({ product,onClose }) => {
   console.log(product);
   return (
-    <div className="fixed top-1/2 right-1/2 transition translate-x-1/2 -translate-y-1/2  h-150 w-250 bg-white ">
+    <div className="fixed top-1/2 right-1/2 transition translate-x-1/2 -translate-y-1/2 overflow-y-scroll  h-150 w-250 bg-white ">
       <div className="border-b border-gray-700  py-8 flex justify-between p-5">
         <h3 className="font-bold text-3xl">Product Details</h3>
         <button onClick={onClose} className="bg-red-500 p-2 rounded-full w-20 text-white">

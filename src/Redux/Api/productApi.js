@@ -6,6 +6,7 @@ export const fetchProductApi = async () =>{
         const{data,error}= await supabase
         .from("mart_products")
         .select(`*,categories(id,name)`)
+        .order("name", {ascending:true})
         if (!error) {
            console.log("fetch succefully",data)
             

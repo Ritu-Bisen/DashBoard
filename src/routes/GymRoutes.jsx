@@ -10,12 +10,14 @@ import GymOrders from '../Components/GymSection/GymOrders';
 import GymAddEmployee from '../Components/GymSection/GymAddEmployee';
 import GymEmployeeList from '../Components/GymSection/GymEmployeeList';
 import GymReport from '../Components/GymSection/GymReport';
+import WhiteHeader from '../Components/RestaurantSection/WhiteHeader';
+import SellerProfile from '../Components/SellerProfile';
 
 
 const GymLayout = () => {
   return (
     <div >
-      <GymHeader/>
+      <WhiteHeader/>
       <GymSideBar/>
       
       <div className='ml-2' >
@@ -32,6 +34,7 @@ const GymRoutes = () => {
       <Routes>
         <Route element={<GymLayout/>}> 
         <Route index element={<GymDashBoard/>}/>
+        <Route path='profile' element={<SellerProfile/>}/>
         <Route path="member" element={<GymMembers/>}/>
         <Route path='product' element={<GymProduct/>}/>
         <Route path='order' element={<GymOrders/>}/>
