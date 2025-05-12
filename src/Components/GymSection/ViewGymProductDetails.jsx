@@ -5,7 +5,7 @@ const ViewGymProductDetails = ({gymProducts,onClose}) => {
 
 
   return (
-    <div className="fixed top-25 right-60   h-[80vh] w-[120vh] overflow-hidden bg-white z-50">
+    <div className="fixed top-1/2 right-1/2 transition translate-x-1/2 -translate-y-1/2 h-150 w-250 overflow-y-scroll bg-white">
        <div className="border-b border-gray-700  py-8 flex justify-between p-5 ">
         <h3 className="font-bold text-3xl">Gym Products Details</h3>
         <button
@@ -15,7 +15,7 @@ const ViewGymProductDetails = ({gymProducts,onClose}) => {
           Close
         </button>
       </div>
-      <div className="overflow-y-auto h-[calc(90vh-80px)] px-6 py-10 ">
+      <div className=" px-6 py-10 ">
       <div className='flex justify-between '>
          <div>
             <table>
@@ -70,7 +70,7 @@ const ViewGymProductDetails = ({gymProducts,onClose}) => {
          </div>
      </div>
      <div>
-      <table className='mb-20 '>
+      <table >
         <tr>
             <th className="border-gray-300 border p-2 px-5">Benefits</th>
             <td className="border-gray-300 border p-2 px-5"> {gymProducts?.benefits.map((list, index) => (

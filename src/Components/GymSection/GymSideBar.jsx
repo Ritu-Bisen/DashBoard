@@ -30,20 +30,44 @@ const GymSideBar = () => {
         icon: <MdMiscellaneousServices size={30} />,
         path: "/gym/member",
       },
-      {
+       {
         id: 3,
+        name: "Services",
+        icon: <MdMiscellaneousServices size={30} />,
+        path: "/gym/services",
+      },
+         {
+        id: 4,
+        name: "Workout",
+        icon: <MdMiscellaneousServices size={30} />,
+        path: "/gym/workout",
+      },
+        {
+        id: 5,
+        name: "Nutrition",
+        icon: <MdMiscellaneousServices size={30} />,
+        path: "/gym/nutrition",
+      },
+      {
+        id: 6,
         name: "Product",
         icon: <FaBoxOpen size={30} />,
         path: "/gym/product",
       },
       {
-        id: 4,
+        id: 7,
         name: "Order",
         icon: <CgGym size={30} />,
         path: "/gym/order",
       },
       {
-        id: 5,
+        id: 8,
+        name: "Banners",
+        icon: <CgGym size={30} />,
+        path: "/gym/order",
+      },
+      {
+        id: 9,
         name: "Employee",
         icon: <HiUsers size={30} />,
         subroute: [  
@@ -52,13 +76,13 @@ const GymSideBar = () => {
         ],
       },
       {
-        id: 6,
+        id: 10,
         name: "Reports",
         icon: <HiOutlineClipboardDocumentList size={30} />,
         path: "/gym/reports",
       },
       {
-        id: 7,
+        id: 11,
         name: "Logout",
         icon: <TbLogout size={30} />,
         path: "/",

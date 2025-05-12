@@ -10,6 +10,8 @@ import WhiteHeader from "../Components/WhiteHeader";
 import SellerProfile from "../Components/SellerProfile";
 import AddEmployee from "../Components/employees/AddEmployee";
 import EmployeeList from "../Components/employees/EmployeeList";
+import GymServices from "../Components/GymSection/GymServices";
+import GymWorkout from "../Components/GymSection/GymWorkout";
 
 const GymLayout = () => {
   return (
@@ -31,6 +33,8 @@ const GymRoutes = () => {
           <Route index element={<GymDashBoard />} />
           <Route path="profile" element={<SellerProfile />} />
           <Route path="member" element={<GymMembers />} />
+           <Route path="services" element={<GymServices />} />
+           <Route path="workout" element={<GymWorkout />} />
           <Route path="product" element={<GymProduct />} />
           <Route path="order" element={<GymOrders />} />
           <Route path="employee/add-employee" element={<AddEmployee />} />

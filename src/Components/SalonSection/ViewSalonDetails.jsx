@@ -13,8 +13,9 @@ const ViewSalonDetails = ({ services, onClose }) => {
         <Carousel  className="h-65 w-65" image={services.image_urls}/>
         <div>
           <table >
-            <th  className="border-gray-300 border p-2 px-5">Name:</th>
-            <td className="border-gray-300 border p-1">{services.name}</td>
+            <tr> <th  className="border-gray-300 border p-2 px-5">Name:</th>
+            <td className="border-gray-300 border p-1">{services.name}</td></tr>
+           
             <tr>
               <th className="border-gray-300 border p-1">Category:</th>
               <td className="border-gray-300 border p-1">{services.category_id}</td>
