@@ -1,13 +1,13 @@
 import { seller_id } from "../../Components/MartSection/StockManagementForm";
 import supabase from "../../SupaBaseClient";
 
-export const fetchorderRequestAPI = async () => {
+export const fetchorderRequestAPI = async (sellerDetails) => {
   try {
     const {data,error}=await supabase
     .from("orders")
     .select(`*,users(*)`)
-    .eq("order_type","mart")
-    .eq("seller_id",seller_id)
+    .eq("order_type",sellerDetails.segment)
+    .eq("seller_id",sellerDetails.id)
     .eq("is_assigned",false)
     if (!error) {
       console.log("fetch the order data", data);

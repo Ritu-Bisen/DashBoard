@@ -55,11 +55,6 @@ const RestaurantOrders = () => {
       width: "300px",
     },
     {
-      name: "Order Type",
-      selector: (row) => row.order_type,
-    },
-
-    {
       name: "Total Amount",
       selector: (row) => row.total_amount,
       width: "120px",
@@ -122,7 +117,7 @@ const RestaurantOrders = () => {
     order_id: item.id,
     user_id: item.user_id,
 
-    order_type: item.order_type,
+    
     total_amount: item.total_amount,
     payment_status: item.payment_status,
     order_status: item.order_status,

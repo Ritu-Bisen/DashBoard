@@ -1,11 +1,19 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { fetchMartAssignedOrderAPI, fetchMartOrderDetailsAPI} from "../Api/orderapi";
+import { fetchMartAssignedDeliveryBoy, fetchMartAssignedOrderAPI, fetchMartOrderDetailsAPI} from "../Api/orderapi";
 
-export const getAssignedOrders = createAsyncThunk("assign-orders/fetch", async (sellerDetails) => {
+export const getMartAssignedOrders = createAsyncThunk("assign-orders/fetch", async (sellerDetails) => {
+    console.log("hii",sellerDetails);
+    
         const assignOrders = await fetchMartAssignedOrderAPI(sellerDetails);
         // console.log(orders);
         return assignOrders;
 });
+
+export const getMartAssignedDeliveryBoy= createAsyncThunk("assinged-DeliveryBoy/fetch",async(orderId)=>{
+  
+    const assignDeliveryBoy= await fetchMartAssignedDeliveryBoy(orderId);
+    return assignDeliveryBoy;
+})
 
 export const getMartOrdersDetails=createAsyncThunk('orders-details/fetch',async({orderId,sellerDetails})=>{
     const ordersDetails = await fetchMartOrderDetailsAPI({orderId,sellerDetails});
@@ -15,23 +23,26 @@ export const getMartOrdersDetails=createAsyncThunk('orders-details/fetch',async(
 const orderSlice = createSlice({
     name: "assignOrders",
     name:'orders',
+     name:"assignedDeliveryBoy",
     initialState: {
-        assignOrders: [],
+        orders: [],
+        assignOrders:[],
+        assignedDeliveryBoy:[],
         loading: false,
         error: null,
     },
     reducers: {},
     extraReducers: (builder) => {
         builder
-            .addCase(getAssignedOrders.pending, (state) => {
+            .addCase(getMartAssignedOrders.pending, (state) => {
                 state.loading = true;
                 state.error = null;
             })
-            .addCase(getAssignedOrders.fulfilled, (state, action) => {
+            .addCase(getMartAssignedOrders.fulfilled, (state, action) => {
                 state.loading = false;
                 state.assignOrders = action.payload;
             })
-            .addCase(getAssignedOrders.rejected, (state, action) => {
+            .addCase(getMartAssignedOrders.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.payload || "Failed to fetch orders.";
             })
@@ -46,7 +57,19 @@ const orderSlice = createSlice({
             .addCase(getMartOrdersDetails.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.payload || "Failed to fetch orders.";
-            });
+            })
+              .addCase(getMartAssignedDeliveryBoy.pending, (state) => {
+                            state.loading = true;
+                            state.error = null;
+                        })
+                        .addCase(getMartAssignedDeliveryBoy.fulfilled, (state, action) => {
+                            state.loading = false;
+                            state.assignedDeliveryBoy= action.payload;
+                        })
+                        .addCase(getMartAssignedDeliveryBoy.rejected, (state, action) => {
+                            state.loading = false;
+                            state.error = action.payload || "Failed to fetch orders.";
+                        });
     },
 });
 

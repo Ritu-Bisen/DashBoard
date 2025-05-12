@@ -3,7 +3,7 @@ import { FaUsers } from "react-icons/fa";
 import { HiUsers } from "react-icons/hi";
 import { MdOutlineMiscellaneousServices } from "react-icons/md";
 import { FaRegCalendarCheck } from "react-icons/fa";
-import { fetchRestaurantCategoryApi } from '../../Redux/Api/restaurantApi/restaurantCategoryApi';
+
 
 const RestaurantDashboard = () => {
  const cartitem=[{
@@ -42,7 +42,7 @@ const RestaurantDashboard = () => {
   client:"Person"
 
  },]
- console.log("hii",fetchRestaurantCategoryApi());
+ 
  
   return (
     <div className='w-[calc(100%-300px)] ml-[300px]  py-30 '>

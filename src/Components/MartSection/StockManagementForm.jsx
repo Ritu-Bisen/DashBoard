@@ -161,9 +161,9 @@ const StockManagementForm = () => {
   
 
   return (
-    <div className="w-[calc(100%-300px)] ml-[300px]">
+    <div className="w-[calc(100%-300px)] ml-[300px] pt-[120px]">
     
-      <div className="mt-28 flex gap-10">
+      <div className="mt-5 flex gap-10 ">
         <h1 className="ml-2 text-3xl font-bold">Stock Management</h1>
         <select
            onChange={handleSelectProduct}

@@ -3,12 +3,13 @@ import DataTable from "react-data-table-component";
 import { IoMdSearch } from "react-icons/io";
 import Header from "../MartSection/Header";
 import { useDispatch, useSelector } from "react-redux";
-import { getAssignedOrders } from "../../Redux/Slices/OrderSlice";
+import { getMartAssignedOrders, getMartOrdersDetails } from "../../Redux/Slices/OrderSlice";
 import { FaEye } from "react-icons/fa";
 import ViewDetails from "./ViewDetails";
 import ViewOrderDetails from "./ViewOrderDetails";
 import supabase from "../../SupaBaseClient";
 import { getdeliveryBoyData } from "../../Redux/Slices/deliveryBoyDataSlice";
+import { fetchMartAssignedOrderAPI } from "../../Redux/Api/orderapi";
 
 const OrderTable = () => {
   const [isShowDetail, setIsShowDetail] = useState(false);
@@ -25,14 +26,17 @@ const OrderTable = () => {
 
   const { assignOrders } = useSelector((state) => state.order); 
   const{sellerDetails}=useSelector((state)=>state.seller) 
+  //console.log("login",sellerDetails);
+  
 
  
+  console.log(assignOrders);
   
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getAssignedOrders(sellerDetails));
+    dispatch(getMartAssignedOrders(sellerDetails));
  
   }, [dispatch]);
 
@@ -111,16 +115,16 @@ const OrderTable = () => {
   const data = assignOrders.map((item, index) => ({
      serialNo: index + 1,
  
-     order_id: item.id,
-     user_id: item.user_id,
-     total_amount: item.total_amount,
-     payment_status: item.payment_status,
-     order_status: item.order_status,
-     payment_method: item.payment_method,
-     address: item.address,
+     order_id: item?.id,
+     user_id: item?.user_id,
+     total_amount: item?.total_amount,
+     payment_status: item?.payment_status,
+     order_status: item?.order_status,
+     payment_method: item?.payment_method,
+     address: item?.address,
  
      view: (
-       <button onClick={() => handleViewDetails(item.id)}>
+       <button onClick={() => handleViewDetails(item?.id)}>
          <FaEye size={25} />
        </button>
      ),

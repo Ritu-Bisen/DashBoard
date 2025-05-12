@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
-import {  fetchAssignedData, fetchAssignedDeliveryBoy, fetchRestaurantOrderAPI } from "../../Api/restaurantApi/restaurantOrderApi";
+import {  fetchRestaurantAssignedDeliveryBoy, fetchRestaurantAssignedOrderData, fetchRestaurantOrderAPI } from "../../Api/restaurantApi/restaurantOrderApi";
 
 export const getRestaurantOrders = createAsyncThunk("order/fetch", async ({orderId,sellerDetails}) => {
  
@@ -12,12 +12,12 @@ export const getRestaurantOrders = createAsyncThunk("order/fetch", async ({order
 
 export const getAssignedDeliveryBoy= createAsyncThunk("assinged-DeliveryBoy/fetch",async(orderId)=>{
     console.log(orderId);
-    const assignDeliveryBoy= await fetchAssignedDeliveryBoy(orderId);
+    const assignDeliveryBoy= await fetchRestaurantAssignedDeliveryBoy(orderId);
     return assignDeliveryBoy;
 })
 
 export const getOrderAssignedData= createAsyncThunk("assigned/fetch",async(sellerDetails)=>{
-    const assignedData = await fetchAssignedData(sellerDetails);
+    const assignedData = await fetchRestaurantAssignedOrderData(sellerDetails);
     return assignedData;
 })
 

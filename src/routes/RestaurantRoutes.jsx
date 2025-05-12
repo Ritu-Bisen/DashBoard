@@ -3,29 +3,21 @@ import React from 'react'
 import RestaurantSidebar from '../Components/RestaurantSection/RestaurantSidebar';
 import { Outlet, Route, Routes } from 'react-router-dom';
 import RestaurantDashboard from '../Components/RestaurantSection/RestaurantDashboard';
-
 import RestaurantMenu from '../Components/RestaurantSection/RestaurantMenu';
-import RestaurantCategory from '../Components/RestaurantSection/RestaurantCategory';
-import RestaurantCategoryOffer from '../Components/RestaurantSection/RestaurantCategoryOffer';
-import RestaurantAddDeliveryBoy from '../Components/RestaurantSection/RestaurantAddDeliveryBoy';
-import RestaurantDeliveryBoysList from '../Components/RestaurantSection/RestaurantDeliveryBoysList';
-import RestaurantEmployeeDataList from '../Components/RestaurantSection/RestaurantEmployeeDataList';
-import RestaurantAddEmployee from '../Components/RestaurantSection/RestaurantAddEmployee';
 import RestaurantOrders from '../Components/RestaurantSection/RestaurantOrders';
 import RestaurantStockManagement from '../Components/RestaurantSection/RestaurantStockManagement';
 import RestaurantReports from '../Components/RestaurantSection/RestaurantReports';
 import RestaurantOrderRequest from '../Components/RestaurantSection/RestaurantOrderRequest';
-import RestaurantDeliveryBoysManagement from '../Components/RestaurantSection/RestaurantDeliveryBoysManagement';
-import CategoryManagement from '../Components/MartSection/CategoryManagement';
-import CategoryOfferTable from '../Components/MartSection/CategoryOfferTable';
-import DeliveryBoyList from '../Components/MartSection/DeliveryBoyList';
-import AddDeliveryBoy from '../Components/MartSection/AddDeliveryBoy';
-import DeliveryBoyManagement from '../Components/MartSection/DeliveryBoyManagement';
-import DeliveryBoyRequest from '../Components/MartSection/DeliveryBoyRequest';
-import AddEmployee from '../Components/MartSection/AddEmployee';
-import EmployeeList from '../Components/MartSection/EmployeeList';
+import CategoryManagement from '../Components/categories/CategoryManagement';
+import CategoryOfferTable from '../Components/categories/CategoryOfferTable';
+import DeliveryBoyList from '../Components/deliveryboy/DeliveryBoyList';
+import AddDeliveryBoy from '../Components/deliveryboy/AddDeliveryBoy';
+import DeliveryBoyManagement from '../Components/deliveryboy/DeliveryBoyManagement';
+import DeliveryBoyRequest from '../Components/deliveryboy/DeliveryBoyRequest';
+import AddEmployee from '../Components/employees/AddEmployee';
+import EmployeeList from '../Components/employees/EmployeeList';
 import SellerProfile from '../Components/SellerProfile';
-import WhiteHeader from '../Components/RestaurantSection/WhiteHeader';
+import WhiteHeader from '../Components/WhiteHeader';
 
 
 

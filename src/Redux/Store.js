@@ -5,7 +5,6 @@ import categoriesReducer from './Slices/categoriesSlice'
 import stockReducer from './Slices/stockmanagementSlice'
 import quantityReducer from './Slices/stockQuantitySlice'
 import salonReducer from './Slices/salonSlicees/salonServicesSlice'
-import employeeDetailReducer from './Slices/salonSlicees/salonEmployeeDataSlice'
 import appointmentReducer from './Slices/salonSlicees/salonAappointmentSlice'
 import billingReducer from './Slices/salonSlicees/salonBillingSlice';
 import authReducer from './Slices/salonSlicees/authSlice';
@@ -13,12 +12,8 @@ import deliveryBoyReducer from './Slices/deliveryBoyDataSlice';
 import gymProductsReducer from './Slices/gymSlice/gymProductSlice';
 import gymOrdersReducer from './Slices/gymSlice/gymOrdersSlice';
 import orderRequestReducer from './Slices/OrderRequestSlice';
-import gymEmployeeReducer from './Slices/gymSlice/gymEmployeeSlice';
 import employeeReducer from './Slices/employeeSlice'
 import restaurantMenuReducer from './Slices/restaurantSlice/restaurantMenuSlice'
-import restaurantCategoryReducer from './Slices/restaurantSlice/restaurantCategorySlice'
-import restaurantDeliveryBoyReducer from './Slices/restaurantSlice/restaurantDeliveryBoySlice'
-import restaurantEmployeeReducer from './Slices/restaurantSlice/restaurantemployeeSlice'
 import restaurantOrderReducer from './Slices/restaurantSlice/restaurantOrderSlice'
 import restaurantOrderRequestReducer from './Slices/restaurantSlice/restaurantOrderRequestSlice'
 import sellerReducer from './Slices/loginSellerSlice'
@@ -31,7 +26,6 @@ const store = configureStore({
         stock : stockReducer , 
         quantity :quantityReducer,
         service : salonReducer,
-       employeeDetail : employeeDetailReducer ,
        appointmentList: appointmentReducer,
        billing: billingReducer,
        auth : authReducer,
@@ -39,12 +33,8 @@ const store = configureStore({
        gymProducts:gymProductsReducer,
        gymOrders:gymOrdersReducer,
        orderRequest:orderRequestReducer,
-       gymEmployee:gymEmployeeReducer,
        employee:employeeReducer,
        restaurantmenu:restaurantMenuReducer,
-       restaurantCategory:restaurantCategoryReducer,
-       restaurantDeliveryBoy:restaurantDeliveryBoyReducer,
-       restaurantEmployee:restaurantEmployeeReducer,
        restaurantOrder:restaurantOrderReducer,
        restaurantOrderRequest:restaurantOrderRequestReducer,
        seller:sellerReducer,

@@ -7,7 +7,6 @@ import {
  
   deliveryBoyRegister,
 } from "../../Redux/Slices/deliveryBoyDataSlice";
-import { seller_id } from "./StockManagementForm";
 import { checkExistingDeliveryBoy } from "../../Redux/Api/deliveryBoyApi";
 import {
   RegisterWithOtp,

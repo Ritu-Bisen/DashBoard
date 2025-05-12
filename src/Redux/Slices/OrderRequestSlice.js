@@ -8,8 +8,8 @@ import {
 
 export const getOrderRequest = createAsyncThunk(
   "order-request/fetch",
-  async () => {
-    const ordersRequest = await fetchorderRequestAPI();
+  async (sellerDetails) => {
+    const ordersRequest = await fetchorderRequestAPI(sellerDetails);
     // console.log(orders);
     return ordersRequest;
   }

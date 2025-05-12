@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
-import { users } from '../../src/LocalStorage';
 import { useDispatch, useSelector } from 'react-redux';
 import { RegisterWithOtp, VerifyOtp } from '../Redux/Slices/salonSlicees/authSlice';
-import { checkExistingEmployee } from '../Redux/Api/salonApi/salonEmployeeDetailsApi';
+
 import { toast } from 'react-toastify';
 import { getLoginSeller } from '../Redux/Slices/loginSellerSlice';
 

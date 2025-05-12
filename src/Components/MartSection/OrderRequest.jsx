@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getOrderRequest, martOrderRequest, updateAssignedMartOrder } from "../../Redux/Slices/OrderRequestSlice";
-import { getdeliveryBoyData } from "../../Redux/Slices/deliveryBoyDataSlice";
+import { getActiveVerifiedDeliveryBoys, getdeliveryBoyData } from "../../Redux/Slices/deliveryBoyDataSlice";
 import Header from "./Header";
 import DataTable from "react-data-table-component";
 import { FaEye } from "react-icons/fa";
@@ -27,6 +27,8 @@ const OrderRequest = () => {
 
   const { orderRequest } = useSelector((state) => state.orderRequest);
   const { deliveryBoys } = useSelector((state) => state.deliveryBoyData);
+    const{sellerDetails}=useSelector((state)=>state.seller) 
+
 
  console.log("bjj",orderRequest);
   
@@ -34,8 +36,8 @@ const OrderRequest = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getOrderRequest());
-    dispatch(getdeliveryBoyData());
+    dispatch(getOrderRequest(sellerDetails));
+    dispatch(getActiveVerifiedDeliveryBoys(sellerDetails));
   }, [dispatch]);
 
    useEffect(() => {
@@ -195,8 +197,8 @@ const OrderRequest = () => {
 
   return (
     <div className="w-[calc(100%-300px) ml-[300px]">
-      <Header />
-      <div className=" mt-25">
+    
+      <div className=" pt-[120px]">
         <div className="flex justify-between gap-3">
           <h1 className="  ml-2  text-3xl font-bold ">Order Requests</h1>
         </div>
@@ -221,6 +223,7 @@ const OrderRequest = () => {
             ></div>
             <div className="absolute z-1000">
               <ViewOrderRequestProducts
+              sellerDetails={sellerDetails}
                 orderId={showProducts}
                 onClose={handleProductsClose}
               />

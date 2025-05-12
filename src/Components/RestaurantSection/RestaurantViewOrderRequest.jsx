@@ -48,7 +48,7 @@ const RestaurantViewOrderRequest = ({sellerDetails,orderId ,onClose}) => {
               <td className="p-2 border-gray-300 border">{item.restaurant_products.tax_amount}</td>
               <td className="p-2 border-gray-300 border">{item.restaurant_products.final_price}</td>
             
-            </tr>
+            </tr>     
           ))}
           
          

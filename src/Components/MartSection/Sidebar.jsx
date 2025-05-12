@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ImUsers } from "react-icons/im";
 import {
   MdDashboard,
@@ -15,6 +15,8 @@ import { FaBoxOpen } from "react-icons/fa";
 import { HiOutlineClipboardDocumentList, HiUsers } from "react-icons/hi2";
 import { CiEdit } from "react-icons/ci";
 import logo from '../../assets/pictures/snba-logo-black.png';
+import { useDispatch, useSelector } from "react-redux";
+import { getSellerDetails } from "../../Redux/Slices/loginSellerSlice";
 
 const Sidebar = () => {
   const location = useLocation();
@@ -24,6 +26,14 @@ const Sidebar = () => {
   const toggleMenu = (menu) => {
     setOpenMenu((prev) => (prev === menu ? null : menu));
   };
+
+    const {sellerProfileData}=useSelector((state)=>state.seller)
+  const{sellerDetails}=useSelector((state)=>state.seller)
+  const dispatch =useDispatch()
+useEffect(() => {
+ dispatch(getSellerDetails(sellerDetails))
+}, [dispatch])
+console.log(sellerProfileData);
 
   const listItems = [
     { id: 1, title: "DashBoard", icon: <MdDashboard size={25} />, path: "/mart" },
@@ -73,7 +83,7 @@ const Sidebar = () => {
       subroute: [
         { title: "Delivery Boy Add", path: "/mart/deliveryboy/delivery-boy-add" },
         { title: "Delivery Boy List", path: "/mart/deliveryboy/delivery-boy-list" },
-        { title: "Delivery Boy Cash", path: "/mart/deliveryboy/delivery-boy-cash" },
+        { title: "Delivery Boy Request", path: "/mart/deliveryboy/delivery-boy-request" },
         { title: "Delivery Boy Management", path: "/mart/deliveryboy/delivery-boy-management" },
       ],
     },
@@ -89,23 +99,24 @@ const Sidebar = () => {
 
   return (
     
-      <div className="fixed top-0 left-0 w-[300px] bg-[#ad011d] h-screen text-white pt-5 overflow-hidden">
+      <div className="fixed top-0 left-0 w-[300px] bg-[#ad011d] h-screen text-white pt-5 overflow-hidden overflow-y-scroll ">
        
           <img className="bg-white w-44 h-15 m-auto object-cover text-2xl text-black font-bold text-center mb-5" src={logo}/>
       
 
         {/* Profile Section */}
         <div className="flex flex-col items-center justify-center">
-          <ImUsers className="border-2 rounded-full" size={50} />
-          <h1 className="font-bold text-xl mt-3">Aditya Sahu</h1>
-          <button className="text-sm flex gap-2">
-            Edit Profile <CiEdit className="mt-1" size={15} />
-          </button>
+         <img className="h-25 w-25 rounded-full" src={sellerProfileData[0]?.profile_urls}/>
+          <h1 className="font-bold text-xl mt-3">{sellerProfileData[0]?.seller_name}</h1>
+          <Link to={`/${sellerDetails.segment}/profile`}>  <button className="text-sm flex gap-2">
+            View Profile <CiEdit className="mt-1" size={15} />
+          </button></Link>
+        
           <h1>Mart Section</h1>
         </div>
 
         {/* Sidebar Menu */}
-        <ul className="space-y-2 mt-5">
+        <ul className="space-y-2 mt-5 mb-10">
           {listItems.map((item) => (
             <li key={item.id}>
               {item.subroute ? (

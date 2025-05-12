@@ -1,11 +1,11 @@
 import React, { useEffect } from "react";
 import { IoMdSearch } from "react-icons/io";
 import { IoMdNotifications } from "react-icons/io";
-import logo from "../../assets/pictures/snba-logo-black.png";
+import logo from "../assets/pictures/snba-logo-black.png";
 import { ImUsers } from "react-icons/im";
 import { CiEdit } from "react-icons/ci";
 import { useDispatch, useSelector } from "react-redux";
-import { getSellerDetails } from "../../Redux/Slices/loginSellerSlice";
+import { getSellerDetails } from "../Redux/Slices/loginSellerSlice";
 import { Link } from "react-router-dom";
 
 const WhiteHeader = () => {

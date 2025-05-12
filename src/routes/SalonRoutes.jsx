@@ -1,5 +1,4 @@
 import React from 'react'
-import SalonHeader from '../Components/SalonSection/SalonHeader';
 import SalonSideBar from '../Components/SalonSection/SalonSideBar';
 import { Outlet, Route, Routes } from 'react-router-dom';
 import SalonDashboard from '../Components/SalonSection/SalonDashboard';
@@ -7,16 +6,12 @@ import SalonServices from '../Components/SalonSection/SalonServices';
 import SalonProduct_kit from '../Components/SalonSection/SalonProduct_kit';
 import SalonKitRequest from '../Components/SalonSection/SalonKitRequest';
 import SalonAppointment from '../Components/SalonSection/SalonAppointment';
-
 import SalonReport from '../Components/SalonSection/SalonReport';
-import SalonAddEmployee from '../Components/SalonSection/SalonAddEmployee';
-import SalonBillingInvoice from '../Components/SalonSection/SalonBillingInvoice';
 import SalonBillingList from '../Components/SalonSection/SalonBillingList';
-import SalonEmployeeList from '../Components/SalonSection/SalonEmployeeList';
-import WhiteHeader from '../Components/RestaurantSection/WhiteHeader';
-import EmployeeList from '../Components/MartSection/EmployeeList';
-import AddEmployee from '../Components/MartSection/AddEmployee';
+import AddEmployee from '../Components/employees/AddEmployee';
+import EmployeeList from '../Components/employees/EmployeeList';
 import SellerProfile from '../Components/SellerProfile';
+import WhiteHeader from '../Components/WhiteHeader';
 
 const SalonLayout = () => {
     return (

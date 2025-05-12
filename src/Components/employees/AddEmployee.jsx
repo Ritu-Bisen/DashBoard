@@ -1,22 +1,18 @@
 import React, { useEffect, useState } from "react";
-
-//import { employeeDetailsList } from "../../Redux/Slices/salonSlicees/salonEmployeeDataSlice";
 import { useDispatch, useSelector } from "react-redux";
-//import { seller_id } from "../MartSection/StockManagementForm";
 import {
   RegisterWithOtp,
   VerifyOtp,
 } from "../../Redux/Slices/salonSlicees/authSlice";
 import bank_name from "../../constant/bank_names";
-import { checkExistingEmployee } from "../../Redux/Api/salonApi/salonEmployeeDetailsApi";
 import {
   gym_employee_designation,
   mart_employee_designation,
   restaurant_employee_designation,
   salon_employee_designation,
 } from "../../constant/employee_designation";
-//import { martemployeeDetailsList } from "../../Redux/Slices/martEmployeeSlice";
 import { createEmployee } from "../../Redux/Slices/employeeSlice";
+import { checkExistingEmployee } from "../../Redux/Api/employeeApi";
 
 const AddEmployee = () => {
   const { otpSent, otpVerified } = useSelector((state) => state.auth);

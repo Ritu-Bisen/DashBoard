@@ -1,17 +1,12 @@
 import React, { useEffect, useState } from 'react'
-
 import DataTable from 'react-data-table-component';
 import { useDispatch, useSelector } from 'react-redux';
-//import  getdeliveryBoyData  from '../../Redux/Slices/deliveryBoyDataSlice';
-//import { fetchDeliveryBoyData } from '../../Redux/Api/deliveryBoyApi';
-//import { getdeliveryBoyData } from '../../Redux/Slices/deliveryBoyDataSlice';
+import { getdeliveryBoyData } from '../../Redux/Slices/deliveryBoyDataSlice';
 import { FaEye } from "react-icons/fa";
-//import ViewDeliveryBoyDEtails from './ViewDeliveryBoyDEtails';
-import { getRestaurantDeliveryBoyData } from '../../Redux/Slices/restaurantSlice/restaurantDeliveryBoySlice';
-import RestaurantViewDeliveryBoyDetails from './RestaurantViewDeliveryBoyDetails';
+import ViewDeliveryBoyDEtails from './ViewDeliveryBoyDEtails';
 
 
-const RestaurantDeliveryBoysList  = () => {
+const DeliveryBoyList  = () => {
 
   const [isShowDetail, setIsShowDetail] = useState(false);
     const [showDeliveryBoy, setShowDeliveryBoy] = useState(null);
@@ -25,14 +20,15 @@ const RestaurantDeliveryBoysList  = () => {
       setIsShowDetail(false);
     };
 
-const {deliveryBoys}=useSelector((state)=>state.restaurantDeliveryBoy,
-);
+const { deliveryBoys}=useSelector((state)=>state.deliveryBoyData);
+const{sellerDetails}=useSelector((state)=>state.seller)
+
 console.log( deliveryBoys);
 
 const dispatch =useDispatch();
 
 useEffect(() => {
-dispatch(getRestaurantDeliveryBoyData())
+dispatch(getdeliveryBoyData(sellerDetails))
 }, [dispatch])
 
 
@@ -48,10 +44,7 @@ dispatch(getRestaurantDeliveryBoyData())
           selector: (row) => row.deliveryBoy_id,
           width: "150px",
         },
-        {
-          name: "Profile",
-          selector: (row) => row.profile_image_url,
-        },
+        
         {
           name: "Name",
           selector: (row) => row.name,
@@ -120,12 +113,11 @@ dispatch(getRestaurantDeliveryBoyData())
         deliveryBoy_id:item.id,
         name:item.full_name,
         phone:item.phone_number,
-        profile_image_url:(<img src={item.profile_image_url}/>),
         email:item.email,
        active:item.is_active,
        verified:item.is_verified,
        address:item.address,
-       view:( <button onClick={()=>handleViewDetails(item)} >
+       view:( <button onClick={() => handleViewDetails(item)}>
                <FaEye size={25} />
              </button>),
        active:(item.is_active === true ?
@@ -135,8 +127,9 @@ dispatch(getRestaurantDeliveryBoyData())
       }))
 
   return (
-    <div className=" w-[calc(100%-300px)] ml-[300px] h-screen flex flex-col   ">
-      <div className=" overflow-y-auto flex-1 pt-[120px] ">
+    <div className="w-[calc(100%-300px) ml-[300px]">
+      
+      <div className='pt-[120px]'>
         <div className='flex justify-between '> 
         <h1 className="  ml-2  text-3xl font-bold ">Delivery Boys List</h1>
           <input className="border-2 border-gray-400 w-95 h-10 rounded-full p-3" type='text' placeholder='Search'/>
@@ -155,7 +148,8 @@ dispatch(getRestaurantDeliveryBoyData())
                 }}
               ></div>
               <div className="absolute z-1000">
-                <RestaurantViewDeliveryBoyDetails
+                <ViewDeliveryBoyDEtails
+                
                   deliveryBoys={showDeliveryBoy}
                   onClose={handleDeliveryBoyDetailClose}
                 />
@@ -169,4 +163,4 @@ dispatch(getRestaurantDeliveryBoyData())
   )
 }
 
-export default RestaurantDeliveryBoysList
+export default DeliveryBoyList

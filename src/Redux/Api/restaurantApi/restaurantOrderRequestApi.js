@@ -1,5 +1,4 @@
 import { useSelector } from "react-redux";
-import { restaurant_seller_id } from "../../../Components/RestaurantSection/RestaurantAddDeliveryBoy";
 import supabase from "../../../SupaBaseClient";
 
 

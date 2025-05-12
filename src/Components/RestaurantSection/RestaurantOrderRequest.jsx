@@ -9,10 +9,8 @@ import {
   restaurantOrderRequest,
   updateAssignedRestaurantOrder,
 } from "../../Redux/Slices/restaurantSlice/restaurantOrderRequestSlice";
-import { getRestaurantDeliveryBoyData } from "../../Redux/Slices/restaurantSlice/restaurantDeliveryBoySlice";
-
 import RestaurantViewOrderRequest from "./RestaurantViewOrderRequest";
-import { fetchRestaurantOrderRequestAPI } from "../../Redux/Api/restaurantApi/restaurantOrderRequestApi";
+import { getActiveVerifiedDeliveryBoys } from "../../Redux/Slices/deliveryBoyDataSlice";
 
 const RestaurantOrderRequest = () => {
   const [assignStatus, setAssignStatus] = useState({});
@@ -39,7 +37,7 @@ const RestaurantOrderRequest = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getRestaurantDeliveryBoyData(sellerDetails));
+    dispatch(getActiveVerifiedDeliveryBoys(sellerDetails));
     dispatch(getRestaurantOrderRequest(sellerDetails));
   }, [dispatch]);
 
