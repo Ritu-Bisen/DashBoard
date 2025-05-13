@@ -1,4 +1,4 @@
-import { seller_id } from "../../Components/MartSection/StockManagementForm";
+//import { seller_id } from "../../Components/MartSection/StockManagementForm";
 import supabase from "../../SupaBaseClient";
 
 export const fetchorderRequestAPI = async (sellerDetails) => {

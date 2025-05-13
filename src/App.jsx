@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import LoginPage from "./Components/LoginPage";
+import LoginPage from "./pages/LoginPage";
 import MartRoutes from "./routes/MartRoutes";
 import ProtectedRoute from "./Components/ProtectedRoute";
 import GymRoutes from "./routes/GymRoutes";

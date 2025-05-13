@@ -1,29 +1,28 @@
 import React from 'react'
-import Sidebar from '../Components/MartSection/Sidebar'
-import OrderTable from '../Components/MartSection/OrderTable'
-import StockManagementForm from '../Components/MartSection/StockManagementForm'
-import ProductManagement from '../Components/MartSection/ProductManagement'
-import CategoryManagement from '../Components/categories/CategoryManagement'
-import CategoryOfferTable from '../Components/categories/CategoryOfferTable'
+import MartOrders from '../pages/orders/MartOrders'
+ import MartStockManagement from '../pages/stockManagement/MartStockManagement'
+ import MartProduct from '../pages/product/MartProduct'
+ import Category from '../pages/category/Category'
+ import CategoryOffer from '../pages/category/CategoryOffer'
 import { Outlet, Route, Routes } from 'react-router-dom'
-import SellerProfile from '../Components/SellerProfile';
-import Reports from '../Components/MartSection/Reports'
-import Dashboard from '../Components/MartSection/Dashboard'
-import AddDeliveryBoy from '../Components/deliveryboy/AddDeliveryBoy'
-import DeliveryBoyList from '../Components/deliveryboy/DeliveryBoyList'
-import OrderRequest from '../Components/MartSection/OrderRequest'
-import DeliveryBoyManagement from '../Components/deliveryboy/DeliveryBoyManagement'
-import Header from '../Components/MartSection/Header'
-import DeliveryBoyRequest from '../Components/deliveryboy/DeliveryBoyRequest'
-import AddEmployee from "../Components/employees/AddEmployee";
-import EmployeeList from "../Components/employees/EmployeeList";
+ import SellerProfile from '../pages/SellerProfile';
+ import MartReports from '../pages/reports/MartReports'
+ import DeliveryBoyList from '../pages/deliveryBoy/DeliverBoyList'
+ import MartOrderRequest from '../pages/orders/MartOrderRequest'
+ import DeliveryBoyManagement from '../pages/deliveryBoy/DeliveryBoyManagement'
+import Header from '../Components/headers/Header'
+ import DeliveryBoyRequest from '../pages/deliveryBoy/DeliveryBoyRequest'
+ import CreateDeliveryBoy from "../pages/deliveryBoy/CreateDeliveryBoy";
+ import EmployeeList from "../pages/employee/EmployeeList";
+ import MartDashboard from '../pages/dashboard/MartDashboard'
+import MartSidebar from '../Components/sidebar/MartSidebar'
 
 
 const MartLayout = () => {
     return (
       <div >
         <Header/>
-        <Sidebar/>
+        <MartSidebar/>
         
         <div >
           <Outlet />
@@ -36,18 +35,18 @@ const MartRoutes = () => {
   return (
     <Routes >
       <Route element={<MartLayout />}>
-        <Route index element={<Dashboard />} />
+        <Route index element={<MartDashboard/>} />
           <Route path='profile' element={<SellerProfile/>}/> {/* Default page at /mart */}
-        <Route path="stockmanagement" element={<StockManagementForm />} />
+        <Route path="stockmanagement" element={<MartStockManagement />} />
         
-        <Route path="product" element={<ProductManagement />} />
-        <Route path='order/order-request' element={<OrderRequest/>}/>
-        <Route path='reports' element={<Reports/>}/>
-        <Route path="category/category" element={<CategoryManagement />} />
-        <Route path="category/category-offer" element={<CategoryOfferTable />} />
-        <Route path="order/orders" element={<OrderTable />} />
+        <Route path="product" element={<MartProduct />} />
+        <Route path='order/order-request' element={<MartOrderRequest/>}/>
+        <Route path='reports' element={<MartReports/>}/>
+        <Route path="category/category" element={<Category />} />
+        <Route path="category/category-offer" element={<CategoryOffer />} />
+        <Route path="order/orders" element={<MartOrders />} />
       
-        <Route path="deliveryboy/delivery-boy-add" element={<AddDeliveryBoy />} />
+        <Route path="deliveryboy/delivery-boy-add" element={<CreateDeliveryBoy />} />
         <Route path="deliveryboy/delivery-boy-management" element={<DeliveryBoyManagement/>} /> 
         <Route path="deliveryboy/delivery-boy-list" element={<DeliveryBoyList />} />
         <Route path="deliveryboy/delivery-boy-request" element={<DeliveryBoyRequest />} />

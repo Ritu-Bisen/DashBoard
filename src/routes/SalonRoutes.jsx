@@ -1,18 +1,21 @@
 import React from 'react'
-import SalonSideBar from '../Components/SalonSection/SalonSideBar';
+import SalonSideBar from '../Components/sidebar/SalonSideBar';
 import { Outlet, Route, Routes } from 'react-router-dom';
-import SalonDashboard from '../Components/SalonSection/SalonDashboard';
-import SalonServices from '../Components/SalonSection/SalonServices';
-import SalonProduct_kit from '../Components/SalonSection/SalonProduct_kit';
-import SalonKitRequest from '../Components/SalonSection/SalonKitRequest';
-import SalonAppointment from '../Components/SalonSection/SalonAppointment';
-import SalonReport from '../Components/SalonSection/SalonReport';
-import SalonBillingList from '../Components/SalonSection/SalonBillingList';
-import AddEmployee from '../Components/employees/AddEmployee';
-import EmployeeList from '../Components/employees/EmployeeList';
-import SellerProfile from '../Components/SellerProfile';
-import WhiteHeader from '../Components/WhiteHeader';
+import SalonDashboard from '../pages/dashboard/SalonDashboard';
+import SalonServices from '../pages/services/SalonServices';
+import SalonProduct from '../pages/product/SalonProduct';
+import SalonStockManagemnet from '../pages/stockManagement/SalonStockManagemnet';
+import SalonAppointment from '../pages/SalonAppointment';
+import SalonReport from '../pages/reports/SalonReports';
+import SalonBillingList from '../pages/SalonBilling';
 
+import Category from '../pages/category/Category'
+ import CategoryOffer from '../pages/category/CategoryOffer'
+
+ import CreateEmployee from "../pages/employee/CreateEmployee";
+ import EmployeeList from "../pages/employee/EmployeeList";
+ import SellerProfile from "../pages/SellerProfile";
+ import WhiteHeader from "../Components/headers/WhiteHeader";
 const SalonLayout = () => {
     return (
       <div >
@@ -34,13 +37,14 @@ const SalonRoutes = () => {
         <Route index element={<SalonDashboard/>}/>
         <Route path='profile' element={<SellerProfile/>}/>
         <Route path="service" element={<SalonServices/>}/>
-        <Route path='product' element={<SalonProduct_kit/>}/>
-        <Route path='kit-request' element={<SalonKitRequest/>}/>
+        <Route path='product' element={<SalonProduct/>}/>
+        <Route path='kit-request' element={<SalonStockManagemnet/>}/>
         <Route path='appointment' element={<SalonAppointment/>}/>
         <Route path='billing' element={<SalonBillingList/>}/>
-        
+         <Route path="category/category" element={<Category />} />
+        <Route path="category/category-offer" element={<CategoryOffer />} />
         <Route path='employee/employee-list' element={<EmployeeList/>}/>
-        <Route path='employee/add-employee' element={<AddEmployee/>}/>
+        <Route path='employee/add-employee' element={<CreateEmployee/>}/>
         <Route path='reports' element={<SalonReport/>}/>
         </Route>
        

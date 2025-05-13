@@ -2,7 +2,7 @@ import { toast } from "react-toastify";
 //import { seller_id } from "../../../Components/MartSection/StockManagementForm";
 //import supabase from "../../../SupaBaseClient";
 import { v4 as uuidv4 } from 'uuid';
-import { seller_id } from "../../Components/MartSection/StockManagementForm";
+//import { seller_id } from "../../Components/MartSection/StockManagementForm";
 import supabase from "../../SupaBaseClient";
 
 export const checkExistingEmployee = async (phone) => {

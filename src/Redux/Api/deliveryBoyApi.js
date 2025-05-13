@@ -1,5 +1,5 @@
 import { toast } from "react-toastify";
-import { seller_id } from "../../Components/MartSection/StockManagementForm";
+//import { seller_id } from "../../Components/MartSection/StockManagementForm";
 import supabase from "../../SupaBaseClient"
 
 // const deliveryBoyApi= async (deliveryBoy_id,deliveryBoyDocumentPhoto)=>{

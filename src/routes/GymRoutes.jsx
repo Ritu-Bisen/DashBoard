@@ -1,17 +1,19 @@
 import React from "react";
 import { Outlet, Route, Routes } from "react-router-dom";
-import GymSideBar from "../Components/GymSection/GymSideBar";
-import GymDashBoard from "../Components/GymSection/GymDashBoard";
-import GymMembers from "../Components/GymSection/GymMembers";
-import GymProduct from "../Components/GymSection/GymProduct";
-import GymOrders from "../Components/GymSection/GymOrders";
-import GymReport from "../Components/GymSection/GymReport";
-import WhiteHeader from "../Components/WhiteHeader";
-import SellerProfile from "../Components/SellerProfile";
-import AddEmployee from "../Components/employees/AddEmployee";
-import EmployeeList from "../Components/employees/EmployeeList";
-import GymServices from "../Components/GymSection/GymServices";
-import GymWorkout from "../Components/GymSection/GymWorkout";
+ import GymSideBar from "../Components/sidebar/GymSideBar";
+import GymDashBoard from "../pages/dashboard/GymDashBoard";
+ import GymMembers from "../pages/GymMember";
+ import GymProduct from "../pages/product/GymProduct";
+ import GymOrders from "../pages/orders/GymOrders";
+ import GymReport from "../pages/reports/GymReports";
+ import WhiteHeader from "../Components/headers/WhiteHeader";
+ import SellerProfile from "../pages/SellerProfile";
+ import CreateEmployee from "../pages/employee/CreateEmployee";
+ import EmployeeList from "../pages/employee/EmployeeList";
+ import GymServices from "../pages/services/GymServices";
+ import GymWorkout from "../pages/GymWorkout";
+ import Category from '../pages/category/Category'
+ import CategoryOffer from '../pages/category/CategoryOffer'
 
 const GymLayout = () => {
   return (
@@ -37,9 +39,13 @@ const GymRoutes = () => {
            <Route path="workout" element={<GymWorkout />} />
           <Route path="product" element={<GymProduct />} />
           <Route path="order" element={<GymOrders />} />
-          <Route path="employee/add-employee" element={<AddEmployee />} />
+          
+          <Route path="employee/add-employee" element={<CreateEmployee />} />
           <Route path="employee/employee-list" element={<EmployeeList />} />
           <Route path="reports" element={<GymReport />} />
+           <Route path="category/category" element={<Category />} />
+        <Route path="category/category-offer" element={<CategoryOffer />} />
+          
           {/* <Route path='kit-request' element={<SalonKitRequest/>}/>
         <Route path='appointment' element={<SalonAppointment/>}/>
         <Route path='billing' element={<SalonBillingList/>}/>
