@@ -2,11 +2,7 @@ import React from 'react'
 import Carousel from '../UI/Carousel';
 
 const ViewGymServiceDetails = ({onClose,services}) => {
-   const image=[
-    services.image_urls[0],
-    services.image_urls[1],
-    services.image_urls[2]
-   ]
+  
   return (
     <div className="fixed top-1/2 right-1/2 transition translate-x-1/2 -translate-y-1/2 h-150 w-250 overflow-y-scroll bg-white">
      <div className="flex justify-between p-5 border-b ">
@@ -15,7 +11,7 @@ const ViewGymServiceDetails = ({onClose,services}) => {
         </div>
       <div className="flex gap-3">
         {/* <img className="h-65 w-65 object-cover" src={services.image_urls[0]} /> */}
-        <Carousel  className="h-65 w-85" image={image}/>
+        <Carousel  className="h-65 w-85" image={services.image_urls}/>
         <div>
           <table >
              <tr> 

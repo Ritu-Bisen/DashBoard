@@ -31,41 +31,41 @@ const SalonSideBar = () => {
       icon: <MdMiscellaneousServices size={30} />,
       path: "/salon/service",
     },
-    {
-      id: 3,
-      name: "Product",
-      icon: <FaBoxOpen size={30} />,
-      path: "/salon/product",
-    },
+    // {
+    //   id: 3,
+    //   name: "Product",
+    //   icon: <FaBoxOpen size={30} />,
+    //   path: "/salon/product",
+    // },
+    // {
+    //   id: 4,
+    //   name: "Kit Request",
+    //   icon: <RiScissorsFill size={30} />,
+    //   path: "/salon/kit-request",
+    // },
+     {
+          id: 3,
+          name: "Category",
+          icon:  <TbCategoryPlus size={25} />,
+          subroute: [
+            { title: "Category", path: "/salon/category/category" },
+            { title: "Category Offer", path: "/salon/category/category-offer" },
+          ],
+        },
     {
       id: 4,
-      name: "Kit Request",
-      icon: <RiScissorsFill size={30} />,
-      path: "/salon/kit-request",
-    },
-    {
-      id: 5,
-      title: "Category",
-      icon: <TbCategoryPlus size={25} />,
-      subroute: [
-        { title: "Category", path: "/salon/category/category" },
-        { title: "Category Offer", path: "/salon/category/category-offer" },
-      ],
-    },
-    {
-      id: 6,
       name: "Appointment",
       icon: <FaRegCalendarCheck size={30} />,
       path: "/salon/appointment",
     },
     {
-      id: 7,
+      id: 5,
       name: "Billing",
       icon: <RiBillLine size={30} />,
       path: "/salon/billing",
     },
     {
-      id: 8,
+      id: 6,
       name: "Employee",
       icon: <HiUsers size={30} />,
       subroute: [
@@ -74,7 +74,7 @@ const SalonSideBar = () => {
       ],
     },
     {
-      id: 9,
+      id: 7,
       name: "Reports",
       icon: <HiOutlineClipboardDocumentList size={30} />,
       path: "/salon/reports",

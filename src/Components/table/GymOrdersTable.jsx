@@ -1,18 +1,34 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { fetchGymOrdersApi } from '../../Redux/Api/gymApi/gymOrderApi';
 import { useDispatch, useSelector } from 'react-redux';
 import { getGymOrders } from '../../Redux/Slices/gymSlice/gymOrdersSlice';
 import DataTable from 'react-data-table-component';
 import { FaEye } from 'react-icons/fa';
+import ViewGymOrdersDetails from '../preview/ViewGymOrdersDetails';
 
 const GymOrdersTable = () => {
     const {gymOrders} = useSelector((state)=>state.gymOrders)
+    const{sellerDetails}=useSelector((state)=>state.seller)
     const dispatch = useDispatch();
+console.log(gymOrders);
+
     useEffect(() => {
-    dispatch(getGymOrders())
+    dispatch(getGymOrders(sellerDetails))
     }, [dispatch])
    
- 
+  const [isShowDetails, setIsShowDetails] = useState(false);
+      const [showDetails, setShowDetails] = useState(null);
+    
+      const handleShowDetails = (orderId) => {
+        setIsShowDetails(true);
+        setShowDetails(orderId);
+      };
+    
+      const handleCloseDetails = () => {
+        setIsShowDetails(false);
+      };
+    
+
  const columns = [
      {
        name: "S.no",
@@ -26,26 +42,13 @@ const GymOrdersTable = () => {
      {
        name: "User Name",
        selector: (row) => row.user_name,
+        width: "180px",
      },
      {
        name: "User Contact",
        selector: (row) => row.user_contact,
        width: "150px",
      },
-     {
-       name: "Order Type",
-       selector: (row) => row.order_type,
-     },
-     {
-       name: "Quantity",
-       selector: (row) => row.quantity,
-     },
-     {
-       name: "Product Name",
-       selector: (row) => row.product_name,
-       width: "150px",
-     },
- 
      {
        name: "Total Amount",
        selector: (row) => row.total_amount,
@@ -70,7 +73,7 @@ const GymOrdersTable = () => {
      {
        name: "Address",
        selector: (row) => row.address,
-       width: "300px",
+       width: "350px",
      },
  
      {
@@ -105,24 +108,17 @@ const GymOrdersTable = () => {
  
    const data = gymOrders.map((item, index) => ({
      serialNo: index + 1,
- 
      order_id: item.id,
- 
-    //  quantity: item.quantity,
-      user_name: item.users.name,
-      user_contact: item.users.phone_number,
- 
-    //  product_name: item.name,
- 
-    //  order_type: item.orders.order_type,
-    //  total_amount: item.orders.total_amount,
-    //  payment_status: item.orders.payment_status,
-    //  order_status: item.orders.order_status,
-    //  payment_method: item.orders.payment_method,
-    //  address: item.orders.address,
+       user_name: item.users.name,
+       user_contact: item.users.phone_number,
+      total_amount: item.total_amount,
+      payment_status: item.payment_status,
+      order_status: item.order_status,
+      payment_method: item.payment_method,
+      address: item.address,
  
      view: (
-       <button onClick={() => handleViewDetails(item)}>
+       <button onClick={() => handleShowDetails(item.id)}>
          <FaEye size={25} />
        </button>
      ),
@@ -139,7 +135,23 @@ const GymOrdersTable = () => {
             <div className='overflow-x mt-9'>
                 <DataTable data={data} columns={columns} customStyles={customStyles} pagination fixedHeader fixedHeaderScrollHeight='67vh' defaultSortFieldId={1}/>
             </div>
-
+  {isShowDetails && (
+        <>
+          <div
+            className="inset-0  z-50 bg-black/70 fixed"
+            onClick={() => {
+              setIsShowDetails(false);
+            }}
+          ></div>
+          <div className="absolute z-[10000]">
+            <ViewGymOrdersDetails
+              orderId={showDetails}
+              sellerDetails={sellerDetails}
+              onClose={handleCloseDetails}
+            />
+          </div>
+        </>
+      )}
     </div>
   )
 }

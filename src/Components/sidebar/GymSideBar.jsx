@@ -7,6 +7,10 @@ import { MdExpandLess, MdExpandMore } from "react-icons/md";
 import { HiOutlineClipboardDocumentList, HiUsers } from "react-icons/hi2";
 import { MdMiscellaneousServices } from "react-icons/md";
 import { CgGym } from "react-icons/cg";
+import { PiFlagBannerFill } from "react-icons/pi";
+import { IoNutritionOutline } from "react-icons/io5";
+import { TbGymnastics } from "react-icons/tb";
+import { FaRegCircleUser } from "react-icons/fa6";
 
 const GymSideBar = () => {
   const location = useLocation();
@@ -26,7 +30,7 @@ const GymSideBar = () => {
     {
       id: 2,
       name: "Member",
-      icon: <MdMiscellaneousServices size={30} />,
+      icon: <FaRegCircleUser size={30} />,
       path: "/gym/member",
     },
     {
@@ -53,13 +57,13 @@ const GymSideBar = () => {
     {
       id: 6,
       name: "Workout",
-      icon: <MdMiscellaneousServices size={30} />,
+      icon: <TbGymnastics size={30} />,
       path: "/gym/workout",
     },
     {
       id: 7,
       name: "Nutrition",
-      icon: <MdMiscellaneousServices size={30} />,
+      icon: <IoNutritionOutline size={30} />,
       path: "/gym/nutrition",
     },
 
@@ -72,7 +76,7 @@ const GymSideBar = () => {
     {
       id: 9,
       name: "Banners",
-      icon: <CgGym size={30} />,
+      icon: <PiFlagBannerFill size={30} />,
       path: "/gym/banners",
     },
     {

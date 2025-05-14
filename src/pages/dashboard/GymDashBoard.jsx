@@ -1,10 +1,23 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { FaUsers } from "react-icons/fa";
 import { HiUsers } from "react-icons/hi";
 import { MdOutlineMiscellaneousServices } from "react-icons/md";
 import { FaRegCalendarCheck } from "react-icons/fa";
+import { useDispatch, useSelector } from 'react-redux';
+import { getGymServices } from '../../Redux/Slices/gymSlice/gymServicesSlice';
+import { getEmployeeDetails } from '../../Redux/Slices/employeeSlice';
 
 const GymDashBoard = () => {
+ const { services } = useSelector((state) => state.gymservices);
+ const {employees} =useSelector((state)=>state.employee)
+ const { sellerDetails } = useSelector((state) => state.seller);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getGymServices());
+    dispatch(getEmployeeDetails(sellerDetails))
+  }, [dispatch]);
+
+
     const cartitem=[{
       id:1,
       icon:<HiUsers size={30}/>,
@@ -26,19 +39,17 @@ const GymDashBoard = () => {
      {
       id:3,
       icon:<FaUsers size={30}/>,
-      title:"GYM",
-      Date_time:"January 25,2025",
-      numberOfperson:100,
-      client:"Person"
+      title:"Employee",
+      numberOfperson:employees.length,
+      client:"Employees"
     
      },
      {
       id:4,
       icon:<FaRegCalendarCheck size={30}/>,
-      title:"YOGA",
-      Date_time:"January 25,2025",
-      numberOfperson:100,
-      client:"Person"
+      title:"Services",
+      numberOfperson:services.length,
+      client:"Services"
     
      },]
   return (
@@ -66,10 +77,10 @@ const GymDashBoard = () => {
       <div className='shadow-gray-500 shadow-lg  h-40 w-80 bg-white p-5 rounded-3xl '>
       <div className='flex gap-3'>
               <div className='rounded-full border p-1 bg-red-700 text-white' ><FaRegCalendarCheck size={30}/> </div>
-              <h1 className='text-2xl font-bold '>Trainer</h1>
+              <h1 className='text-2xl font-bold '>Orders</h1>
               </div>
              <div className='mt-10 ml-10'>
-             <p className='text-2xl font-semibold'>100 Person</p>
+             <p className='text-2xl font-semibold'>100 Orders</p>
             
               </div>
       </div>

@@ -1,26 +1,27 @@
 import React from 'react'
+import { RxCross1 } from 'react-icons/rx'
 import Carousel from '../UI/Carousel'
-import { MdSportsGymnastics } from "react-icons/md";
-import { RxCross1 } from "react-icons/rx";
+import { IoNutritionOutline } from "react-icons/io5";
 
-const ViewGymWorkoutDetails = ({onClose,workout}) => {
+const ViewGymNutritionDetails = ({onClose,nutrition}) => {
+  
   return (
      <div className="fixed bg-white rounded-xl w-full max-w-5xl max-h-[90vh] overflow-auto shadow-2xl top-1/2 left-1/2 transition -translate-x-1/2 -translate-y-1/2 z-50">
-      {/* Header*/}
-      <div className="bg-gradient-to-r from-red-400 to-red-500 sticky top-0 z-10 flex justify-between items-center px-6 py-2 border-b border-orange-300">
-        <h3 className="font-bold text-2xl text-white flex items-center gap-2">
-          <MdSportsGymnastics className="text-white" />
-          Delivery Boy Details
-        </h3>
-        <button
-          onClick={onClose}
-          className="bg-white bg-opacity-20 hover:bg-opacity-30 text-white rounded-full p-1 transition-all duration-200"
-          aria-label="Close"
-        >
-          <RxCross1 size={25} className="text-black font-bold" />
-        </button>
-      </div>
-        <div className='flex'>
+         
+          <div className="bg-gradient-to-r from-red-400 to-red-500 sticky top-0 z-10 flex justify-between items-center px-6 py-2 border-b border-orange-300">
+            <h3 className="font-bold text-2xl text-white flex items-center gap-2">
+              <IoNutritionOutline className="text-white" />
+              Nutritions Details
+            </h3>
+            <button
+              onClick={onClose}
+              className="bg-white bg-opacity-20 hover:bg-opacity-30 text-white rounded-full p-1 transition-all duration-200"
+              aria-label="Close"
+            >
+              <RxCross1 size={25} className="text-black font-bold" />
+            </button>
+          </div>
+           <div className='flex'>
     
             
               {/* Personal Details  */}
@@ -33,66 +34,56 @@ const ViewGymWorkoutDetails = ({onClose,workout}) => {
                         Name
                       </th>
                       <td className="border border-gray-200 px-4 py-3 text-gray-800">
-                        {workout.name}
+                        {nutrition.name}
                       </td>
                     </tr>
                       <tr className="bg-gray-50">
                       <th className="border border-gray-200 px-4 py-3 text-left text-gray-600 font-semibold">
-                        Duration
+                       Id
                       </th>
                       <td className="border border-gray-200 px-4 py-3 text-gray-800 font-mono">
-                        {workout.duration}
+                        {nutrition.id}
                       </td>
                     </tr>
                     <tr >
                       <th className="border border-gray-200 px-4 py-3 text-left text-gray-600 font-semibold">
-                      Repetition
+                     Calories
                       </th>
                       <td className="border border-gray-200 px-4 py-3 text-gray-800">
-                        {workout.repetition}
+                        {nutrition.calories}
                       </td>
                     </tr>
                          <tr className="bg-gray-50">
                       <th className="border border-gray-200 px-4 py-3 text-left text-gray-600 font-semibold">
-                       Difficulty Level
+                      Serving
                       </th>
                       <td className="border border-gray-200 px-4 py-3 text-gray-800">
-                        {workout.difficulty_level}
+                        {nutrition.serving}
                       </td>
                     </tr>
                   
                     <tr >
                       <th className="border border-gray-200 px-4 py-3 text-left text-gray-600 font-semibold">
-                        Muscles Target
+                       Protein
                       </th>
                       <td className="border border-gray-200 px-4 py-3 text-gray-800">
-                        {workout.muscles_targeted}
+                        {nutrition.protein}
                       </td>
                     </tr> 
-                       <tr className="bg-gray-50">
-            <th className="border border-gray-200 px-4 py-3 text-left text-gray-600 font-semibold">Benefits</th>
-            <td className="border border-gray-200 px-4 py-3 text-gray-800"> {workout?.benefits.map((list, index) => (
-                      <p key={index}>
-                        <span className="font-bold">{index + 1}.</span> {list}
-                      </p>
-                    ))}</td>
-        </tr>
+                      
                   </tbody>
                 </table>
                  
       
-                 <img className=' object-cover w-[60vh] ' src={workout.image_urls}/>
+               <Carousel image={nutrition.image_urls} className='h-70 w-80'/>
 
         </div>
-          <table >
-      
-        <tr>
-            <th className="border-gray-300 border p-2 px-5">Description</th>
-            <td className="border-gray-300 border p-2 px-5"> {workout.description} </td>
-        </tr>
-      </table>
+        <div className='flex mt-5 mb-10 gap-5 border-t-2 border-gray-200 p-2'>
+            <h1 className='font-semibold'>Description:</h1>
+            <p className='text-gray-800'>{nutrition.description}</p>
+        </div>
     </div>
   )
 }
 
-export default ViewGymWorkoutDetails
+export default ViewGymNutritionDetails

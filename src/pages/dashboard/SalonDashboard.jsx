@@ -1,16 +1,31 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { FaUsers } from "react-icons/fa";
 import { HiUsers } from "react-icons/hi";
 import { MdOutlineMiscellaneousServices } from "react-icons/md";
 import { FaRegCalendarCheck } from "react-icons/fa";
+import { useDispatch, useSelector } from 'react-redux';
+import { getEmployeeDetails } from '../../Redux/Slices/employeeSlice';
+import { getAppointment } from '../../Redux/Slices/salonSlicees/salonAappointmentSlice';
+import { getServices } from '../../Redux/Slices/salonSlicees/salonServicesSlice';
 
 const SalonDashboard = () => {
+const {employees} =useSelector((state)=>state.employee)
+ const { sellerDetails } = useSelector((state) => state.seller);
+const {appointmentList} = useSelector((state)=>state.appointmentList)
+ const { services } = useSelector((state) => state.service);
+ 
+const dispatch =useDispatch();
+useEffect(() => {
+  dispatch(getEmployeeDetails(sellerDetails))
+dispatch(getAppointment())
+dispatch(getServices());
+}, [dispatch])
+
  const cartitem=[{
   id:1,
   icon:<HiUsers size={30}/>,
   title:"Total Client",
-  Date_time:"January 25,2025",
-  numberOfperson:100,
+  numberOfperson:appointmentList.length,
   client:"Person"
 
  },
@@ -18,8 +33,7 @@ const SalonDashboard = () => {
   id:2,
   icon:<MdOutlineMiscellaneousServices size={30}/>,
   title:"Total Services",
-  Date_time:"January 25,2025",
-  numberOfperson:100,
+  numberOfperson:services.length,
   client:"Services"
 
  },
@@ -27,8 +41,7 @@ const SalonDashboard = () => {
   id:3,
   icon:<FaUsers size={30}/>,
   title:"Total Employees",
-  Date_time:"January 25,2025",
-  numberOfperson:100,
+  numberOfperson:employees.length,
   client:"Employees"
 
  },
@@ -36,9 +49,8 @@ const SalonDashboard = () => {
   id:4,
   icon:<FaRegCalendarCheck size={30}/>,
   title:"Appointment",
-  Date_time:"January 25,2025",
-  numberOfperson:100,
-  client:"Person"
+  numberOfperson:appointmentList.length,
+  client:"Appointment"
 
  },]
   return (

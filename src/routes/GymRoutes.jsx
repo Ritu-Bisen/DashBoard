@@ -14,6 +14,8 @@ import GymDashBoard from "../pages/dashboard/GymDashBoard";
  import GymWorkout from "../pages/GymWorkout";
  import Category from '../pages/category/Category'
  import CategoryOffer from '../pages/category/CategoryOffer'
+import GymNutrition from "../pages/GymNutrition";
+import GymBanners from "../pages/GymBanners";
 
 const GymLayout = () => {
   return (
@@ -45,14 +47,10 @@ const GymRoutes = () => {
           <Route path="reports" element={<GymReport />} />
            <Route path="category/category" element={<Category />} />
         <Route path="category/category-offer" element={<CategoryOffer />} />
-          
-          {/* <Route path='kit-request' element={<SalonKitRequest/>}/>
-        <Route path='appointment' element={<SalonAppointment/>}/>
-        <Route path='billing' element={<SalonBillingList/>}/>
-        
-        <Route path='employee/employee-list' element={<SalonEmployeeList/>}/>
+          <Route path='nutrition' element={<GymNutrition/>}/>
+          <Route path='banners' element={<GymBanners/>}/>
        
-       */}
+       
         </Route>
       </Routes>
     </div>

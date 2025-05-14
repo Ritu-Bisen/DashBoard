@@ -84,11 +84,12 @@ const RestaurantViewOrderdetails = ({orderId, onClose,sellerDetails}) => {
           <tr className=" ">
             <th className="p-2 border-gray-300 border">Product Name</th>
             <th className="p-2 border-gray-300 border">Quantity</th>
-            <th className="p-2 border-gray-300 border">Taxable Amount</th>
             <th className="p-2 border-gray-300 border">SGST</th>
             <th className="p-2 border-gray-300 border">CGST</th>
             <th className="p-2 border-gray-300 border">Tax Amount</th>
             <th className="p-2 border-gray-300 border">Final Price</th>
+            
+            <th className="p-2 border-gray-300 border">Taxable Amount</th>
            
           </tr>
         </thead>
@@ -97,11 +98,12 @@ const RestaurantViewOrderdetails = ({orderId, onClose,sellerDetails}) => {
             <tr key={index} className="bg-white">
               <td className="p-2 border-gray-300 border">{item.restaurant_products?.name || "N/A"}</td>
               <td className="p-2 border-gray-300 border">{item.quantity}</td>
-              <td className="p-2 border-gray-300 border">{item.restaurant_products.discounted_price}</td>
               <td className="p-2 border-gray-300 border">{item.restaurant_products.sgst}</td>
               <td className="p-2 border-gray-300 border">{item.restaurant_products.cgst}</td>
               <td className="p-2 border-gray-300 border">{item.restaurant_products.tax_amount}</td>
               <td className="p-2 border-gray-300 border">{item.restaurant_products.final_price}</td>
+              
+              <td className="p-2 border-gray-300 border">{item.restaurant_products.discounted_price}</td>
             
             </tr>
           ))}
