@@ -1,21 +1,33 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { FaUsers } from "react-icons/fa";
 import { HiUsers } from "react-icons/hi";
 import { MdOutlineMiscellaneousServices } from "react-icons/md";
 import { FaRegCalendarCheck } from "react-icons/fa";
 import { useDispatch, useSelector } from 'react-redux';
 import { getGymServices } from '../../Redux/Slices/gymSlice/gymServicesSlice';
-import { getEmployeeDetails } from '../../Redux/Slices/employeeSlice';
+import { getEmployeeDetails, getVerifiedEmployee } from '../../Redux/Slices/employeeSlice';
+import { getGymOrders } from '../../Redux/Slices/gymSlice/gymOrdersSlice';
 
 const GymDashBoard = () => {
  const { services } = useSelector((state) => state.gymservices);
  const {employees} =useSelector((state)=>state.employee)
  const { sellerDetails } = useSelector((state) => state.seller);
+  const {gymOrders} = useSelector((state)=>state.gymOrders)
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getGymServices());
-    dispatch(getEmployeeDetails(sellerDetails))
+    dispatch(getVerifiedEmployee(sellerDetails))
+        dispatch(getGymOrders(sellerDetails))
   }, [dispatch]);
+
+  const [revenue, setRevenue] = useState(0);
+
+useEffect(() => {
+  if (gymOrders?.length > 0) {
+    const total = gymOrders.reduce((acc, item) => acc + item.total_amount, 0);
+    setRevenue(total);
+  }
+}, [gymOrders]);
 
 
     const cartitem=[{
@@ -31,8 +43,7 @@ const GymDashBoard = () => {
       id:2,
       icon:<MdOutlineMiscellaneousServices size={30}/>,
       title:"Revenue",
-      Date_time:"January 25,2025",
-      numberOfperson:100,
+      numberOfperson:revenue,
       client:"Revenue"
     
      },
@@ -53,7 +64,7 @@ const GymDashBoard = () => {
     
      },]
   return (
-    <div className='w-[calc(100%-300px)] ml-[300px]  py-30 '>
+    <div className='w-[calc(100%-300px)] ml-[300px]  pt-[120px] '>
     <div className='flex items-center justify-center flex-col'>
     <div className='grid grid-cols-2 gap-20 py-15  '>
         {

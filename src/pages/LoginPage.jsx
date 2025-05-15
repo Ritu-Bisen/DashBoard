@@ -13,12 +13,17 @@ const LoginPage = () => {
     const [otp, setOtp] = useState("");
     const dispatch = useDispatch();
     const navigate =useNavigate();
-    // const [email, setEmail] = useState("");
-    // const [password, setPassword] = useState("");
-
-   
-     
     const {sellers}=useSelector((state)=>state.seller)
+
+ useEffect(() => {
+    const storedSeller = localStorage.getItem('seller');
+    if (storedSeller) {
+      const seller = JSON.parse(storedSeller);
+      if (seller?.segment) {
+        navigate(`/${seller.segment}`);
+      }
+    }
+  }, [navigate]);
 
 
      const handleSendOtp = async () => {
@@ -68,7 +73,7 @@ const LoginPage = () => {
 
   return (
     <div className='bg-gradient-to-br from-red-600 via-black/90 to-red-600 h-screen w-screen  flex items-center justify-center'>
-      <div className=' h-100 w-120 bg-black text-white rounded-2xl   '>
+      <div className=' h-[55vh] w-[65vh] bg-black text-white rounded-2xl pt-7 pl-5 '>
         <h1 className='text-2xl font-bold ml-25 mt-5'>Login to Your Account</h1>
        <form className='flex flex-col px-20  py-10 gap-5 ' >
   
@@ -96,7 +101,7 @@ const LoginPage = () => {
        <button
          type="button"
          onClick={handleVerifyOtp}
-         className=' text-xl font-bold bg-red-600 h-10 w-80 rounded-full text-white mt-10 hover:bg-red-800 '
+         className=' text-xl font-bold bg-red-600 h-10 w-80 rounded-full text-white mt-10 hover:bg-red-800'
        >
          Verify OTP
        </button>

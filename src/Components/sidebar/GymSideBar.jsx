@@ -45,10 +45,10 @@ const GymSideBar = () => {
       icon: <FaBoxOpen size={30} />,
       path: "/gym/product",
     },
-      {
+    {
       id: 5,
       name: "Category",
-      icon:  <TbCategoryPlus size={25} />,
+      icon: <TbCategoryPlus size={25} />,
       subroute: [
         { title: "Category", path: "/gym/category/category" },
         { title: "Category Offer", path: "/gym/category/category-offer" },
@@ -66,7 +66,6 @@ const GymSideBar = () => {
       icon: <IoNutritionOutline size={30} />,
       path: "/gym/nutrition",
     },
-
     {
       id: 8,
       name: "Order",
@@ -103,7 +102,7 @@ const GymSideBar = () => {
   ];
 
   return (
-    <div className="fixed w-[300px] h-screen mt-30 rounded-tr-4xl rounded-br-4xl shadow-gray-900 shadow-lg overflow-y-scroll bg-white ">
+    <div className="fixed w-[300px] h-screen mt-30 rounded-tr-4xl rounded-br-4xl shadow-gray-900 shadow-lg overflow-y-scroll bg-white">
       <div className="pt-5 mb-20">
         {itemList.map((item) => (
           <div key={item.id}>
@@ -145,6 +144,17 @@ const GymSideBar = () => {
                   </div>
                 )}
               </>
+            ) : item.name === "Logout" ? (
+              <div
+                onClick={() => {
+                  localStorage.clear();
+                  window.location.href = "/";
+                }}
+                className="flex items-center py-3 px-6 gap-5 cursor-pointer bg-white text-black hover:bg-red-500 hover:text-white transition"
+              >
+                {item.icon}
+                <span className="font-semibold text-xl">{item.name}</span>
+              </div>
             ) : (
               <Link
                 to={item.path}

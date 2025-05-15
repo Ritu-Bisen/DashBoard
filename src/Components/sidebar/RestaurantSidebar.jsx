@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { TbCategoryPlus, TbTruckDelivery } from 'react-icons/tb';
+import { TbCategoryPlus, TbLogout, TbTruckDelivery } from 'react-icons/tb';
 import { MdDashboard } from "react-icons/md";
 import { FaBoxOpen } from "react-icons/fa";
 import { Link, useLocation } from "react-router-dom";
@@ -83,6 +83,12 @@ const RestaurantSidebar = () => {
         icon: <HiOutlineClipboardDocumentList size={30} />,
         path: "/restaurant/reports",
       },
+       {
+            id: 9,
+            name: "Logout",
+            icon: <TbLogout size={30} />,
+            path: "/",
+          },
     ];
   
     return (
@@ -128,19 +134,30 @@ const RestaurantSidebar = () => {
                     </div>
                   )}
                 </>
-              ) : (
-                <Link
-                  to={item.path}
-                  className={`flex items-center py-3 px-6 gap-5 cursor-pointer ${
-                    location.pathname === item.path
-                      ? "bg-red-500 text-white"
-                      : "bg-white text-black"
-                  }`}
-                >
-                  {item.icon}
-                  <span className="font-semibold text-xl">{item.name}</span>
-                </Link>
-              )}
+              ) :  item.name === "Logout" ? (
+                            <div
+                              onClick={() => {
+                                localStorage.clear();
+                                window.location.href = "/";
+                              }}
+                              className="flex items-center py-3 px-6 gap-5 cursor-pointer bg-white text-black hover:bg-red-500 hover:text-white transition"
+                            >
+                              {item.icon}
+                              <span className="font-semibold text-xl">{item.name}</span>
+                            </div>
+                          ) : (
+                            <Link
+                              to={item.path}
+                              className={`flex items-center py-3 px-6 gap-5 cursor-pointer ${
+                                location.pathname === item.path
+                                  ? "bg-red-500 text-white"
+                                  : "bg-white text-black"
+                              }`}
+                            >
+                              {item.icon}
+                              <span className="font-semibold text-xl">{item.name}</span>
+                            </Link>
+                          )}
             </div>
           ))}
         </div>

@@ -8,7 +8,7 @@ import { HiOutlineClipboardDocumentList, HiUsers } from "react-icons/hi2";
 import { MdMiscellaneousServices } from "react-icons/md";
 import { FaRegCalendarCheck } from "react-icons/fa6";
 import { RiScissorsFill } from "react-icons/ri";
-import { TbCategoryPlus } from "react-icons/tb";
+import { TbCategoryPlus, TbLogout } from "react-icons/tb";
 
 const SalonSideBar = () => {
   const location = useLocation();
@@ -79,6 +79,12 @@ const SalonSideBar = () => {
       icon: <HiOutlineClipboardDocumentList size={30} />,
       path: "/salon/reports",
     },
+      {
+          id: 8,
+          name: "Logout",
+          icon: <TbLogout size={30} />,
+          path: "/",
+        },
   ];
 
   return (
@@ -124,19 +130,30 @@ const SalonSideBar = () => {
                   </div>
                 )}
               </>
-            ) : (
-              <Link
-                to={item.path}
-                className={`flex items-center py-3 px-6 gap-5 cursor-pointer ${
-                  location.pathname === item.path
-                    ? "bg-red-500 text-white"
-                    : "bg-white text-black"
-                }`}
-              >
-                {item.icon}
-                <span className="font-semibold text-xl">{item.name}</span>
-              </Link>
-            )}
+            ) :  item.name === "Logout" ? (
+                          <div
+                            onClick={() => {
+                              localStorage.clear();
+                              window.location.href = "/";
+                            }}
+                            className="flex items-center py-3 px-6 gap-5 cursor-pointer bg-white text-black hover:bg-red-500 hover:text-white transition"
+                          >
+                            {item.icon}
+                            <span className="font-semibold text-xl">{item.name}</span>
+                          </div>
+                        ) : (
+                          <Link
+                            to={item.path}
+                            className={`flex items-center py-3 px-6 gap-5 cursor-pointer ${
+                              location.pathname === item.path
+                                ? "bg-red-500 text-white"
+                                : "bg-white text-black"
+                            }`}
+                          >
+                            {item.icon}
+                            <span className="font-semibold text-xl">{item.name}</span>
+                          </Link>
+                        )}
           </div>
         ))}
       </div>

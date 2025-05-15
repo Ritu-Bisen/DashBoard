@@ -54,7 +54,7 @@ dispatch(getServices());
 
  },]
   return (
-    <div className='w-[calc(100%-300px)] ml-[300px]  py-30'>
+    <div className='w-[calc(100%-300px)] ml-[300px]  pt-[120px]'>
       <div className='grid grid-cols-2 gap-20 py-20  ml-40 '>
         {
           cartitem.map((item,index)=>(

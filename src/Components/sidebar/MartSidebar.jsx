@@ -9,7 +9,7 @@ import {
 import { RiUserSettingsFill } from "react-icons/ri";
 import { Link, useLocation } from "react-router-dom";
 import { GiProgression } from "react-icons/gi";
-import { TbCategoryPlus, TbTruckDelivery } from "react-icons/tb";
+import { TbCategoryPlus, TbLogout, TbTruckDelivery } from "react-icons/tb";
 import { FaBoxOpen } from "react-icons/fa";
 import { HiOutlineClipboardDocumentList, HiUsers } from "react-icons/hi2";
 import { CiEdit } from "react-icons/ci";
@@ -92,7 +92,12 @@ console.log(sellerProfileData);
       icon: <HiOutlineClipboardDocumentList size={25} />,
       path: "/mart/reports",
     },
-   
+    {
+         id: 9,
+         title: "Logout",
+         icon: <TbLogout size={30} />,
+         path: "/",
+       },
   ];
   
 
@@ -154,18 +159,30 @@ console.log(sellerProfileData);
                     </ul>
                   )}
                 </div>
-              ) : (
-                <Link
-                  to={item.path}
-                  className={` px-6 py-3 flex items-center gap-3 cursor-pointer ${
-                    location.pathname === item.path
-                      ? "bg-red-300 text-black"
-                      : "bg-[#ad011d]"
-                  }`}
-                  onClick={() => setOpenMenu(null)} // Close dropdown if a main menu is clicked
-                >
-                  {item.icon} <span>{item.title}</span>
-                </Link>
+              ) : item.title === "Logout" ? (
+                            <div
+                              onClick={() => {
+                                localStorage.clear();
+                                window.location.href = "/";
+                              }}
+                              className="flex items-center py-3 px-6 gap-5 cursor-pointer bg-white text-black hover:bg-red-500 hover:text-white transition"
+                            >
+                              {item.icon}
+                              <span className="font-semibold text-xl">{item.title}</span>
+                            </div>
+                          ) : (
+                            <Link
+                              to={item.path}
+                              className={`flex items-center py-3 px-6 gap-5 cursor-pointer ${
+                                location.pathname === item.path
+                                  ? "bg-red-500 text-white"
+                                  : "bg-white text-black"
+                              }`}
+                            >
+                              {item.icon}
+                              <span className="font-semibold text-xl">{item.title}</span>
+                            </Link>
+                         
               )}
             </li>
           ))}

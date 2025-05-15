@@ -29,7 +29,7 @@ const RestaurantOrderRequestTable = () => {
   };
 
   const { orderRequest } = useSelector((state) => state.restaurantOrderRequest);
-  const { deliveryBoys } = useSelector((state) => state.restaurantDeliveryBoy);
+  const { deliveryBoys } = useSelector((state) => state.deliveryBoyData);
     const{sellerDetails}=useSelector((state)=>state.seller)
 
   console.log("hii",deliveryBoys)
