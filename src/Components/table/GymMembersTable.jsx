@@ -1,8 +1,34 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import DataTable from 'react-data-table-component';
 import { FaEye } from "react-icons/fa";
+import { useDispatch, useSelector } from 'react-redux';
+import { getGymMember } from '../../Redux/Slices/gymSlice/gymMemberSlice';
+import { fetchGymMemberApi } from '../../Redux/Api/gymApi/gymMemberApi';
+import ViewGymMemberDetails from '../preview/ViewGymMemberDetails';
 
 const GymMembersTable = () => {
+  const {sellerDetails}=useSelector((state)=>state.seller)
+  const {member}=useSelector((state)=>state.gymMember)
+
+  const dispatch =useDispatch();
+
+ useEffect(() => {
+  dispatch(getGymMember(sellerDetails))
+ }, [dispatch])
+ 
+
+ const [isShowDetails, setIsShowDetails] = useState(false);
+      const [showDetails, setShowDetails] = useState(null);
+    
+      const handleShowDetails = (member) => {
+        setIsShowDetails(true);
+        setShowDetails(member);
+      };
+    
+      const handleCloseDetails = () => {
+        setIsShowDetails(false);
+      };
+
     const columns = [ {
         name: "S.no",
         selector: (row) => row.serialNo,
@@ -11,35 +37,40 @@ const GymMembersTable = () => {
         name: "Order Id",
         selector: (row) => row.order_id,
       },
+     
       {
-        name: "Image",
-        selector: (row) => row.image,
+        name: "Service",
+        selector: (row) => row.service,
+        width:"200px"
       },
       {
-        name: "Name",
+        name: "User Name",
         selector: (row) => row.name,
       },
-      {
-        name: "MRP",
-        selector: (row) => row.mrp,
+       {
+        name: "User Email",
+        selector: (row) => row.email,
+          width:"200px"
       },
       {
-        name: "Discount %",
-        selector: (row) => row.discounted_price,
+        name: "User Contact",
+        selector: (row) => row.contact,
+          width:"200px"
       },
       {
-        name: "Category",
-        selector: (row) => row.category,
+        name: "Price",
+        selector: (row) => row.price,
       },
-      {
-        name: "Final Price",
-        selector: (row) => row.final_price,
+       {
+        name: "Payment Method",
+        selector: (row) => row.payment_method,
       },
-      {
-        name: "Status",
-        selector: (row) => row.status,
-        width:"150px"
+       {
+        name: "Payment Status",
+        selector: (row) => row.payment_status,
       },
+     
+      
       {
         name: "View",
         selector: (row) => row.view,
@@ -72,31 +103,49 @@ const GymMembersTable = () => {
     };
 
     
-    const quantity = 10;
     
-      const data = Array(25).fill({
-        serialNo:'1',
-        order_id:'5767t7gugh',
-        image:(<img src='https://th.bing.com/th/id/OIP.E3UNwm389l_qdOdJ6zbhCAHaE8?w=275&h=184&c=7&r=0&o=5&dpr=1.3&pid=1.7'/>),
-        name:'rahul',
-        mrp:'100',
-        discounted_price:'10',
-        category:"Haircut",
-        final_price:"200",
-        status:(quantity>0?<p className='bg-green-800  rounded-lg p-3'>Available</p>:<p className='bg-red-700 rounded-lg p-3'>Not Available</p>),
-        view:(<FaEye size={25}/>)
-      })
+      const data = member.map((item,index)=>({
+        serialNo:index+1,
+        order_id:item.order_id.slice(0,8),
+        service:item.gym_services.name,
+name:item.orders.users.name,
+email:item.orders.users.email,
+contact:item.orders.users.phone_number,
+price:item.price,
+payment_method:item.orders.payment_method,
+payment_status:item.orders.payment_status,
+  view: (
+                     <button onClick={() => handleShowDetails(item)}>
+                       <FaEye size={25} />
+                     </button>
+                   ),
+      }))
     
 
   return (
-    <div className='w-[calc(100%-300px)] ml-[300px]  pt-30'>
+    <div className='w-[calc(100%-300px)] ml-[300px]  pt-[120px]'>
         <div>
             <h1 className='font-bold text-3xl ml-5'>Member</h1>
             </div>
             <div className='overflow-x mt-9'>
                 <DataTable data={data} columns={columns} customStyles={customStyles} pagination fixedHeader fixedHeaderScrollHeight='67vh' defaultSortFieldId={1}/>
             </div>
-      
+       {isShowDetails && (
+        <>
+          <div
+            className="inset-0  z-50 bg-black/70 fixed"
+            onClick={() => {
+              setIsShowDetails(false);
+            }}
+          ></div>
+          <div className="absolute z-[10000]">
+            <ViewGymMemberDetails
+              member={showDetails}
+              onClose={handleCloseDetails}
+            />
+          </div>
+        </>
+      )}
     </div>
   )
 }

@@ -3,8 +3,8 @@ import { createAsyncThunk,createSlice } from "@reduxjs/toolkit";
 import { fetchRestaurantMenuApi } from "../../Api/restaurantApi/restaurantMenuApi";
 
 
-export const getRestaurantmenus=createAsyncThunk("menu/fetch",async () =>{
-    const menu = await fetchRestaurantMenuApi();
+export const getRestaurantmenus=createAsyncThunk("menu/fetch",async ({ page }, thunkAPI) =>{
+    const menu = await fetchRestaurantMenuApi(page);
     
     
      return menu;
@@ -13,9 +13,11 @@ export const getRestaurantmenus=createAsyncThunk("menu/fetch",async () =>{
 const menuSlice = createSlice({
     name:"menu",
     initialState:{
-        menu:[],
-        loading:false,
-        error:null
+         menu: [],
+    loading: false,
+    error: null,
+    page: 0,
+    hasMore: true,
     },
 
     reducers:{},
@@ -25,9 +27,14 @@ const menuSlice = createSlice({
         state.loading=true,
         state.error=null
        })
-       .addCase(getRestaurantmenus.fulfilled,(state,action)=>{
-        state.menu=action.payload;
-       })
+      .addCase(getRestaurantmenus.fulfilled, (state, action) => {
+        if (action.payload.length < 7) {
+          state.hasMore = false;
+        }
+        state.menu = [...state.menu, ...action.payload];
+        state.page += 1;
+        state.loading = false;
+      })
        .addCase(getRestaurantmenus.rejected,(state,action)=>{
         state.error=action.payload;
        })

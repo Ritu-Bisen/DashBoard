@@ -3,22 +3,27 @@
 import supabase from "../../../SupaBaseClient";
 
 
-export const fetchRestaurantMenuApi = async () =>{
+export const fetchRestaurantMenuApi = async (page) =>{
     try {
-      
-        const{data,error}= await supabase
-        .from("restaurant_products")
-        .select(`*`)
-        if (!error) {
-           console.log("fetch succefully",data)
-            
-        } else {
-           console.log("error when fetching data",error) 
-        } 
-        return data;
-    } catch (error) {
-       console.log("error from supabase",error);
-        
+     const pageSize=7;
+         const from = page * pageSize;
+    const to = from + pageSize - 1;
+
+    const { data, error } = await supabase
+      .from("restaurant_products")
+      .select(`*, categories(id, name)`)
+      .range(from, to);
+
+    if (error) {
+      console.log("Error fetching paginated data", error);
+      return [];
     }
+
+    return data;
+  } catch (err) {
+    console.error("Error from Supabase:", err);
+    return [];
+  }
+
 }
 
