@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { fetchGymOrdersApi } from '../../Redux/Api/gymApi/gymOrderApi';
+import { fetchGymOrderDetailsAPI, fetchGymOrdersApi } from '../../Redux/Api/gymApi/gymOrderApi';
 import { useDispatch, useSelector } from 'react-redux';
 import { getGymOrders } from '../../Redux/Slices/gymSlice/gymOrdersSlice';
 import DataTable from 'react-data-table-component';
@@ -10,7 +10,9 @@ const GymOrdersTable = () => {
     const {gymOrders} = useSelector((state)=>state.gymOrders)
     const{sellerDetails}=useSelector((state)=>state.seller)
     const dispatch = useDispatch();
-console.log(gymOrders);
+
+
+
 
     useEffect(() => {
     dispatch(getGymOrders(sellerDetails))
@@ -27,7 +29,7 @@ console.log(gymOrders);
       const handleCloseDetails = () => {
         setIsShowDetails(false);
       };
-    
+   
 
  const columns = [
      {

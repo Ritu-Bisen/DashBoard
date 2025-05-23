@@ -30,12 +30,12 @@ const RestaurantSidebar = () => {
         icon:  <FaBoxOpen size={30} />,
         path: "/restaurant/menu",
       },
-      {
-        id: 3,
-        name: "Stock Management",
-        icon:  <GiProgression size={25} />,
-        path: "/restaurant/stock-management",
-      },
+      // {
+      //   id: 3,
+      //   name: "Stock Management",
+      //   icon:  <GiProgression size={25} />,
+      //   path: "/restaurant/stock-management",
+      // },
      
      
        {

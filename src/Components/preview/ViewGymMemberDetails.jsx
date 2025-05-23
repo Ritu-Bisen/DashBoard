@@ -19,7 +19,7 @@ const ViewGymMemberDetails = ({member,onClose}) => {
                  <RxCross1 size={25} className="text-black font-bold" />
                </button>
              </div>
-             <div className='flex'>
+             <div className='flex mt-5 ml-5'>
                 <div>
                   <h4 className="text-lg font-semibold text-gray-700 mb-3 border-l-4 border-amber-500 pl-3 flex items-center gap-2">Order Details</h4> 
                 <table className="border-collapse bg-white rounded-lg overflow-hidden shadow-md mb-6 w-full">
@@ -134,8 +134,8 @@ const ViewGymMemberDetails = ({member,onClose}) => {
                 </table></div>
                
                 </div>
-                <h4 className="text-lg font-semibold text-gray-700 mb-3 border-l-4 border-amber-500 pl-3 flex items-center gap-2">Product Details</h4>
-               <table className="border-collapse bg-white rounded-lg overflow-hidden shadow-md mb-6 w-full">
+                <h4 className="text-lg font-semibold text-gray-700 mb-3 border-l-4 border-amber-500 pl-3 flex items-center gap-2 ml-5">Product Details</h4>
+               <table className="border-collapse bg-white rounded-lg overflow-hidden shadow-md mb-6 w-full  ml-5">
                   <tbody>
                     <tr >
                       <th className="border border-gray-200 px-4 py-3 text-left text-gray-600 font-semibold">

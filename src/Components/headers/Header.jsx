@@ -21,9 +21,7 @@ console.log(sellerProfileData);
         <button className="  border-gray-400 border-1 rounded-full p-2  ">
           <IoMdNotifications />
         </button>
-        <button className="  border-gray-400 border-1 rounded-full p-1 w-30 ">
-          SIGNOUT
-        </button>
+       
       </div>
     </div>
   );

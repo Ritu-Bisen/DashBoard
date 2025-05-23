@@ -7,17 +7,20 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getGymServices } from '../../Redux/Slices/gymSlice/gymServicesSlice';
 import { getEmployeeDetails, getVerifiedEmployee } from '../../Redux/Slices/employeeSlice';
 import { getGymOrders } from '../../Redux/Slices/gymSlice/gymOrdersSlice';
+import { getGymMember } from '../../Redux/Slices/gymSlice/gymMemberSlice';
 
 const GymDashBoard = () => {
  const { services } = useSelector((state) => state.gymservices);
  const {employees} =useSelector((state)=>state.employee)
  const { sellerDetails } = useSelector((state) => state.seller);
   const {gymOrders} = useSelector((state)=>state.gymOrders)
+   const {member}=useSelector((state)=>state.gymMember)
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getGymServices());
     dispatch(getVerifiedEmployee(sellerDetails))
         dispatch(getGymOrders(sellerDetails))
+        dispatch(getGymMember(sellerDetails))
   }, [dispatch]);
 
   const [revenue, setRevenue] = useState(0);
@@ -34,8 +37,8 @@ useEffect(() => {
       id:1,
       icon:<HiUsers size={30}/>,
       title:"Total Member",
-      Date_time:"January 25,2025",
-      numberOfperson:100,
+    
+      numberOfperson:member.length,
       client:"Members"
     
      },
@@ -91,7 +94,7 @@ useEffect(() => {
               <h1 className='text-2xl font-bold '>Orders</h1>
               </div>
              <div className='mt-10 ml-10'>
-             <p className='text-2xl font-semibold'>100 Orders</p>
+             <p className='text-2xl font-semibold'>{gymOrders.length} Orders</p>
             
               </div>
       </div>

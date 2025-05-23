@@ -53,7 +53,7 @@ const RestaurantRoutes = () => {
         <Route path='employee/add-employee' element={<CreateEmployee/>}/>
         <Route path='order/orders' element={<RestaurantOrders/>}/>
         <Route path='order/order-request' element={<RestaurantOrderRequest/>}/>
-        <Route path='stock-management' element={<RestaurantStockManagement/>}/>
+        {/* <Route path='stock-management' element={<RestaurantStockManagement/>}/> */}
         
       
          <Route path='reports' element={<RestaurantReports/>}/> 

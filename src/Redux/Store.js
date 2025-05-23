@@ -23,6 +23,7 @@ import gymNutritionReducer from './Slices/gymSlice/gymNutritionSlice'
 import gymBannerReducer from './Slices/gymSlice/gymBannerSlice'
 import restaurantReportReducer from './Slices/restaurantSlice/restaurantReportSlice'
 import gymMemberReducer from './Slices/gymSlice/gymMemberSlice'
+import reportReducer from './Slices/ReportsSlice'
 
 const store = configureStore({
     reducer:{
@@ -50,6 +51,7 @@ const store = configureStore({
        gymBanner:gymBannerReducer,
        restaurantReport:restaurantReportReducer,
        gymMember:gymMemberReducer,
+       report :reportReducer,
 
     }
 })

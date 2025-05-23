@@ -17,6 +17,18 @@ const GymMembersTable = () => {
  }, [dispatch])
  
 
+ const getMemberStatus = (placedAt) => {
+  const placedDate = new Date(placedAt);
+  const currentDate = new Date();
+
+  const oneMonthLater = new Date(placedDate);
+  oneMonthLater.setMonth(placedDate.getMonth() + 1);
+
+  return currentDate < oneMonthLater ? <p className='bg-green-600 text-white px-4 py-2 rounded-lg font-semibold '>Active</p> : <p className='bg-red-600 text-white px-4 py-2 rounded-lg font-semibold '>Inactive</p>;
+};
+
+
+
  const [isShowDetails, setIsShowDetails] = useState(false);
       const [showDetails, setShowDetails] = useState(null);
     
@@ -70,7 +82,11 @@ const GymMembersTable = () => {
         selector: (row) => row.payment_status,
       },
      
-      
+       {
+        name: " Status",
+        selector: (row) => row.status,
+      },
+     
       {
         name: "View",
         selector: (row) => row.view,
@@ -114,6 +130,7 @@ contact:item.orders.users.phone_number,
 price:item.price,
 payment_method:item.orders.payment_method,
 payment_status:item.orders.payment_status,
+status: getMemberStatus(item.orders.placed_at), // Use your actual timestamp field here
   view: (
                      <button onClick={() => handleShowDetails(item)}>
                        <FaEye size={25} />

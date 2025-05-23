@@ -112,8 +112,8 @@ console.log(sellerProfileData);
         <div className="flex flex-col items-center justify-center">
          <img className="h-25 w-25 rounded-full" src={sellerProfileData[0]?.profile_urls}/>
           <h1 className="font-bold text-xl mt-3">{sellerProfileData[0]?.seller_name}</h1>
-          <Link to={`/${sellerDetails.segment}/profile`}>  <button className="text-sm flex gap-2">
-            View Profile <CiEdit className="mt-1" size={15} />
+          <Link to={`/${sellerDetails.segment}/profile`}>  <button className="text-sm flex gap-2 hover:text-black"  >
+            View Profile <CiEdit className="mt-1 " size={15} />
           </button></Link>
         
           <h1>Mart Section</h1>
@@ -129,7 +129,7 @@ console.log(sellerProfileData);
                     className={`w-full flex items-center justify-between px-6 py-3 cursor-pointer`}
                     onClick={() => toggleMenu(item.title)}
                   >
-                    <div className="flex items-center gap-3">
+                    <div className="flex items-center gap-3 font-semibold text-lg">
                       {item.icon} <span>{item.title}</span>
                     </div>
                     {openMenu === item.title ? (
@@ -165,22 +165,22 @@ console.log(sellerProfileData);
                                 localStorage.clear();
                                 window.location.href = "/";
                               }}
-                              className="flex items-center py-3 px-6 gap-5 cursor-pointer bg-white text-black hover:bg-red-500 hover:text-white transition"
+                              className="flex items-center py-3 px-6 gap-5 cursor-pointer  text-white hover:bg-red-500 hover:text-black transition"
                             >
                               {item.icon}
-                              <span className="font-semibold text-xl">{item.title}</span>
+                              <span className="font-semibold text-lg">{item.title}</span>
                             </div>
                           ) : (
                             <Link
                               to={item.path}
                               className={`flex items-center py-3 px-6 gap-5 cursor-pointer ${
                                 location.pathname === item.path
-                                  ? "bg-red-500 text-white"
-                                  : "bg-white text-black"
+                                  ? "bg-red-500 text-black"
+                                  : " text-white"
                               }`}
                             >
                               {item.icon}
-                              <span className="font-semibold text-xl">{item.title}</span>
+                              <span className="font-semibold text-lg">{item.title}</span>
                             </Link>
                          
               )}

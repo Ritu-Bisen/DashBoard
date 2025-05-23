@@ -103,12 +103,11 @@ useEffect(() => {
       },
     };
 
-    
-    const quantity = 10;
+   
     
       const data = gymProducts.map((item,index)=>({
         serialNo:index+1,
-        id:item.id,
+        id:item.id.slice(0,8),
         image_urls:(<img src={item.image_urls[0]}/>),
         name:item.name,
         discounted_percentage:item.discount_percentage,
@@ -118,7 +117,7 @@ useEffect(() => {
         taxable_price:item.taxable_price,
        
         price:item.price,
-        status:(item.stock_quantity>0?<p className='bg-green-800  rounded-lg p-3'>Available</p>:<p className='bg-red-700 rounded-lg p-3'>Not Available</p>),
+        status:(item.stock_quantity>0?<p className='bg-green-800  rounded-lg p-3 text-white font-semibold'>Available</p>:<p className='text-white bg-red-700 rounded-lg p-3 font-semibold'>Not Available</p>),
         view:( <button onClick={() => handleViewDetails(item)}>
                              <FaEye size={25} />
                            </button>),
@@ -126,7 +125,7 @@ useEffect(() => {
     
 
   return (
-    <div className='w-[calc(100%-300px)] ml-[300px]  pt-30'>
+    <div className='w-[calc(100%-300px)] ml-[300px]  pt-[120px]'>
         <div>
             <h1 className='font-bold text-3xl ml-5'>Product</h1>
             </div>

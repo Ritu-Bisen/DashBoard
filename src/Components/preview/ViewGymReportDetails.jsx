@@ -4,7 +4,7 @@ import { MdOutlineBorderStyle } from "react-icons/md";
 import { useDispatch, useSelector } from 'react-redux';
 import { getGymOrderDetails } from '../../Redux/Slices/gymSlice/gymOrdersSlice';
 
-const ViewGymOrdersDetails = ({ onClose, orderId, sellerDetails }) => {
+const ViewGymReportDetails = ({ onClose, orderId, sellerDetails }) => {
   const dispatch = useDispatch();
   const { orderDetails } = useSelector((state) => state.gymOrders);
 
@@ -29,7 +29,6 @@ const ViewGymOrdersDetails = ({ onClose, orderId, sellerDetails }) => {
   }
 
   const orderInfo = orderDetails[0]?.orders || {};
-  const userInfo = orderInfo?.users || {};
 
   return (
     <div className="fixed bg-white rounded-xl w-full max-w-5xl max-h-[90vh] overflow-auto shadow-2xl top-1/2 left-1/2 transition -translate-x-1/2 -translate-y-1/2 z-50">
@@ -47,35 +46,12 @@ const ViewGymOrdersDetails = ({ onClose, orderId, sellerDetails }) => {
         </button>
       </div>
 
-      <div className='flex'>
-        <table className="border-collapse bg-white rounded-lg overflow-hidden shadow-md mb-6 w-full">
-          <tbody>
-            <tr><th className="border px-4 py-3">Order Id</th><td className="border px-4 py-3">{orderInfo.id}</td></tr>
-            <tr><th className="border px-4 py-3">Address</th><td className="border px-4 py-3">{orderInfo.address}</td></tr>
-            <tr><th className="border px-4 py-3">Order Status</th><td className="border px-4 py-3">{orderInfo.order_status}</td></tr>
-            <tr><th className="border px-4 py-3">Order Type</th><td className="border px-4 py-3">{orderInfo.order_type}</td></tr>
-            <tr><th className="border px-4 py-3">Payment Method</th><td className="border px-4 py-3">{orderInfo.payment_method}</td></tr>
-            <tr><th className="border px-4 py-3">Payment Status</th><td className="border px-4 py-3">{orderInfo.payment_status}</td></tr>
-            <tr><th className="border px-4 py-3">Total Amount</th><td className="border px-4 py-3">{orderInfo.total_amount}</td></tr>
-          </tbody>
-        </table>
-
-        <table className="border-collapse bg-white rounded-lg overflow-hidden shadow-md mb-6 w-full">
-          <tbody>
-            <tr><th className="border px-4 py-3">User Name</th><td className="border px-4 py-3">{userInfo.name}</td></tr>
-            <tr><th className="border px-4 py-3">Email</th><td className="border px-4 py-3">{userInfo.email}</td></tr>
-            <tr><th className="border px-4 py-3">Address</th><td className="border px-4 py-3">{userInfo.address_line}</td></tr>
-            <tr><th className="border px-4 py-3">City</th><td className="border px-4 py-3">{userInfo.city}</td></tr>
-            <tr><th className="border px-4 py-3">Postal Code</th><td className="border px-4 py-3">{userInfo.postal_code}</td></tr>
-            <tr><th className="border px-4 py-3">Phone</th><td className="border px-4 py-3">{userInfo.phone_number}</td></tr>
-            <tr><th className="border px-4 py-3">State</th><td className="border px-4 py-3">{userInfo.state}</td></tr>
-          </tbody>
-        </table>
-      </div>
+    
 
       <table className="border-collapse bg-white rounded-lg overflow-hidden shadow-md mb-6 w-full">
         <thead>
           <tr className="bg-gray-100">
+               <th className="p-2 border">S.No</th>
             <th className="p-2 border">Product Name</th>
             <th className="p-2 border">Quantity</th>
             <th className="p-2 border">Discount %</th>
@@ -91,6 +67,7 @@ const ViewGymOrdersDetails = ({ onClose, orderId, sellerDetails }) => {
         <tbody>
           {orderDetails.map((item, index) => (
             <tr key={index}>
+                 <td className="p-2 border">{index+1}</td>
               <td className="p-2 border">{item.gym_products?.name || "N/A"}</td>
               <td className="p-2 border">{item.quantity}</td>
               <td className="p-2 border">{item.gym_products?.discount_percentage}</td>
@@ -104,7 +81,7 @@ const ViewGymOrdersDetails = ({ onClose, orderId, sellerDetails }) => {
             </tr>
           ))}
           <tr>
-            <th colSpan={9} className="text-end p-2 border">Total Amount:</th>
+            <th colSpan={10} className="text-end p-2 border">Total Amount:</th>
             <td className="p-2 border">{orderInfo.total_amount}</td>
           </tr>
         </tbody>
@@ -113,4 +90,4 @@ const ViewGymOrdersDetails = ({ onClose, orderId, sellerDetails }) => {
   );
 };
 
-export default ViewGymOrdersDetails;
+export default ViewGymReportDetails;

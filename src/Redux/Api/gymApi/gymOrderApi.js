@@ -23,7 +23,6 @@ export const fetchGymOrdersApi=async (sellerDetails) =>{
 
 export const fetchGymOrderDetailsAPI = async ({orderId,sellerDetails}) => {
   try {
-    console.log(orderId);
     
     const { data, error } = await supabase
       .from("gym_order_items")

@@ -11,6 +11,8 @@ import {
 import RestaurantViewOrderdetails from "../preview/RestaurantViewOrderdetails";
 
 const RestaurantOrdersTable = () => {
+  const { assignedOrder } = useSelector((state) => state.restaurantOrder);
+   const{sellerDetails}=useSelector((state)=>state.seller)
   const [isShowDetail, setIsShowDetail] = useState(false);
   const [showOrder, setShowOrder] = useState(null);
 
@@ -23,8 +25,7 @@ const RestaurantOrdersTable = () => {
     setIsShowDetail(false);
   };
 
-  const { assignedOrder } = useSelector((state) => state.restaurantOrder);
-   const{sellerDetails}=useSelector((state)=>state.seller)
+  
 
 //  console.log("hii", assignedDeliveryBoy);
 
@@ -135,7 +136,7 @@ const RestaurantOrdersTable = () => {
       <div className="  pt-[120px] ">
         <div className="flex gap-5 justify-between">
           <h1 className=" mt-9 ml-2  text-3xl font-bold ">Latest Orders</h1>
-          <div className="flex gap-8 mt-3">
+          {/* <div className="flex gap-8 mt-3">
             <label className="flex-col  flex font-semibold  ml-5">
               Placed Date
               <input
@@ -167,8 +168,8 @@ const RestaurantOrdersTable = () => {
                 type="text"
               />
             </label>
-          </div>
-        </div>
+          </div>*/}
+        </div> 
         <div className="overflow-x mt-9 ">
           <DataTable
             fixedHeader
