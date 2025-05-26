@@ -46,12 +46,12 @@ const RestaurantOrdersTable = () => {
     {
       name: "Order Id",
       selector: (row) => row.order_id,
-      width: "300px",
+   
     },
     {
       name: "User Id",
       selector: (row) => row.user_id,
-      width: "300px",
+      
     },
     {
       name: "Total Amount",
@@ -113,8 +113,8 @@ const RestaurantOrdersTable = () => {
   const data = assignedOrder.map((item, index) => ({
     serialNo: index + 1,
 
-    order_id: item.id,
-    user_id: item.user_id,
+    order_id: item.id.slice(0,8),
+    user_id: item.user_id.slice(0,8),
 
     
     total_amount: item.total_amount,

@@ -39,11 +39,12 @@ const ViewSalonAppointmentDetails = ({ orderId, onClose,sellerDetails }) => {
           <th className="p-2 border-gray-300 border">Product Name</th>
                     <th className="p-2 border-gray-300 border">Quantity</th>
                     <th className="p-2 border-gray-300 border">Discount %</th>
-                    <th className="p-2 border-gray-300 border">Discounted Price</th>
+                   
                     <th className="p-2 border-gray-300 border">SGST INR</th>
                     <th className="p-2 border-gray-300 border">CGST INR</th>
                     <th className="p-2 border-gray-300 border">GST</th>
                     <th className="p-2 border-gray-300 border">HSN Code</th>
+                     <th className="p-2 border-gray-300 border">Discounted Price</th>
                     <th className="p-2 border-gray-300 border">Taxable Price</th>
                     <th className="p-2 border-gray-300 border">Final Price</th>
            
@@ -55,13 +56,14 @@ const ViewSalonAppointmentDetails = ({ orderId, onClose,sellerDetails }) => {
                       <td className="p-2 border-gray-300 border">{item.salon_services?.name || "N/A"}</td>
                       <td className="p-2 border-gray-300 border">{item.quantity}</td>
                       <td className="p-2 border-gray-300 border">{item.salon_services.discount_percentage}</td>
-                      <td className="p-2 border-gray-300 border">{item.salon_services.discounted_price}</td>
+                     
                       <td className="p-2 border-gray-300 border">{item.salon_services.sgst}</td>
                       <td className="p-2 border-gray-300 border">{item.salon_services.cgst}</td>
                       <td className="p-2 border-gray-300 border">{item.salon_services.gst}</td>
                       <td className="p-2 border-gray-300 border">{item.salon_services.hsn_code}</td>
+                       <td className="p-2 border-gray-300 border">{item.salon_services.discounted_price}</td>
                       <td className="p-2 border-gray-300 border">{item.salon_services.taxable_price}</td>
-                      <td className="p-2 border-gray-300 border">{item.salon_services.price}</td>
+                      <td className="p-2 border-gray-300 border">{item.salon_services.final_price}</td>
                     
                     </tr>
                   ))}

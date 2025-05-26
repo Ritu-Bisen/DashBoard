@@ -39,7 +39,7 @@ const GymOrdersTable = () => {
      {
        name: "Order Id",
        selector: (row) => row.order_id,
-       width: "300px",
+      
      },
      {
        name: "User Name",
@@ -110,7 +110,7 @@ const GymOrdersTable = () => {
  
    const data = gymOrders.map((item, index) => ({
      serialNo: index + 1,
-     order_id: item.id,
+     order_id: item.id.slice(0,8),
        user_name: item.users.name,
        user_contact: item.users.phone_number,
       total_amount: item.total_amount,

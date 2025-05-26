@@ -108,7 +108,7 @@ useEffect(() => {
     
       const data = employees.map((item,index)=>({
         serial_no:index+1,
-        employee_id:item.id,
+        employee_id:item.id.slice(0,8),
         name:item.name,
         phone:item.phone,
         email:item.email,

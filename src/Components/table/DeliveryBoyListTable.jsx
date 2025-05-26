@@ -99,7 +99,7 @@ const DeliveryBoyListTable = () => {
 
   const data = deliveryBoys.map((item, index) => ({
     serial_no: index + 1,
-    deliveryBoy_id: item.id,
+    deliveryBoy_id: item.id.slice(0,8),
     name: item.full_name,
     phone: item.phone_number,
     email: item.email,

@@ -8,6 +8,7 @@ import ViewGymProductDetails from '../preview/ViewGymProductDetails';
 const GymProductTable = () => {
   const [isShowDetail, setIsShowDetail] = useState(false);
     const [showGymProducts, setShowGymProducts] = useState(null);
+      const [searchQuery, setSearchQuery] = useState("");
   
     const handleViewDetails = (gymProducts) => {
       setIsShowDetail(true);
@@ -27,6 +28,17 @@ useEffect(() => {
  dispatch(getGymProducts())
 }, [dispatch])
 
+ const searchthedata=Array.isArray(gymProducts)
+  ?gymProducts.filter((item)=>{
+     const namematch = item?.name
+          ?.toLowerCase()
+          .includes(searchQuery.toLowerCase());
+       
+        const idmatch = item?.id
+          ?.toLowerCase()
+          .includes(searchQuery.toLowerCase());
+        return namematch|| idmatch;
+  }):[];
 
     const columns = [ {
         name: "S.no",
@@ -105,7 +117,7 @@ useEffect(() => {
 
    
     
-      const data = gymProducts.map((item,index)=>({
+      const data = searchthedata.map((item,index)=>({
         serialNo:index+1,
         id:item.id.slice(0,8),
         image_urls:(<img src={item.image_urls[0]}/>),
@@ -126,8 +138,15 @@ useEffect(() => {
 
   return (
     <div className='w-[calc(100%-300px)] ml-[300px]  pt-[120px]'>
-        <div>
+        <div className="flex justify-between ">
             <h1 className='font-bold text-3xl ml-5'>Product</h1>
+              <input
+            className="border-2 border-gray-400 w-95 h-10 rounded-full p-3 "
+            value={searchQuery}
+            placeholder="Search"
+            type="text"
+            onChange={(e) => setSearchQuery(e.target.value)}
+          />
             </div>
             <div className='overflow-x mt-9'>
                 <DataTable data={data} columns={columns} customStyles={customStyles} pagination fixedHeader fixedHeaderScrollHeight='67vh' defaultSortFieldId={1}/>

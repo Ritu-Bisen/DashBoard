@@ -76,11 +76,12 @@ const RestaurantOrderRequestTable = () => {
     {
       name: "Order Id",
       selector: (row) => row.order_id,
-      width: "300px",
+     
     },
     {
       name: "User Name",
       selector: (row) => row.user_name,
+        width: "150px",
     },
     {
       name: "User Contact",
@@ -152,7 +153,7 @@ const RestaurantOrderRequestTable = () => {
   .filter(item => item && item.id)  // Ensure item and item.id are valid
   .map((item, index) => ({
     serialNo: index + 1,
-    order_id: item.id,
+    order_id: item.id.slice(0,8),
     user_name: item.users?.name || "N/A",
     user_contact: item.users?.phone_number || "N/A",
     total_amount: item.total_amount,

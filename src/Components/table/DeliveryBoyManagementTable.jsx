@@ -53,6 +53,7 @@ const handleDeliveryBoyDetailClose = () => {
     {
       name: "Name",
       selector: (row) => row.user_name,
+      width: "150px",
     },
     {
       name: "contact No",
@@ -70,6 +71,7 @@ const handleDeliveryBoyDetailClose = () => {
     {
       name: "Vehicle Type",
       selector: (row) => row.vehicle_type,
+        width: "150px",
     },
     {
       name: "Status",
@@ -101,7 +103,7 @@ const handleDeliveryBoyDetailClose = () => {
 
   const data =deliveryBoys.map((item,index)=>({
     serialNo:index+1,
-    id:(item.id),
+    id:(item.id).slice(0,8),
     user_name:item.full_name,
     email:item.email,
     phone_number:item.phone_number,

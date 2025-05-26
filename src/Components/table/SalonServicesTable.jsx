@@ -52,6 +52,7 @@ const SalonServicesTable = () => {
     {
       name: "Service Id",
       selector: (row) => row.service_id,
+          width:"100px",
     },
     {
       name: "Image",
@@ -64,14 +65,17 @@ const SalonServicesTable = () => {
     {
       name: "Price",
       selector: (row) => row.price,
+       width:"100px",
     },
     {
       name: "Discount %",
       selector: (row) => row.discount_percentage,
+      width:"100px",
     },
     {
       name: "Discounted Price",
       selector: (row) => row.discounted_price,
+       width:"100px",
     },
     {
       name: "Duration",
@@ -112,7 +116,7 @@ const SalonServicesTable = () => {
  const data = searchthedata.map((item,index)=>({
   serialNo: index + 1,
      service_id: item.category_id.slice(0, 8),
-     image: <img src={item.image_urls[0]} />,
+     image: <img  src={item.image_urls[0]} />,
      name: item.name,
      price: item.price,
     discounted_price: item.discounted_price,

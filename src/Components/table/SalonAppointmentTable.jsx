@@ -8,6 +8,7 @@ import { getAppointment } from "../../Redux/Slices/salonSlicees/salonAppointment
 const SalonAppointmentTable = () => {
   const [isShowDetails,setIsShowDetails]=useState(false);
        const [showDetails,setShowDetails]=useState(null)
+        const [selectedDate, setSelectedDate] = useState('');
   
 
    const {appointment} = useSelector((state)=>state.appointment);
@@ -88,9 +89,15 @@ const handleCloseInvoice =()=>{
     },
   };
 
-  const data = appointment.map((item,index)=>({
+  const data = appointment
+   .filter(item => {
+    if (!selectedDate) return true;
+    const itemDate = new Date(item.placed_at).toISOString().split('T')[0];
+    return itemDate === selectedDate;
+  })
+  .map((item,index)=>({
     serialNo:index+1,
-    order_id:item.id,
+    order_id:item.id.slice(0,8),
     user_name:item.users.name,
     user_contact:item.users.phone_number,
     price:item.total_amount,
@@ -103,19 +110,20 @@ const handleCloseInvoice =()=>{
   }))
 
   return (
-    <div className="w-[calc(100%-300px)] ml-[300px] h-screen pt-30">
+    <div className="w-[calc(100%-300px)] ml-[300px] h-screen pt-[120px]">
      
-        <div className="justify-between flex border-b border-gray-300  ">
-          <div>
+          <div className='flex justify-between '>
             {" "}
             <h1 className="text-2xl font-bold px-10 py-2 ">Booking Status</h1>
+             <input
+  className='h-10 w-80 p-5 border-gray-300 border-2 rounded-full mr-10'
+  type='date'
+  value={selectedDate}
+  onChange={(e) => setSelectedDate(e.target.value)}
+/>
+
           </div>
-          {/* <div className="bg-gray-300 h-12 rounded-full  justify-center w-120 gap-6 flex mb-2">
-            <button className="rounded-full  hover:px-5 hover:py-3 hover:bg-red-500">All Bookings</button>
-            <button className="rounded-full   hover:px-5 hover:py-3 hover:bg-red-500">Upcoming Bookings</button>
-            <button className="rounded-full   hover:px-5 hover:py-3 hover:bg-red-500">Canceled Bookings</button>
-          </div> */}
-        </div>
+        
         <div className="mt-10">
           <DataTable
             data={data}

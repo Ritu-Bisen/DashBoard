@@ -79,7 +79,7 @@ const GymBannersTable = () => {
             
               const data = banner.map((item,index)=>({
                 serialNo:index+1,
-                id:item.id,
+                id:item.id.slice(0,8),
                 image:(<img src={item.image_urls[0]}/>),
                 target:item.target_type,
                

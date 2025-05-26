@@ -99,7 +99,7 @@ console.log(deliveryBoys);
 
       const data = deliveryBoys.map((item, index) => ({
         serialNo: index + 1,
-        deliveryBoy_id: item?.id,
+        deliveryBoy_id: item?.id.slice(0,8),
         profile_image: (<img src={item.profile_image_url}/>),
         name: item?.full_name,
         email: item?.email,

@@ -40,7 +40,7 @@ const { menu } = useSelector((state) => state.restaurantmenu);
   title:"Total Orders",
   Date_time:"January 25,2025",
   numberOfperson:assignedOrder.length,
-  client:"Person"
+  client:"Order"
 
  },
  {
@@ -48,7 +48,7 @@ const { menu } = useSelector((state) => state.restaurantmenu);
   icon:<MdOutlineMiscellaneousServices size={30}/>,
   title:"Total DeliveryBoys",
   numberOfperson:deliveryBoys.length,
-  client:"Services"
+  client:"DeliveryBoys"
 
  },
  {
@@ -65,7 +65,7 @@ const { menu } = useSelector((state) => state.restaurantmenu);
   title:"Revenue",
   Date_time:"January 25,2025",
   numberOfperson:Math.floor(revenue),
-  client:"Person"
+  client:"Revenue"
 
  },]
  
@@ -98,8 +98,8 @@ const { menu } = useSelector((state) => state.restaurantmenu);
                  <h1 className='text-2xl font-bold '>Total Product</h1>
                  </div>
                 <div className='mt-10 ml-10'>
-                <p className='text-2xl font-semibold'>{menu.length} Person</p>
-               
+                {/* <p className='text-2xl font-semibold'>{menu.length} Product</p> */}
+               <p className='text-2xl font-semibold'>143 Product</p>
                  </div>
          </div>
        </div>

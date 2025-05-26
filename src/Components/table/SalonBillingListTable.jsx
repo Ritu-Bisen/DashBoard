@@ -47,15 +47,17 @@ const handleCloseInvoice =()=>{
       {
         name: "User Contact",
         selector: (row) => row.contact,
+         width:"150px"
       }, 
       {
         name: "Total Amount",
         selector: (row) => row.total_amount,
+ width:"150px"
       },
       {
         name: "Pay Status",
         selector: (row) => row.pay_status,
-        width:"150px"
+       
       },
       {
         name: "Order Status",
@@ -108,7 +110,7 @@ const handleCloseInvoice =()=>{
        .filter(item => item.payment_status === "paid")
       .map((item,index)=>({
         serialNo:index+1,
-        order_id:item.id,
+        order_id:item.id.slice(0,8),
         user_name:item.users.name,
         contact:item.users.phone_number,
         total_amount:item.total_amount,

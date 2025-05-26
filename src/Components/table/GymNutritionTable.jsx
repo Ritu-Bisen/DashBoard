@@ -87,11 +87,11 @@ const GymNutritionTable = () => {
         };
     
         
-        const quantity = 10;
+      
         
           const data = nutrition.map((item,index)=>({
             serialNo:index+1,
-            id:item.id,
+            id:item.id.slice(0,8),
             image:(<img src={item.image_urls[0]}/>),
             name:item.name,
             protein:item.protein,

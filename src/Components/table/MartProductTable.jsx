@@ -174,7 +174,7 @@ const MartProductTable = () => {
     <div className="relative w-[calc(100%-300px)] ml-[300px]">
      
       <div className=" pt-[120px]">
-        <div className="flex justify-between gap-3">
+        <div className="flex justify-between ">
           <h1 className="  ml-2  text-3xl font-bold ">Product Management</h1>
           <input
             className="border-2 border-gray-400 w-95 h-10 rounded-full p-3 "
