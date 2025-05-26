@@ -5,19 +5,19 @@ import { MdOutlineMiscellaneousServices } from "react-icons/md";
 import { FaRegCalendarCheck } from "react-icons/fa";
 import { useDispatch, useSelector } from 'react-redux';
 import { getEmployeeDetails } from '../../Redux/Slices/employeeSlice';
-import { getAppointment } from '../../Redux/Slices/salonSlicees/salonAappointmentSlice';
 import { getServices } from '../../Redux/Slices/salonSlicees/salonServicesSlice';
+import { getAppointment } from '../../Redux/Slices/salonSlicees/salonAppointmentSlice';
 
 const SalonDashboard = () => {
 const {employees} =useSelector((state)=>state.employee)
  const { sellerDetails } = useSelector((state) => state.seller);
-const {appointmentList} = useSelector((state)=>state.appointmentList)
+ const {appointment} = useSelector((state)=>state.appointment);
  const { services } = useSelector((state) => state.service);
  
 const dispatch =useDispatch();
 useEffect(() => {
   dispatch(getEmployeeDetails(sellerDetails))
-dispatch(getAppointment())
+ dispatch(getAppointment(sellerDetails))
 dispatch(getServices());
 }, [dispatch])
 
@@ -25,7 +25,7 @@ dispatch(getServices());
   id:1,
   icon:<HiUsers size={30}/>,
   title:"Total Client",
-  numberOfperson:appointmentList.length,
+  numberOfperson:appointment.length,
   client:"Person"
 
  },
@@ -49,7 +49,7 @@ dispatch(getServices());
   id:4,
   icon:<FaRegCalendarCheck size={30}/>,
   title:"Appointment",
-  numberOfperson:appointmentList.length,
+  numberOfperson:appointment.length,
   client:"Appointment"
 
  },]

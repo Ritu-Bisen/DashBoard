@@ -88,8 +88,8 @@ const SalonSideBar = () => {
   ];
 
   return (
-    <div className="fixed mt-26 w-[300px] h-full  rounded-tr-4xl rounded-br-4xl shadow-gray-900 shadow-lg  bg-white">
-      <div className="pt-10">
+    <div className="fixed mt-26 w-[300px] h-[85vh]  rounded-tr-4xl rounded-br-4xl shadow-gray-900 shadow-lg  bg-white">
+      <div className="pt-10 mb-5">
         {itemList.map((item) => (
           <div key={item.id}>
             {item.subroute ? (

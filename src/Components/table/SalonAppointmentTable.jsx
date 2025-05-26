@@ -1,18 +1,35 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import DataTable from "react-data-table-component";
 import { useDispatch, useSelector } from "react-redux";
-import { getAppointment } from "../../Redux/Slices/salonSlicees/salonAappointmentSlice";
+import { FaEye } from "react-icons/fa";
+import ViewSalonAppointmentDetails from "../preview/ViewSalonAppointmentDetails";
+import { getAppointment } from "../../Redux/Slices/salonSlicees/salonAppointmentSlice";
 
 const SalonAppointmentTable = () => {
+  const [isShowDetails,setIsShowDetails]=useState(false);
+       const [showDetails,setShowDetails]=useState(null)
+  
 
-  const {appointmentList} = useSelector((state)=>state.appointmentList)
+   const {appointment} = useSelector((state)=>state.appointment);
+      const {sellerDetails}=useSelector((state)=>state.seller)
+  //console.log(billingList);
+  
  
-const dispatch =useDispatch();
+      const dispatch = useDispatch();
+      useEffect(() => {
+        dispatch(getAppointment(sellerDetails))
+       
+      }, [dispatch])
 
-useEffect(() => {
-dispatch(getAppointment())
-}, [dispatch])
+const onhandleViewInvoice =(orderId)=>{
+  setIsShowDetails(true);
+  setShowDetails(orderId);
 
+}
+
+const handleCloseInvoice =()=>{
+  setIsShowDetails(false)
+}
 
   const columns = [
     {
@@ -23,11 +40,15 @@ dispatch(getAppointment())
       name: "Order Id",
       selector: (row) => row.order_id,
     },
-
-    {
-      name: "Product Id",
-      selector: (row) => row.product_id,
+ {
+      name: "User Name",
+      selector: (row) => row.user_name,
     },
+    {
+      name: "User Contact",
+      selector: (row) => row.user_contact,
+    },
+    
     {
       name: "Price",
       selector: (row) => row.price,
@@ -36,10 +57,12 @@ dispatch(getAppointment())
       name: "Date,Time",
       selector: (row) => row.booked_for,
     },
-    {
-      name: "Quantity",
-      selector: (row) => row.quantity,
+     {
+      name: "View",
+      selector: (row) => row.view,
+      center:true
     },
+   
   ];
 
   const customStyles = {
@@ -65,13 +88,18 @@ dispatch(getAppointment())
     },
   };
 
-  const data = appointmentList.map((item,index)=>({
+  const data = appointment.map((item,index)=>({
     serialNo:index+1,
-    order_id:item.order_id,
-    product_id:item.product_id,
-    price:item.price,
-    booked_for:item.booked_for,
-    quantity:item.quantity
+    order_id:item.id,
+    user_name:item.users.name,
+    user_contact:item.users.phone_number,
+    price:item.total_amount,
+    booked_for:item.placed_at,
+     view: (
+                  <button  onClick={()=>onhandleViewInvoice(item.id)}>
+                    <FaEye size={25} />
+                  </button>
+                ),
   }))
 
   return (
@@ -82,11 +110,11 @@ dispatch(getAppointment())
             {" "}
             <h1 className="text-2xl font-bold px-10 py-2 ">Booking Status</h1>
           </div>
-          <div className="bg-gray-300 h-12 rounded-full  justify-center w-120 gap-6 flex mb-2">
+          {/* <div className="bg-gray-300 h-12 rounded-full  justify-center w-120 gap-6 flex mb-2">
             <button className="rounded-full  hover:px-5 hover:py-3 hover:bg-red-500">All Bookings</button>
             <button className="rounded-full   hover:px-5 hover:py-3 hover:bg-red-500">Upcoming Bookings</button>
             <button className="rounded-full   hover:px-5 hover:py-3 hover:bg-red-500">Canceled Bookings</button>
-          </div>
+          </div> */}
         </div>
         <div className="mt-10">
           <DataTable
@@ -99,7 +127,23 @@ dispatch(getAppointment())
             customStyles={customStyles}
           />
         </div>
-     
+      {isShowDetails && (
+        <>
+          <div
+            className="inset-0  z-50 bg-black/70 fixed"
+            onClick={() => {
+              setIsShowDetails(false);
+            }}
+          ></div>
+          <div className="absolute z-[10000]">
+            <ViewSalonAppointmentDetails
+              orderId={showDetails}
+              sellerDetails={sellerDetails}
+              onClose={handleCloseInvoice}
+            />
+          </div>
+        </>
+      )}
     </div>
   );
 };

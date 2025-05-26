@@ -76,6 +76,7 @@ const ViewGymOrdersDetails = ({ onClose, orderId, sellerDetails }) => {
       <table className="border-collapse bg-white rounded-lg overflow-hidden shadow-md mb-6 w-full">
         <thead>
           <tr className="bg-gray-100">
+              <th className="p-2 border">S.No.</th>
             <th className="p-2 border">Product Name</th>
             <th className="p-2 border">Quantity</th>
             <th className="p-2 border">Discount %</th>
@@ -91,6 +92,7 @@ const ViewGymOrdersDetails = ({ onClose, orderId, sellerDetails }) => {
         <tbody>
           {orderDetails.map((item, index) => (
             <tr key={index}>
+               <td className="p-2 border">{index+1}</td>
               <td className="p-2 border">{item.gym_products?.name || "N/A"}</td>
               <td className="p-2 border">{item.quantity}</td>
               <td className="p-2 border">{item.gym_products?.discount_percentage}</td>
@@ -104,7 +106,7 @@ const ViewGymOrdersDetails = ({ onClose, orderId, sellerDetails }) => {
             </tr>
           ))}
           <tr>
-            <th colSpan={9} className="text-end p-2 border">Total Amount:</th>
+            <th colSpan={10} className="text-end p-2 border">Total Amount:</th>
             <td className="p-2 border">{orderInfo.total_amount}</td>
           </tr>
         </tbody>

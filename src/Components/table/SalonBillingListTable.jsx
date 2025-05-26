@@ -1,28 +1,29 @@
 import React, { useEffect, useState } from 'react'
 import DataTable from 'react-data-table-component';
 import { useDispatch, useSelector } from 'react-redux';
-import { getBillingData } from '../../Redux/Slices/salonSlicees/salonBillingSlice';
 import { FaEye } from "react-icons/fa";
 import ViewSalonBillingInvoice from '../preview/ViewSalonBillingInvoice';
+import { getAppointment } from '../../Redux/Slices/salonSlicees/salonAppointmentSlice';
 
 const SalonBillingListTable = () => {
      const [isShowDetails,setIsShowDetails]=useState(false);
      const [showDetails,setShowDetails]=useState(null)
 
 
-     const {billingList} = useSelector((state)=>state.billing);
+     const {appointment} = useSelector((state)=>state.appointment);
+     const {sellerDetails}=useSelector((state)=>state.seller)
  //console.log(billingList);
  
 
      const dispatch = useDispatch();
      useEffect(() => {
-       dispatch(getBillingData())
+       dispatch(getAppointment(sellerDetails))
       
      }, [dispatch])
      
-const onhandleViewInvoice =(billing)=>{
+const onhandleViewInvoice =(orderId)=>{
   setIsShowDetails(true);
-  setShowDetails(billing);
+  setShowDetails(orderId);
 
 }
 
@@ -38,10 +39,7 @@ const handleCloseInvoice =()=>{
         name: "Order Id",
         selector: (row) => row.order_id,
       },
-      {
-        name: "Date,Time",
-        selector: (row) => row.date_time,
-      },
+      
       {
         name: "User Name",
         selector: (row) => row.user_name,
@@ -49,20 +47,7 @@ const handleCloseInvoice =()=>{
       {
         name: "User Contact",
         selector: (row) => row.contact,
-      },
-      {
-        name: "Order Type",
-        selector: (row) => row.order_type,
-      },
-      {
-        name: "Service Name",
-        selector: (row) => row.service_name,
-      },
-      {
-        name: "Quantity",
-        selector: (row) => row.quantity,
-      },
-      
+      }, 
       {
         name: "Total Amount",
         selector: (row) => row.total_amount,
@@ -85,7 +70,7 @@ const handleCloseInvoice =()=>{
       {
         name: "Address",
         selector: (row) => row.address,
-        width:"150px"
+        width:"250px"
       },
       {
         name: "View",
@@ -118,24 +103,21 @@ const handleCloseInvoice =()=>{
       },
     };
 
-    const quantity = 10;
     
-      const data =billingList.map((item,index)=>({
+      const data =appointment
+       .filter(item => item.payment_status === "paid")
+      .map((item,index)=>({
         serialNo:index+1,
-        order_id:item.order_id,
-        date_time: item.booked_for,
-        user_name:item.orders.users.name,
-        contact:item.orders.users.phone_number,
-        order_type:item.orders.order_type,
-        service_name:item.salon_services.name,
-        quantity:item.quantity,
-        total_amount:item.price,
-        pay_status:item.orders.payment_status,
-        order_status:item.orders.order_status,
-        payment_method:item.orders.payment_method,
-        address:item.orders.address,
+        order_id:item.id,
+        user_name:item.users.name,
+        contact:item.users.phone_number,
+        total_amount:item.total_amount,
+        pay_status:item.payment_status,
+        order_status:item.order_status,
+        payment_method:item.payment_method,
+        address:item.address,
         view: (
-              <button  onClick={()=>onhandleViewInvoice(item)}>
+              <button  onClick={()=>onhandleViewInvoice(item.id)}>
                 <FaEye size={25} />
               </button>
             ),
@@ -156,7 +138,8 @@ const handleCloseInvoice =()=>{
           ></div>
           <div className="absolute z-[10000]">
             <ViewSalonBillingInvoice
-              billing={showDetails}
+              orderId={showDetails}
+              sellerDetails={sellerDetails}
               onClose={handleCloseInvoice}
             />
           </div>

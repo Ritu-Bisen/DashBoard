@@ -6,6 +6,8 @@ import { getServices } from "../../Redux/Slices/salonSlicees/salonServicesSlice"
 import ViewSalonDetails from "../preview/ViewSalonDetails";
 
 const SalonServicesTable = () => {
+  
+    const [searchQuery, setSearchQuery] = useState("");
   const [isShowDetails, setIsShowDetails] = useState(false);
   const [showDetails, setShowDetails] = useState(null);
 
@@ -26,6 +28,21 @@ const SalonServicesTable = () => {
   useEffect(() => {
     dispatch(getServices());
   }, [dispatch]);
+
+   const searchthedata = Array.isArray(services)
+    ? services.filter((item) => {
+        const namematch = item?.name
+          ?.toLowerCase()
+          .includes(searchQuery.toLowerCase());
+        const categorymatch = item?.categories?.name
+          ?.toLowerCase()
+          .includes(searchQuery.toLowerCase());
+        const idmatch = item?.id
+          ?.toLowerCase()
+          .includes(searchQuery.toLowerCase());
+        return namematch || categorymatch || idmatch;
+      })
+    : [];
 
   const columns = [
     {
@@ -92,7 +109,7 @@ const SalonServicesTable = () => {
     },
   };
 
- const data = services.map((item,index)=>({
+ const data = searchthedata.map((item,index)=>({
   serialNo: index + 1,
      service_id: item.category_id.slice(0, 8),
      image: <img src={item.image_urls[0]} />,
@@ -113,7 +130,17 @@ const SalonServicesTable = () => {
   
   return (
     <div className="fixed w-[calc(100%-300px)] ml-[300px]  pt-30">
-      <h1 className=" font-bold text-3xl ml-5">Services</h1>
+      <div className="flex justify-between mr-10">
+         <h1 className=" font-bold text-3xl ml-5">Services</h1>
+       <input
+            className="border-2 border-gray-400 w-95 h-10 rounded-full p-3 "
+            value={searchQuery}
+            placeholder="Search"
+            type="text"
+            onChange={(e) => setSearchQuery(e.target.value)}
+          />
+          </div>
+     
       <div className="overflow-x mt-9">
         <DataTable
            data={data}
