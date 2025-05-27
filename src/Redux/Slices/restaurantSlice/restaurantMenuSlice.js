@@ -7,7 +7,7 @@ export const getRestaurantmenus=createAsyncThunk("menu/fetch",async ({ page }, {
     try {    
       console.log(page);
       
-      const data = await fetchRestaurantMenuApi(page, section );
+      const data = await fetchRestaurantMenuApi(page);
       return data;
     } catch (error) {
       return rejectWithValue(error.message);

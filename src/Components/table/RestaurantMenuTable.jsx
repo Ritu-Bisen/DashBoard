@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState, useCallback } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import DataTable from 'react-data-table-component';
 import { FaEye } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
@@ -34,25 +34,36 @@ const RestaurantMenuTable = () => {
     console.log("Scroll Height:", scrollRef.current.scrollHeight);
   }, [scrollRef.current, menu]);
 
-  const handleScroll = () => {
-    const scrollEl = scrollRef.current;
-    if (
-      scrollEl &&
-      scrollEl.scrollTop + scrollEl.clientHeight >= scrollEl.scrollHeight - 1 &&
-      hasMore &&
-      !loading
-    ) {
-      setPage((prevPage) => prevPage + 1);
-    }
-  };
+const handleScroll = (e) => {
+  const { scrollTop, scrollHeight, clientHeight } = e.target;
+
+  if (
+    scrollTop + clientHeight >= scrollHeight - 1 &&
+    hasMore &&
+    !loading
+  ) {
+    setPage((prevPage) => prevPage + 1);
+  }
+};
+
 
   useEffect(() => {
-    const scrollElement = scrollRef.current;
-    if (!scrollElement) return;
+  const interval = setInterval(() => {
+    const scrollableElement = document.querySelector('.rdt_TableBody');
+    if (scrollableElement) {
+      scrollableElement.addEventListener("scroll", handleScroll);
+      clearInterval(interval);
+    }
+  }, 100);
 
-    scrollElement.addEventListener("scroll", handleScroll);
-    return () => scrollElement.removeEventListener("scroll", handleScroll);
-  }, [hasMore, loading]);
+  return () => {
+    const scrollableElement = document.querySelector('.rdt_TableBody');
+    if (scrollableElement) {
+      scrollableElement.removeEventListener("scroll", handleScroll);
+    }
+  };
+}, [hasMore, loading]);
+
 
 
 
@@ -131,20 +142,18 @@ const RestaurantMenuTable = () => {
             placeholder="Search Product name..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="border pl-2 w-96 rounded-full"
+            className="border pl-2 h-12 w-96 rounded-full"
           />
       </div>
-    <div ref={scrollRef} className="max-h-[85vh] overflow-y-auto mt-10">
+    <div ref={scrollRef} className=" overflow-y-auto mt-7">
         <DataTable
           data={data}
           columns={columns}
           customStyles={customStyles}
           fixedHeader
+          fixedHeaderScrollHeight={"74vh"}
           defaultSortFieldId={1}
         />
-      
-     
-       
       </div>
       {isShowProduct && (
         <>
