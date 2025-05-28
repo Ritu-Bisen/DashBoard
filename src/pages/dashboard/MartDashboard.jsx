@@ -13,13 +13,13 @@ const MartDashboard = () => {
  const { deliveryBoys}=useSelector((state)=>state.deliveryBoyData);
   const{sellerDetails}=useSelector((state)=>state.seller)
   const {employees} =useSelector((state)=>state.employee)
-    const { products } = useSelector((state) => state.product);
+   
      const { assignOrders } = useSelector((state) => state.order); 
 const dispatch=useDispatch();
   useEffect(() => {
    dispatch(getVerifiedDeliveryBoy(sellerDetails))
    dispatch(getVerifiedEmployee(sellerDetails));
-   dispatch(getproduct());
+ 
        dispatch(getMartAssignedOrders(sellerDetails));
   }, [dispatch])
 
@@ -38,7 +38,7 @@ const dispatch=useDispatch();
    icon:<HiUsers size={30}/>,
    title:"Total Orders",
    numberOfperson:assignOrders.length,
-   client:"Person"
+   client:"orders"
  
   },
   {
@@ -46,7 +46,7 @@ const dispatch=useDispatch();
    icon:<MdOutlineMiscellaneousServices size={30}/>,
    title:"Total DeliveryBoys",
    numberOfperson:deliveryBoys.length,
-   client:"Services"
+   client:"DeliveryBoys"
  
   },
   {
@@ -93,7 +93,7 @@ const dispatch=useDispatch();
                   <h1 className='text-2xl font-bold '>Total Product</h1>
                   </div>
                  <div className='mt-10 ml-5'>
-                 <p className='text-xl font-semibold'>{products.length} Product</p>
+                 <p className='text-xl font-semibold'>804 Product</p>
                 
                   </div>
           </div>

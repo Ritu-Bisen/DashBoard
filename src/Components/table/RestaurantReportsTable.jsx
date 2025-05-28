@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import DataTable from 'react-data-table-component';
 import { FaEye } from 'react-icons/fa';
-import { getOrderAssignedData } from '../../Redux/Slices/restaurantSlice/restaurantOrderSlice';
+import { getOrderDeliveredData } from '../../Redux/Slices/restaurantSlice/restaurantOrderSlice';
 import RestaurantViewOrderRequest from '../preview/RestaurantViewOrderRequest';
 
 const RestaurantReportsTable = () => {
@@ -12,7 +12,7 @@ const RestaurantReportsTable = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-     dispatch(getOrderAssignedData(sellerDetails));
+     dispatch(getOrderDeliveredData(sellerDetails));
         }, [dispatch])
 
  

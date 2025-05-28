@@ -51,7 +51,8 @@ export const fetchRestaurantAssignedDeliveryBoy=async(orderId)=>{
 
 
 
-export const fetchRestaurantAssignedOrderData= async(sellerDetails)=>{
+
+export const fetchRestaurantdeliveredOrderData= async(sellerDetails)=>{
   try {
     
     const {data,error}=await supabase
@@ -60,6 +61,7 @@ export const fetchRestaurantAssignedOrderData= async(sellerDetails)=>{
     .eq("order_type",sellerDetails.segment)
     .eq("seller_id",sellerDetails.id)
     .eq("is_assigned",true)
+     .eq("order_status","delivered")
     if (!error) {
       console.log("fetch the order data", data);
     } else {
@@ -70,3 +72,27 @@ export const fetchRestaurantAssignedOrderData= async(sellerDetails)=>{
     console.error("error from supabase", error);
   }
 }
+
+
+export const fetchRestaurantProcessingOrderData= async(sellerDetails)=>{
+  try {
+    
+    const {data,error}=await supabase
+    .from("orders")
+    .select('*')
+    .eq("order_type",sellerDetails.segment)
+    .eq("seller_id",sellerDetails.id)
+    .eq("is_assigned",true)
+     .eq("order_status","processing")
+
+    if (!error) {
+      console.log("fetch the order data", data);
+    } else {
+      console.log("error when fetching data", error);
+    }
+    return data
+  } catch (error) {
+    console.error("error from supabase", error);
+  }
+}
+

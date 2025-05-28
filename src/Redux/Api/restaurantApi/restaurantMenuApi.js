@@ -12,6 +12,7 @@ export const fetchRestaurantMenuApi = async (page) =>{
     const { data, error } = await supabase
       .from("restaurant_products")
       .select(`*, categories(id, name)`)
+       .order("name", {ascending:true})
       .range(from, to);
 
     if (error) {

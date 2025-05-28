@@ -5,16 +5,18 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { FaEye } from "react-icons/fa";
 
-import {
-  getOrderAssignedData,
-} from "../../Redux/Slices/restaurantSlice/restaurantOrderSlice";
 import RestaurantViewOrderdetails from "../preview/RestaurantViewOrderdetails";
+import {
+  getOrderDeliveredData,
+  getOrderProcessingData,
+} from "../../Redux/Slices/restaurantSlice/restaurantOrderSlice";
 
 const RestaurantOrdersTable = () => {
   const { assignedOrder } = useSelector((state) => state.restaurantOrder);
-   const{sellerDetails}=useSelector((state)=>state.seller)
+  const { sellerDetails } = useSelector((state) => state.seller);
   const [isShowDetail, setIsShowDetail] = useState(false);
   const [showOrder, setShowOrder] = useState(null);
+  const [section, setSection] = useState("processing");
 
   const handleViewDetails = (orderId) => {
     setIsShowDetail(true);
@@ -25,17 +27,12 @@ const RestaurantOrdersTable = () => {
     setIsShowDetail(false);
   };
 
-  
-
-//  console.log("hii", assignedDeliveryBoy);
+  //  console.log("hii", assignedDeliveryBoy);
 
   const dispatch = useDispatch();
 
-  
-
   useEffect(() => {
-    dispatch(getOrderAssignedData(sellerDetails));
-    
+    dispatch(getOrderProcessingData(sellerDetails));
   }, [dispatch]);
 
   const columns = [
@@ -46,13 +43,8 @@ const RestaurantOrdersTable = () => {
     {
       name: "Order Id",
       selector: (row) => row.order_id,
-   
     },
-    {
-      name: "User Id",
-      selector: (row) => row.user_id,
-      
-    },
+
     {
       name: "Total Amount",
       selector: (row) => row.total_amount,
@@ -112,11 +104,7 @@ const RestaurantOrdersTable = () => {
 
   const data = assignedOrder.map((item, index) => ({
     serialNo: index + 1,
-
-    order_id: item.id.slice(0,8),
-    user_id: item.user_id.slice(0,8),
-
-    
+    order_id: item.id.slice(0, 8),
     total_amount: item.total_amount,
     payment_status: item.payment_status,
     order_status: item.order_status,
@@ -136,41 +124,38 @@ const RestaurantOrdersTable = () => {
       <div className="  pt-[120px] ">
         <div className="flex gap-5 justify-between">
           <h1 className=" mt-9 ml-2  text-3xl font-bold ">Latest Orders</h1>
-          {/* <div className="flex gap-8 mt-3">
-            <label className="flex-col  flex font-semibold  ml-5">
-              Placed Date
-              <input
-                className="border-2 border-gray-400 rounded-full h-10 w-50 p-3"
-                type="date"
-                placeholder="Search by Date"
-              />
-            </label>
-
-            <div>
-              <label className="flex-col font-semibold flex  ml-5">
-                Order Status
-                <select className="border-2 border-gray-400 rounded-full h-10 w-50 p-2">
-                  <option>All Order</option>
-                  <option>Payment Painding</option>
-                  <option>Received</option>
-                  <option>Processed</option>
-                  <option>Delivered</option>
-                  <option>Out Of Delivery</option>
-                </select>
-              </label>
-            </div>
-
-            <label className="flex-col font-semibold flex ml-5">
-              Search By Name{" "}
-              <input
-                className="border-2 border-gray-400 w-95 h-10 rounded-full  p-3 "
-                placeholder="Search"
-                type="text"
-              />
-            </label>
-          </div>*/}
-        </div> 
-        <div className="overflow-x mt-9 ">
+          <div className="flex bg-gray-200 w-[40vh] px-2 py-2 rounded-full m-5 justify-between">
+            <button
+              type="button"
+              className={`rounded-full px-2 text-lg font-semibold ${
+                section === "processing"
+                  ? "bg-white text-green-500"
+                  : "text-black"
+              }`}
+              onClick={() => {
+                setSection("processing");
+                dispatch(getOrderProcessingData(sellerDetails));
+              }}
+            >
+              Processing Orders
+            </button>
+            <button
+              type="button"
+              className={`rounded-full px-2 text-lg font-semibold ${
+                section === "delivered"
+                  ? "bg-white text-green-500"
+                  : "text-black"
+              }`}
+              onClick={() => {
+                setSection("delivered");
+                dispatch(getOrderDeliveredData(sellerDetails));
+              }}
+            >
+              Deliverd Orders
+            </button>
+          </div>
+        </div>
+        <div className="overflow-x mt-9  ">
           <DataTable
             fixedHeader
             columns={columns}
@@ -191,7 +176,7 @@ const RestaurantOrdersTable = () => {
             ></div>
             <div className="absolute z-1000">
               <RestaurantViewOrderdetails
-              sellerDetails={sellerDetails}
+                sellerDetails={sellerDetails}
                 orderId={showOrder}
                 onClose={handleProductDetailClose}
               />

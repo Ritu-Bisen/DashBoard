@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
-import {  fetchRestaurantAssignedDeliveryBoy, fetchRestaurantAssignedOrderData, fetchRestaurantOrderAPI } from "../../Api/restaurantApi/restaurantOrderApi";
+import {  fetchRestaurantAssignedDeliveryBoy,     fetchRestaurantdeliveredOrderData,  fetchRestaurantOrderAPI, fetchRestaurantProcessingOrderData } from "../../Api/restaurantApi/restaurantOrderApi";
 
 export const getRestaurantOrders = createAsyncThunk("order/fetch", async ({orderId,sellerDetails}) => {
  
@@ -16,10 +16,19 @@ export const getAssignedDeliveryBoy= createAsyncThunk("assinged-DeliveryBoy/fetc
     return assignDeliveryBoy;
 })
 
-export const getOrderAssignedData= createAsyncThunk("assigned/fetch",async(sellerDetails)=>{
-    const assignedData = await fetchRestaurantAssignedOrderData(sellerDetails);
-    return assignedData;
+
+
+export const getOrderProcessingData= createAsyncThunk("processing/fetch",async(sellerDetails)=>{
+    const processingData = await fetchRestaurantProcessingOrderData(sellerDetails);
+    return processingData;
 })
+
+export const getOrderDeliveredData= createAsyncThunk("delivered/fetch",async(sellerDetails)=>{
+    const deliveredData = await fetchRestaurantdeliveredOrderData(sellerDetails);
+    return deliveredData;
+})
+
+
 
 
 const restaurantOrderSlice = createSlice({
@@ -48,19 +57,32 @@ const restaurantOrderSlice = createSlice({
                 state.loading = false;
                 state.error = action.payload || "Failed to fetch orders.";
             })
-          
-         .addCase(getOrderAssignedData.pending, (state) => {
+         
+         .addCase(getOrderProcessingData.pending, (state) => {
                 state.loading = true;
                 state.error = null;
             })
-            .addCase(getOrderAssignedData.fulfilled, (state, action) => {
+            .addCase(getOrderProcessingData.fulfilled, (state, action) => {
                 state.loading = false;
                 state.assignedOrder = action.payload;
             })
-            .addCase(getOrderAssignedData.rejected, (state, action) => {
+            .addCase(getOrderProcessingData.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.payload || "Failed to fetch orders.";
             })
+             .addCase(getOrderDeliveredData.pending, (state) => {
+                state.loading = true;
+                state.error = null;
+            })
+            .addCase(getOrderDeliveredData.fulfilled, (state, action) => {
+                state.loading = false;
+                state.assignedOrder = action.payload;
+            })
+            .addCase(getOrderDeliveredData.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.payload || "Failed to fetch orders.";
+            })
+            
             .addCase(getAssignedDeliveryBoy.pending, (state) => {
                 state.loading = true;
                 state.error = null;

@@ -7,14 +7,14 @@ import { getVerifiedDeliveryBoy } from '../../Redux/Slices/deliveryBoyDataSlice'
 import { getVerifiedEmployee } from '../../Redux/Slices/employeeSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { getRestaurantmenus } from '../../Redux/Slices/restaurantSlice/restaurantMenuSlice';
-import { getOrderAssignedData } from '../../Redux/Slices/restaurantSlice/restaurantOrderSlice';
+import {  getOrderProcessingData } from '../../Redux/Slices/restaurantSlice/restaurantOrderSlice';
 
 
 const RestaurantDashboard = () => {
   const { deliveryBoys}=useSelector((state)=>state.deliveryBoyData);
   const{sellerDetails}=useSelector((state)=>state.seller)
   const {employees} =useSelector((state)=>state.employee)
-const { menu } = useSelector((state) => state.restaurantmenu);
+
   const { assignedOrder } = useSelector((state) => state.restaurantOrder);
 
   const dispatch = useDispatch();
@@ -22,7 +22,7 @@ const { menu } = useSelector((state) => state.restaurantmenu);
     dispatch(getVerifiedDeliveryBoy(sellerDetails))
       dispatch(getVerifiedEmployee(sellerDetails));
        dispatch(getRestaurantmenus())
-         dispatch(getOrderAssignedData(sellerDetails));
+         dispatch(getOrderProcessingData(sellerDetails));
   }, [dispatch]);
 
    const [revenue, setRevenue] = useState(0);

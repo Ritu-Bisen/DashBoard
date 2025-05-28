@@ -73,7 +73,7 @@ useEffect(() => {
     { name: "Discount %", selector: (row) => row.discount_percentage,width:"100px" },
      { name: "Discounted Price", selector: (row) => row.discounted_price },
        { name: "GST", selector: (row) => row.gst, width: "60px" },
-      { name: "tax_amount", selector: (row) => row.tax_amount, width: "100px" },
+      { name: "taxable Amount", selector: (row) => row.tax_amount, width: "100px" },
     { name: "Final Price", selector: (row) => row.final_price },
   
  

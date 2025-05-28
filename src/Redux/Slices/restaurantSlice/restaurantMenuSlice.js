@@ -9,7 +9,7 @@ export const getRestaurantmenus=createAsyncThunk("menu/fetch",async ({ page }, t
     })
 
 export const searchedProducts = createAsyncThunk(
-  "product/search",
+  "menu/search",
   async ({page, searchQuery }, { rejectWithValue }) => {
     try {
       const data = await searchProductApi(page, searchQuery);

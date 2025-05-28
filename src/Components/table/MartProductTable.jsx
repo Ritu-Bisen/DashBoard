@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import DataTable from "react-data-table-component";
 import { useDispatch, useSelector } from "react-redux";
-import { getproduct } from "../../Redux/Slices/productSlice";
+import { getproduct, resetProducts, searchedMartProducts } from "../../Redux/Slices/productSlice";
 import { FaEye } from "react-icons/fa";
 
 import ViewDetails from "../preview/ViewDetails";
@@ -12,32 +12,29 @@ const MartProductTable = () => {
   const [isShowProduct,setIsShowProduct] = useState(false);
   const [showProduct,setShowProduct] = useState(null);
 
+ const observer = useRef();
+
+  const { products, loading, hasMore, page } = useSelector((state) => state.product);
+ const dispatch = useDispatch();
+
+ useEffect(() => {
+   const delay = setTimeout(() => {
+     dispatch(resetProducts()); // reset state before new search
+ 
+     if (searchQuery.trim()) {
+       dispatch(searchedMartProducts({ page: 0, searchQuery }));
+     } else {
+       dispatch(getproduct({ page: 0 }));
+     }
+   }, 400); // debounce
+ 
+   return () => clearTimeout(delay);
+ }, [searchQuery, dispatch]);
+ 
 
  
-  
 
-  
-  const { products } = useSelector((state) => state.product);
-
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(getproduct());
-  }, []);
-
-  const searchthedata = Array.isArray(products)
-    ? products.filter((item) => {
-        const namematch = item?.name
-          ?.toLowerCase()
-          .includes(searchQuery.toLowerCase());
-        const categorymatch = item?.categories.name
-          ?.toLowerCase()
-          .includes(searchQuery.toLowerCase());
-        const idmatch = item?.id
-          ?.toLowerCase()
-          .includes(searchQuery.toLowerCase());
-        return namematch || categorymatch || idmatch;
-      })
-    : [];
+ 
 
     //for view details
     const handleViewDetails = (product)=> {
@@ -57,56 +54,53 @@ const MartProductTable = () => {
     {
       name: "S.no",
       selector: (row) => row.serialNo,
+         width: "60px",
     },
-    {
-      name: "Image",
-      selector: (row) => row.image_urls,
-    },
+   
     {
       name: "Id",
       selector: (row) => row.product_id,
-      width: "100px",
+      width: "90px",
     },
     {
       name: "Name",
       selector: (row) => row.name,
       sortable: true,
-      width: "350px",
+      width: "250px",
+    },
+     {
+      name: "Image",
+      selector: (row) => row.image_urls,
     },
     {
-      name: "Category Name",
+      name: "Category",
       selector: (row) => row.category_name,
-      width: "130px",
+      width: "100px",
     },
-    {
-      name: "MRP",
-      selector: (row) => row.price,
-    },
-    {
-      name: "Discount %",
-      selector: (row) => row.discount_percentage,
-    },
-    {
-      name: "Final Price",
-      selector: (row) => row.discount_price,
-      width: "130px",
-    },
+    { name: "Discount %", selector: (row) => row.discount_percentage,width:"100px" },
+     { name: "Discounted Price", selector: (row) => row.discounted_price },
+       { name: "GST", selector: (row) => row.gst, width: "60px" },
+      { name: "Taxable Amount", selector: (row) => row.tax_amount, width: "120px" },
+    { name: "Final Price", selector: (row) => row.final_price , width: "100px"},
+  
+ 
     {
       name: "Quantity",
       selector: (row) => row.stock_quantity,
+       width: "85px"
     },
 
     {
       name: "Status",
       selector: (row) => row.status,
       center: "true",
-      width: "150px",
+      width: "130px"
     },
     {
-      name: "View Details",
+      name: "View",
       selector: (row) => row.view,
       center: "true",
-      width: "130px",
+      width: "65px",
       
     },
   ];
@@ -135,16 +129,19 @@ const MartProductTable = () => {
   };
 
 
-  const data = searchthedata.map((item, index) => ({
+  const data = products.map((item, index) => ({
     serialNo: index + 1,
     product_id: item.id.slice(0, 8),
     category_name: item.categories.name,
     
     name: item.name,
-    description: item.description,
-    price: item.price,
+    
+    discounted_price: item.discounted_price,
     discount_percentage: item.discount_percentage,
-    discount_price: item.discounted_price,
+    price:item.price,
+    final_price: item.final_price,
+    gst: item.gst,
+    tax_amount: item.taxable_price,
     stock_quantity: item.stock_quantity,
     image_urls: (
       <img
@@ -184,17 +181,33 @@ const MartProductTable = () => {
             onChange={(e) => setSearchQuery(e.target.value)}
           />
         </div>
-        <div className="overflow-x mt-9">
-          <DataTable
-            fixedHeader
-            columns={columns}
-            data={data}
-            customStyles={customStyles}
-            fixedHeaderScrollHeight="67vh"
-            pagination
-            defaultSortFieldId={1}
-          />
-        </div>
+       <div
+  className="h-[65vh] mt-9 overflow-y-auto"
+  style={{ scrollbarWidth: 'none' }} // Firefox
+  onScroll={(e) => {
+    const { scrollTop, scrollHeight, clientHeight } = e.currentTarget;
+    if (scrollTop + clientHeight >= scrollHeight - 10 && hasMore && !loading) {
+      if (searchQuery.trim()) {
+        dispatch(searchedMartProducts({ page, searchQuery }));
+      } else {
+        dispatch(getproduct({ page }));
+      }
+    }
+  }}
+>
+  <DataTable
+    data={data}
+    columns={columns}
+    customStyles={customStyles}
+    fixedHeader
+    defaultSortFieldId={1}
+  />
+  {loading && (
+    <div className="flex justify-center items-center py-2">
+      <p className="text-center text-gray-500">Loading more...</p>
+    </div>
+  )}
+</div>
         <div>
        
 
