@@ -1,10 +1,15 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 import { fetchGymProductApi } from "../../Api/gymApi/gymProductApi"
-import { fetchGymOrderDetailsAPI, fetchGymOrdersApi } from "../../Api/gymApi/gymOrderApi";
+import { fetchGymCompletedOrdersApi, fetchGymOrderDetailsAPI,  fetchGymProcessingOrdersApi } from "../../Api/gymApi/gymOrderApi";
 
-export const getGymOrders=createAsyncThunk("orders/fetch",async (sellerDetails)=>{
-    const gymOrders = await fetchGymOrdersApi(sellerDetails);
-    return gymOrders;
+export const getGymProcessingOrders=createAsyncThunk("processing-orders/fetch",async (sellerDetails)=>{
+    const processingOrders = await fetchGymProcessingOrdersApi(sellerDetails);
+    return processingOrders;
+})
+
+export const getGymCompletedOrders=createAsyncThunk("completed-orders/fetch",async (sellerDetails)=>{
+    const completedOrders = await fetchGymCompletedOrdersApi(sellerDetails);
+    return completedOrders;
 })
 
 export const getGymOrderDetails=createAsyncThunk("ordersDetails/fetch",async ({orderId,sellerDetails})=>{
@@ -25,14 +30,24 @@ const gymOrdersSlice = createSlice({
     reducers:{},
     extraReducers:(builder)=>{
         builder
-       .addCase(getGymOrders.pending,(state)=>{
+       .addCase(getGymProcessingOrders.pending,(state)=>{
         state.loading=true,
         state.error=null
        })
-       .addCase(getGymOrders.fulfilled,(state,action)=>{
+       .addCase(getGymProcessingOrders.fulfilled,(state,action)=>{
         state.gymOrders=action.payload;
        })
-       .addCase(getGymOrders.rejected,(state,action)=>{
+       .addCase(getGymProcessingOrders.rejected,(state,action)=>{
+        state.error=action.payload;
+       })
+        .addCase(getGymCompletedOrders.pending,(state)=>{
+        state.loading=true,
+        state.error=null
+       })
+       .addCase(getGymCompletedOrders.fulfilled,(state,action)=>{
+        state.gymOrders=action.payload;
+       })
+       .addCase(getGymCompletedOrders.rejected,(state,action)=>{
         state.error=action.payload;
        })
        .addCase(getGymOrderDetails.pending,(state)=>{

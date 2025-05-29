@@ -182,7 +182,7 @@ const MartProductTable = () => {
           />
         </div>
        <div
-  className="h-[65vh] mt-9 overflow-y-auto"
+  className="h-[68vh] mt-9 overflow-y-auto"
   style={{ scrollbarWidth: 'none' }} // Firefox
   onScroll={(e) => {
     const { scrollTop, scrollHeight, clientHeight } = e.currentTarget;

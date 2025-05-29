@@ -3,12 +3,13 @@ import DataTable from "react-data-table-component";
 import { useDispatch, useSelector } from "react-redux";
 import { FaEye } from "react-icons/fa";
 import ViewSalonAppointmentDetails from "../preview/ViewSalonAppointmentDetails";
-import { getAppointment } from "../../Redux/Slices/salonSlicees/salonAppointmentSlice";
+import {  getCompletedAppointment, getProcessingAppointment } from "../../Redux/Slices/salonSlicees/salonAppointmentSlice";
 
 const SalonAppointmentTable = () => {
   const [isShowDetails,setIsShowDetails]=useState(false);
        const [showDetails,setShowDetails]=useState(null)
         const [selectedDate, setSelectedDate] = useState('');
+        const[section,setSection]=useState("processing")
   
 
    const {appointment} = useSelector((state)=>state.appointment);
@@ -18,7 +19,7 @@ const SalonAppointmentTable = () => {
  
       const dispatch = useDispatch();
       useEffect(() => {
-        dispatch(getAppointment(sellerDetails))
+        dispatch(getProcessingAppointment(sellerDetails))
        
       }, [dispatch])
 
@@ -122,6 +123,18 @@ const handleCloseInvoice =()=>{
   onChange={(e) => setSelectedDate(e.target.value)}
 />
 
+          </div>
+          <div className="flex bg-gray-200  rounded-full px-5 py-2 justify-between w-[30vh]">
+            <button  className={`rounded-full px-2 text-lg font-semibold ${
+                section === "processing"
+                  ? "bg-white text-green-500"
+                  : "text-black"
+              }`} onClick={()=>{setSection("processing");dispatch(getProcessingAppointment(sellerDetails))}}>Processing</button>
+              <button  className={`rounded-full px-2 text-lg font-semibold ${
+                section === "completed"
+                  ? "bg-white text-green-500"
+                  : "text-black"
+              }`} onClick={()=>{setSection("completed");dispatch(getCompletedAppointment(sellerDetails))}}>Completed</button>
           </div>
         
         <div className="mt-10">

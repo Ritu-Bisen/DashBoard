@@ -3,7 +3,7 @@ import Carousel from "../UI/Carousel";
 
 const ViewSalonDetails = ({ services, onClose }) => {
   return (
-    <div className="fixed top-35 right-55 rounded-4xl h-150 w-200 bg-white z-[1000]  p-5">
+    <div className="fixed top-1/2 right-1/2 transition translate-x-1/2 -translate-y-1/2 overflow-y-scroll  h-150 w-250 bg-white ">
      <div className="flex justify-between p-5 border-b ">
         <h1 className="text-2xl font-bold">View Details</h1>
         <button className="bg-red-600 text-white py-2 px-10 rounded-full " onClick={onClose}>Clear</button>

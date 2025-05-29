@@ -6,7 +6,7 @@ import { FaRegCalendarCheck } from "react-icons/fa";
 import { useDispatch, useSelector } from 'react-redux';
 import { getGymServices } from '../../Redux/Slices/gymSlice/gymServicesSlice';
 import { getEmployeeDetails, getVerifiedEmployee } from '../../Redux/Slices/employeeSlice';
-import { getGymOrders } from '../../Redux/Slices/gymSlice/gymOrdersSlice';
+import {  getGymProcessingOrders } from '../../Redux/Slices/gymSlice/gymOrdersSlice';
 import { getGymMember } from '../../Redux/Slices/gymSlice/gymMemberSlice';
 
 const GymDashBoard = () => {
@@ -19,7 +19,7 @@ const GymDashBoard = () => {
   useEffect(() => {
     dispatch(getGymServices());
     dispatch(getVerifiedEmployee(sellerDetails))
-        dispatch(getGymOrders(sellerDetails))
+        dispatch(getGymProcessingOrders(sellerDetails))
         dispatch(getGymMember(sellerDetails))
   }, [dispatch]);
 

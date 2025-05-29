@@ -67,11 +67,12 @@ const MartOrderRequestTable = () => {
       {
         name: "S.no",
         selector: (row) => row.serialNo,
+        width: "60px",
       },
       {
         name: "Order Id",
         selector: (row) => row.order_id,
-        width: "300px",
+        width: "90px",
       },
       {
         name: "User Name",
@@ -80,7 +81,7 @@ const MartOrderRequestTable = () => {
       {
         name: "User Contact",
         selector: (row) => row.user_contact,
-        width: "150px",
+        width: "130px",
       },
      
       {
@@ -91,17 +92,17 @@ const MartOrderRequestTable = () => {
       {
         name: "Payment Status",
         selector: (row) => row.payment_status,
-        width: "150px",
+        width: "130px",
       },
       {
         name: "Order Status",
         selector: (row) => row.order_status,
-        width: "120px",
+        width: "110px",
       },
       {
         name: "Payment Method",
         selector: (row) => row.payment_method,
-        width: "150px",
+        width: "140px",
       },
       {
         name: "Address",
@@ -112,6 +113,7 @@ const MartOrderRequestTable = () => {
         name: "View",
         selector: (row) => row.view,
         center: true,
+         width: "70px",
       },
       {
         name: "Delivery Boy",
@@ -147,7 +149,7 @@ const MartOrderRequestTable = () => {
   .filter(item => item && item.id)  // Ensure item and item.id are valid
   .map((item, index) => ({
     serialNo: index + 1,
-    order_id: item.id,
+    order_id: item.id.slice(0,8),
     user_name: item.users?.name || "N/A",
     user_contact: item.users?.phone_number || "N/A",
     total_amount: item.total_amount,

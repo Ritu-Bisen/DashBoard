@@ -1,12 +1,35 @@
 import supabase from "../../../SupaBaseClient"
 
-export const fetchGymOrdersApi=async (sellerDetails) =>{
+export const fetchGymCompletedOrdersApi=async (sellerDetails) =>{
     try {
          const { data, error } = await supabase
     .from("orders")
     .select('*,users(*)')
     .eq("order_type",sellerDetails.segment)
     .eq("seller_id",sellerDetails.id)
+    .eq("order_status","completed")
+        if (!error) {
+           console.log("fetch succefully",data)
+            
+        } else {
+           console.log("error when fetching data",error) 
+        } 
+        return data;
+    } catch (error) {
+       console.log("error from supabase",error);
+        
+    }
+}
+
+
+export const fetchGymProcessingOrdersApi=async (sellerDetails) =>{
+    try {
+         const { data, error } = await supabase
+    .from("orders")
+    .select('*,users(*)')
+    .eq("order_type",sellerDetails.segment)
+    .eq("seller_id",sellerDetails.id)
+    .eq("order_status","processing")
         if (!error) {
            console.log("fetch succefully",data)
             

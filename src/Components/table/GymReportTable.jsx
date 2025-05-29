@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getGymOrders } from '../../Redux/Slices/gymSlice/gymOrdersSlice';
+import { getGymCompletedOrders } from '../../Redux/Slices/gymSlice/gymOrdersSlice';
 import DataTable from 'react-data-table-component';
 import { FaEye } from 'react-icons/fa';
 import ViewGymReportDetails from '../preview/ViewGymReportDetails';
@@ -19,7 +19,7 @@ const GymReportTable = () => {
 
   useEffect(() => {
     if (active === 'product') {
-      dispatch(getGymOrders(sellerDetails));
+      dispatch(getGymCompletedOrders(sellerDetails));
     } else if (active === 'member') {
       dispatch(getGymMember(sellerDetails));
     }

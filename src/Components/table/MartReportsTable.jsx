@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { getGymOrders } from '../../Redux/Slices/gymSlice/gymOrdersSlice';
+//import { getGymOrders } from '../../Redux/Slices/gymSlice/gymOrdersSlice';
 import DataTable from 'react-data-table-component';
 import { FaEye } from 'react-icons/fa';
 import ViewGymReportDetails from '../preview/ViewGymReportDetails';
-import { getMartAssignedOrders } from '../../Redux/Slices/OrderSlice';
+import {  getMartDeliveredOrders } from '../../Redux/Slices/OrderSlice';
 import ViewOrderRequestProducts from '../preview/ViewOrderRequestProducts';
 
 const MartReportsTable = () => {
@@ -14,7 +14,7 @@ const MartReportsTable = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-     dispatch(getMartAssignedOrders(sellerDetails));
+     dispatch(getMartDeliveredOrders(sellerDetails));
     
     }, [dispatch])
 

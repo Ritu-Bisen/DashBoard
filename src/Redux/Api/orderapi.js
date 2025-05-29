@@ -1,7 +1,7 @@
 //import { seller_id } from "../../Components/MartSection/StockManagementForm";
 import supabase from "../../SupaBaseClient";
 
-export const fetchMartAssignedOrderAPI = async (sellerDetails) => {
+export const fetchMartProcessingOrderAPI = async (sellerDetails) => {
   console.log("hii",sellerDetails);
   
   try {
@@ -11,6 +11,29 @@ export const fetchMartAssignedOrderAPI = async (sellerDetails) => {
     .eq("order_type",sellerDetails.segment)
     .eq("seller_id",sellerDetails.id)
     .eq("is_assigned",true)
+    .eq("order_status","processing")
+    if (!error) {
+      console.log("fetch the order data", data);
+    } else {
+      console.log("error when fetching data", error);
+    }
+    return data
+  } catch (error) {
+    console.error("error from supabase", error);
+  }
+};
+
+export const fetchMartDeliveredOrderAPI = async (sellerDetails) => {
+  console.log("hii",sellerDetails);
+  
+  try {
+    const { data, error } = await supabase
+    .from("orders")
+    .select('*')
+    .eq("order_type",sellerDetails.segment)
+    .eq("seller_id",sellerDetails.id)
+    .eq("is_assigned",true)
+    .eq("order_status","delivered")
     if (!error) {
       console.log("fetch the order data", data);
     } else {

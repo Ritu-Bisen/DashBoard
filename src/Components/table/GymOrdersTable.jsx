@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import { fetchGymOrderDetailsAPI, fetchGymOrdersApi } from '../../Redux/Api/gymApi/gymOrderApi';
 import { useDispatch, useSelector } from 'react-redux';
-import { getGymOrders } from '../../Redux/Slices/gymSlice/gymOrdersSlice';
+import {  getGymCompletedOrders, getGymProcessingOrders } from '../../Redux/Slices/gymSlice/gymOrdersSlice';
 import DataTable from 'react-data-table-component';
 import { FaEye } from 'react-icons/fa';
 import ViewGymOrdersDetails from '../preview/ViewGymOrdersDetails';
@@ -15,11 +14,13 @@ const GymOrdersTable = () => {
 
 
     useEffect(() => {
-    dispatch(getGymOrders(sellerDetails))
+    dispatch(getGymProcessingOrders(sellerDetails))
     }, [dispatch])
    
   const [isShowDetails, setIsShowDetails] = useState(false);
       const [showDetails, setShowDetails] = useState(null);
+       const [section, setSection] = useState("processing");
+
     
       const handleShowDetails = (orderId) => {
         setIsShowDetails(true);
@@ -133,6 +134,18 @@ const GymOrdersTable = () => {
     <div className='w-[calc(100%-300px)] ml-[300px]  pt-30'>
        <div>
             <h1 className='font-bold text-3xl ml-5'>Orders</h1>
+              <div className="flex bg-gray-200  rounded-full px-5 py-2 justify-between w-[30vh]">
+                        <button  className={`rounded-full px-2 text-lg font-semibold ${
+                            section === "processing"
+                              ? "bg-white text-green-500"
+                              : "text-black"
+                          }`} onClick={()=>{setSection("processing");dispatch(getGymProcessingOrders(sellerDetails))}}>Processing</button>
+                          <button  className={`rounded-full px-2 text-lg font-semibold ${
+                            section === "completed"
+                              ? "bg-white text-green-500"
+                              : "text-black"
+                          }`} onClick={()=>{setSection("completed");dispatch(getGymCompletedOrders(sellerDetails))}}>Completed</button>
+                      </div>
             </div>
             <div className='overflow-x mt-9'>
                 <DataTable data={data} columns={columns} customStyles={customStyles} pagination fixedHeader fixedHeaderScrollHeight='67vh' defaultSortFieldId={1}/>

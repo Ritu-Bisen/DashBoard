@@ -74,31 +74,35 @@ const ViewOrderDetails = ({onClose,orderId,sellerDetails}) => {
               <table className="w-full text-left mt-5">
                 <thead className="bg-white">
                   <tr >
+                     <th className="p-2 border-gray-300 border">S.no</th>
                     <th className="p-2 border-gray-300 border">Product Name</th>
                     <th className="p-2 border-gray-300 border">Quantity</th>
+                    <th className="p-2 border-gray-300 border">MRP</th>
                     <th className="p-2 border-gray-300 border">Discount %</th>
-                    <th className="p-2 border-gray-300 border">SGST INR</th>
-                    <th className="p-2 border-gray-300 border">CGST INR</th>
+                  
                     <th className="p-2 border-gray-300 border">GST</th>
                     <th className="p-2 border-gray-300 border">HSN Code</th>
+                        <th className="p-2 border-gray-300 border">Discounted Price</th>
                     <th className="p-2 border-gray-300 border">Taxable Price</th>
                     <th className="p-2 border-gray-300 border">Final Price</th>
-                    <th className="p-2 border-gray-300 border">Discounted Price</th>
+                
                   </tr>
                 </thead>
                 <tbody>
                   {orders?.map((item, index) => (
                     <tr key={index} className="bg-white">
+                       <td className="p-2 border-gray-300 border">{index+1}</td>
                       <td className="p-2 border-gray-300 border">{item.mart_products?.name || "N/A"}</td>
                       <td className="p-2 border-gray-300 border">{item.quantity}</td>
+                                  <td className="p-2 border-gray-300 border">{item.mart_products.price}</td>
                       <td className="p-2 border-gray-300 border">{item.mart_products.discount_percentage}</td>
-                      <td className="p-2 border-gray-300 border">{item.mart_products.sgst_inr}</td>
-                      <td className="p-2 border-gray-300 border">{item.mart_products.cgst_inr}</td>
+                    
                       <td className="p-2 border-gray-300 border">{item.mart_products.gst}</td>
                       <td className="p-2 border-gray-300 border">{item.mart_products.hsn_code}</td>
+                        <td className="p-2 border-gray-300 border">{item.mart_products.discounted_price}</td>
                       <td className="p-2 border-gray-300 border">{item.mart_products.taxable_price}</td>
-                      <td className="p-2 border-gray-300 border">{item.mart_products.price}</td>
-                      <td className="p-2 border-gray-300 border">{item.mart_products.discounted_price}</td>
+                      <td className="p-2 border-gray-300 border">{item.mart_products.final_price}</td>
+                    
                     </tr>
                   ))}
                     <tr>

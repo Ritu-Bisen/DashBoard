@@ -1,9 +1,13 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { fetchAppointmentApi, fetchAppointmentServicesDataAPI } from "../../Api/salonApi/salonAppointmentAPI";
+import { fetchAppointmentServicesDataAPI, fetchCompletedAppointmentApi, fetchProcessingAppointmentApi } from "../../Api/salonApi/salonAppointmentAPI";
 
-export const getAppointment = createAsyncThunk("appointment/fetch",async(sellerDetails)=>{
-    const appointment = fetchAppointmentApi(sellerDetails);
-    return appointment;
+export const getCompletedAppointment = createAsyncThunk("completed-appointment/fetch",async(sellerDetails)=>{
+    const completedappointment = fetchCompletedAppointmentApi(sellerDetails);
+    return completedappointment;
+})
+export const getProcessingAppointment = createAsyncThunk("processing-appointment-/fetch",async(sellerDetails)=>{
+    const processingappointment = fetchProcessingAppointmentApi(sellerDetails);
+    return processingappointment;
 })
 
 export const getAppointmentServiceData = createAsyncThunk("servicesList/fetch",async({sellerDetails,orderId})=>{
@@ -23,14 +27,24 @@ const appointmentSlice = createSlice({
     reducers:{},
     extraReducers:(builder) =>{
         builder
-        .addCase(getAppointment.pending,(state)=>{
+        .addCase(getCompletedAppointment.pending,(state)=>{
             state.loading=true;
             state.error=null;
         })
-        .addCase(getAppointment.fulfilled,(state,action)=>{
+        .addCase(getCompletedAppointment.fulfilled,(state,action)=>{
             state.appointment=action.payload;
         })
-        .addCase(getAppointment.rejected,(state,action)=>{
+        .addCase(getCompletedAppointment.rejected,(state,action)=>{
+            state.error= action.payload;
+        })
+         .addCase(getProcessingAppointment.pending,(state)=>{
+            state.loading=true;
+            state.error=null;
+        })
+        .addCase(getProcessingAppointment.fulfilled,(state,action)=>{
+            state.appointment=action.payload;
+        })
+        .addCase(getProcessingAppointment.rejected,(state,action)=>{
             state.error= action.payload;
         })
           .addCase(getAppointmentServiceData.pending,(state)=>{

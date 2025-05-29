@@ -3,7 +3,7 @@ import DataTable from 'react-data-table-component';
 import { useDispatch, useSelector } from 'react-redux';
 import { FaEye } from "react-icons/fa";
 import ViewSalonBillingInvoice from '../preview/ViewSalonBillingInvoice';
-import { getAppointment } from '../../Redux/Slices/salonSlicees/salonAppointmentSlice';
+import { getCompletedAppointment, getProcessingAppointment } from '../../Redux/Slices/salonSlicees/salonAppointmentSlice';
 
 const SalonBillingListTable = () => {
      const [isShowDetails,setIsShowDetails]=useState(false);
@@ -17,7 +17,7 @@ const SalonBillingListTable = () => {
 
      const dispatch = useDispatch();
      useEffect(() => {
-       dispatch(getAppointment(sellerDetails))
+       dispatch(getProcessingAppointment(sellerDetails))
       
      }, [dispatch])
      

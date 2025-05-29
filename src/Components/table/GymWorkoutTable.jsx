@@ -1,16 +1,29 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { getGymWorkout } from '../../Redux/Slices/gymSlice/gymWorkoutSlice';
+import { getGymWorkout, resetWorkout, searchedGymWorkout } from '../../Redux/Slices/gymSlice/gymWorkoutSlice';
 import DataTable from 'react-data-table-component';
 import { FaEye } from 'react-icons/fa';
 import ViewGymWorkoutDetails from '../preview/ViewGymWorkoutDetails';
 
 const GymWorkoutTable = () => {
- const{workout}=useSelector((state)=>state.gymworkout)
-    const dispatch =useDispatch();
-    useEffect(()=>{
-        dispatch(getGymWorkout())
-    },[dispatch])
+const [searchQuery, setSearchQuery] = useState("");
+  const { workout , loading, hasMore, page } = useSelector((state) => state.gymworkout);
+     const dispatch = useDispatch();
+    
+     useEffect(() => {
+       const delay = setTimeout(() => {
+         dispatch(resetWorkout()); // reset state before new search
+     
+         if (searchQuery.trim()) {
+           dispatch(searchedGymWorkout({ page: 0, searchQuery }));
+         } else {
+           dispatch(getGymWorkout({ page: 0 }));
+         }
+       }, 400); // debounce
+     
+       return () => clearTimeout(delay);
+     }, [searchQuery, dispatch]);
+
 
 const [isShowDetails, setIsShowDetails] = useState(false);
   const [showDetails, setShowDetails] = useState(null);
@@ -101,20 +114,43 @@ const [isShowDetails, setIsShowDetails] = useState(false);
 
   return (
     <div className="w-[calc(100%-300px)] ml-[300px]  pt-30">
-      <div>
+       <div className="flex justify-between mr-10">
         <h1 className="font-bold text-3xl ml-5">Workout</h1>
+         <input
+            className="border-2 border-gray-400 w-95 h-10 rounded-full p-3 "
+            value={searchQuery}
+            placeholder="Search"
+            type="text"
+            onChange={(e) => setSearchQuery(e.target.value)}
+          />
       </div>
-      <div className="overflow-x mt-9">
-        <DataTable
-          data={data}
-          columns={columns}
-          customStyles={customStyles}
-          pagination
-          fixedHeader
-          fixedHeaderScrollHeight="67vh"
-          defaultSortFieldId={1}
-        />
-      </div>
+       <div
+  className="h-[68vh] mr-2 mt-9 overflow-y-auto"
+  style={{ scrollbarWidth: 'none' }} // Firefox
+  onScroll={(e) => {
+    const { scrollTop, scrollHeight, clientHeight } = e.currentTarget;
+    if (scrollTop + clientHeight >= scrollHeight - 10 && hasMore && !loading) {
+      if (searchQuery.trim()) {
+        dispatch(searchedGymWorkout({ page, searchQuery }));
+      } else {
+        dispatch(getGymWorkout({ page }));
+      }
+    }
+  }}
+>
+  <DataTable
+    data={data}
+    columns={columns}
+    customStyles={customStyles}
+    fixedHeader
+    defaultSortFieldId={1}
+  />
+  {loading && (
+    <div className="flex justify-center items-center py-2">
+      <p className="text-center text-gray-500">Loading more...</p>
+    </div>
+  )}
+</div>
         {isShowDetails && (
         <>
           <div

@@ -6,7 +6,7 @@ import { FaRegCalendarCheck } from "react-icons/fa";
 import { useDispatch, useSelector } from 'react-redux';
 import { getEmployeeDetails } from '../../Redux/Slices/employeeSlice';
 import { getServices } from '../../Redux/Slices/salonSlicees/salonServicesSlice';
-import { getAppointment } from '../../Redux/Slices/salonSlicees/salonAppointmentSlice';
+import {  getProcessingAppointment } from '../../Redux/Slices/salonSlicees/salonAppointmentSlice';
 
 const SalonDashboard = () => {
 const {employees} =useSelector((state)=>state.employee)
@@ -17,7 +17,7 @@ const {employees} =useSelector((state)=>state.employee)
 const dispatch =useDispatch();
 useEffect(() => {
   dispatch(getEmployeeDetails(sellerDetails))
- dispatch(getAppointment(sellerDetails))
+ dispatch(getProcessingAppointment(sellerDetails))
 dispatch(getServices());
 }, [dispatch])
 

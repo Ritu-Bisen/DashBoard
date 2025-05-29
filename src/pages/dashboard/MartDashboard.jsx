@@ -7,7 +7,7 @@ import { getVerifiedDeliveryBoy } from '../../Redux/Slices/deliveryBoyDataSlice'
 import { getVerifiedEmployee } from '../../Redux/Slices/employeeSlice'
 import { getproduct } from '../../Redux/Slices/productSlice'
 import { getOrderRequest, martOrderRequest } from '../../Redux/Slices/OrderRequestSlice'
-import { getMartAssignedOrders } from '../../Redux/Slices/OrderSlice'
+import {  getMartProcessingOrders } from '../../Redux/Slices/OrderSlice'
 
 const MartDashboard = () => {
  const { deliveryBoys}=useSelector((state)=>state.deliveryBoyData);
@@ -20,7 +20,7 @@ const dispatch=useDispatch();
    dispatch(getVerifiedDeliveryBoy(sellerDetails))
    dispatch(getVerifiedEmployee(sellerDetails));
  
-       dispatch(getMartAssignedOrders(sellerDetails));
+       dispatch(getMartProcessingOrders(sellerDetails));
   }, [dispatch])
 
    const [revenue, setRevenue] = useState(0);

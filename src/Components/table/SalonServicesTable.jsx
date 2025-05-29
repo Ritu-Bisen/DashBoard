@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import DataTable from "react-data-table-component";
 import { FaEye } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
-import { getServices } from "../../Redux/Slices/salonSlicees/salonServicesSlice";
+import { getServices, resetServices, searchedSalonServices } from "../../Redux/Slices/salonSlicees/salonServicesSlice";
 import ViewSalonDetails from "../preview/ViewSalonDetails";
 
 const SalonServicesTable = () => {
@@ -10,6 +10,23 @@ const SalonServicesTable = () => {
     const [searchQuery, setSearchQuery] = useState("");
   const [isShowDetails, setIsShowDetails] = useState(false);
   const [showDetails, setShowDetails] = useState(null);
+
+  const { services, loading, hasMore, page } = useSelector((state) => state.service);
+   const dispatch = useDispatch();
+  
+   useEffect(() => {
+     const delay = setTimeout(() => {
+       dispatch(resetServices()); // reset state before new search
+   
+       if (searchQuery.trim()) {
+         dispatch(searchedSalonServices({ page: 0, searchQuery }));
+       } else {
+         dispatch(getServices({ page: 0 }));
+       }
+     }, 400); // debounce
+   
+     return () => clearTimeout(delay);
+   }, [searchQuery, dispatch]);
 
   const handleShowDetails = (services) => {
     setIsShowDetails(true);
@@ -20,34 +37,13 @@ const SalonServicesTable = () => {
     setIsShowDetails(false);
   };
 
-  const { services } = useSelector((state) => state.service);
-  console.log(services);
-
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(getServices());
-  }, [dispatch]);
-
-   const searchthedata = Array.isArray(services)
-    ? services.filter((item) => {
-        const namematch = item?.name
-          ?.toLowerCase()
-          .includes(searchQuery.toLowerCase());
-        const categorymatch = item?.categories?.name
-          ?.toLowerCase()
-          .includes(searchQuery.toLowerCase());
-        const idmatch = item?.id
-          ?.toLowerCase()
-          .includes(searchQuery.toLowerCase());
-        return namematch || categorymatch || idmatch;
-      })
-    : [];
+  
 
   const columns = [
     {
       name: "S.no",
       selector: (row) => row.serialNo,
+      width:"65px"
     },
     {
       name: "Service Id",
@@ -87,6 +83,7 @@ const SalonServicesTable = () => {
       name: "View",
       selector: (row) => row.view,
       center: "true",
+        width:"70px"
     },
   ];
 
@@ -113,7 +110,7 @@ const SalonServicesTable = () => {
     },
   };
 
- const data = searchthedata.map((item,index)=>({
+ const data = services.map((item,index)=>({
   serialNo: index + 1,
      service_id: item.category_id.slice(0, 8),
      image: <img  src={item.image_urls[0]} />,
@@ -145,18 +142,33 @@ const SalonServicesTable = () => {
           />
           </div>
      
-      <div className="overflow-x mt-9">
-        <DataTable
-           data={data}
-          fixedHeaderScrollHeight="67vh"
-          defaultSortFieldId={1}
-          customStyles={customStyles}
-          pagination
-          fixedHeader
-          columns={columns}
-        />
-      </div>
-
+      <div
+  className="h-[68vh] mr-2 mt-9 overflow-y-auto"
+  style={{ scrollbarWidth: 'none' }} // Firefox
+  onScroll={(e) => {
+    const { scrollTop, scrollHeight, clientHeight } = e.currentTarget;
+    if (scrollTop + clientHeight >= scrollHeight - 10 && hasMore && !loading) {
+      if (searchQuery.trim()) {
+        dispatch(searchedSalonServices({ page, searchQuery }));
+      } else {
+        dispatch(getServices({ page }));
+      }
+    }
+  }}
+>
+  <DataTable
+    data={data}
+    columns={columns}
+    customStyles={customStyles}
+    fixedHeader
+    defaultSortFieldId={1}
+  />
+  {loading && (
+    <div className="flex justify-center items-center py-2">
+      <p className="text-center text-gray-500">Loading more...</p>
+    </div>
+  )}
+</div>
       {isShowDetails && (
         <>
           <div

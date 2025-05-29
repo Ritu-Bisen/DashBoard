@@ -85,11 +85,12 @@ const ViewGymWorkoutDetails = ({onClose,workout}) => {
 
         </div>
           <table >
-      
+      <tbody>
         <tr>
             <th className="border-gray-300 border p-2 px-5">Description</th>
             <td className="border-gray-300 border p-2 px-5"> {workout.description} </td>
         </tr>
+        </tbody>
       </table>
     </div>
   )
