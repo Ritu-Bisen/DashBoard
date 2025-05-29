@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState, useCallback } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import DataTable from 'react-data-table-component';
 import { FaEye } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
@@ -29,30 +29,65 @@ useEffect(() => {
 }, [searchQuery, dispatch]);
 
 
-  const lastMenuRef = useCallback(
-  (node) => {
-    if (loading) return;
-    if (observer.current) observer.current.disconnect();
+//   const lastMenuRef = useCallback(
+//   (node) => {
+//     if (loading) return;
+//     if (observer.current) observer.current.disconnect();
 
-    observer.current = new IntersectionObserver((entries) => {
-      if (entries[0].isIntersecting && hasMore) {
-        if (searchQuery.trim()) {
-          dispatch(searchedProducts({ page, searchQuery }));
-        } else {
-          dispatch(getRestaurantmenus({ page }));
-        }
-      }
-    });
+//     observer.current = new IntersectionObserver((entries) => {
+//       if (entries[0].isIntersecting && hasMore) {
+//         if (searchQuery.trim()) {
+//           dispatch(searchedProducts({ page, searchQuery }));
+//         } else {
+//           dispatch(getRestaurantmenus({ page }));
+//         }
+//       }
+//     });
 
-    if (node) observer.current.observe(node);
-  },
-  [loading, hasMore, dispatch, page, searchQuery]
-);
+//     if (node) observer.current.observe(node);
+//   },
+//   [loading, hasMore, dispatch, page, searchQuery]
+// );
 
 
  
 
-     const handleViewDetails = (menu) => {
+
+const handleScroll = (e) => {
+  const { scrollTop, scrollHeight, clientHeight } = e.target;
+
+  if (
+    scrollTop + clientHeight >= scrollHeight - 1 &&
+    hasMore &&
+    !loading
+  ) {
+    setPage((prevPage) => prevPage + 1);
+  }
+};
+
+
+  useEffect(() => {
+  const interval = setInterval(() => {
+    const scrollableElement = document.querySelector('.rdt_TableBody');
+    if (scrollableElement) {
+      scrollableElement.addEventListener("scroll", handleScroll);
+      clearInterval(interval);
+    }
+  }, 100);
+
+  return () => {
+    const scrollableElement = document.querySelector('.rdt_TableBody');
+    if (scrollableElement) {
+      scrollableElement.removeEventListener("scroll", handleScroll);
+    }
+  };
+}, [hasMore, loading]);
+
+
+
+
+  const handleViewDetails = (menu) => {
+
     setIsShowProduct(true);
     setShowProduct(menu);
   };
@@ -134,17 +169,47 @@ useEffect(() => {
     <div className="w-[calc(100%-300px)] ml-[300px] pt-[120px] ">
       <div className="flex justify-between">
         <h1 className="font-bold text-3xl ml-5">Menu</h1>
+
         <input
           className="border-2 border-gray-400 w-95 h-10 rounded-full p-3 mr-10"
           value={searchQuery}
           placeholder="Search"
           type="text"
           onChange={(e) => setSearchQuery(e.target.value)}
+          />
+      </div>
+     <div
+      className="h-[65vh] mt-9 overflow-y-auto"
+      style={{ scrollbarWidth: 'none' }} // Firefox
+      onScroll={(e) => {
+        const { scrollTop, scrollHeight, clientHeight } = e.currentTarget;
+        if (scrollTop + clientHeight >= scrollHeight - 10 && hasMore && !loading) {
+          if (searchQuery.trim()) {
+            dispatch(searchedProducts({ page, searchQuery }));
+          } else {
+            dispatch(getRestaurantmenus({ page }));
+          }
+        }
+      }}
+    >
+        <DataTable
+          data={data}
+          columns={columns}
+          customStyles={customStyles}
+          fixedHeader
+          fixedHeaderScrollHeight={"74vh"}
+          defaultSortFieldId={1}
+
         />
+        {loading && (
+    <div className="flex justify-center items-center py-2">
+      <p className="text-center text-gray-500">Loading more...</p>
+    </div>
+  )}
       </div>
 
 
-    <div
+    {/* <div
   className="h-[75vh] mt-9 overflow-y-auto"
   style={{ scrollbarWidth: 'none' }} // Firefox
   onScroll={(e) => {
@@ -170,7 +235,7 @@ useEffect(() => {
       <p className="text-center text-gray-500">Loading more...</p>
     </div>
   )}
-</div>
+</div> */}
 
 
       {isShowProduct && (

@@ -3,10 +3,19 @@ import { createAsyncThunk,createSlice } from "@reduxjs/toolkit";
 import { fetchRestaurantMenuApi, searchProductApi } from "../../Api/restaurantApi/restaurantMenuApi";
 
 
-export const getRestaurantmenus=createAsyncThunk("menu/fetch",async ({ page }, thunkAPI) =>{
-    const menu = await fetchRestaurantMenuApi(page);
-     return menu;
-    })
+
+
+export const getRestaurantmenus=createAsyncThunk("menu/fetch",async ({ page }, { rejectWithValue }) =>{
+    try {    
+      console.log(page);
+      
+      const data = await fetchRestaurantMenuApi(page);
+      return data;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+})
+
 
 export const searchedProducts = createAsyncThunk(
   "menu/search",
