@@ -17,9 +17,9 @@ const GymOrdersTable = () => {
     dispatch(getGymProcessingOrders(sellerDetails))
     }, [dispatch])
    
-  const [isShowDetails, setIsShowDetails] = useState(false);
+      const [isShowDetails, setIsShowDetails] = useState(false);
       const [showDetails, setShowDetails] = useState(null);
-       const [section, setSection] = useState("processing");
+      const [section, setSection] = useState("processing");
 
     
       const handleShowDetails = (orderId) => {

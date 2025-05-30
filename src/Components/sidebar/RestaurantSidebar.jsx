@@ -66,6 +66,7 @@ const RestaurantSidebar = () => {
         { title: "Delivery Boy List", path: "/restaurant/deliveryboy/delivery-boy-list" },
         { title: "Delivery Boy Management", path: "/restaurant/deliveryboy/delivery-boy-management" },
         { title: "Delivery Boy Request", path: "/restaurant/deliveryboy/delivery-boy-request"},
+        { title: "Delivery Boy Cash Collection", path: "/restaurant/deliveryboy/delivery-boy-cash-collection"}
         ],
       },
       {
@@ -117,7 +118,7 @@ const RestaurantSidebar = () => {
                   </div>
   
                   {openMenu === item.id && (
-                    <div className="ml-10">
+                    <div className="ml-5">
                       {item.subroute.map((sub, idx) => (
                         <Link
                           key={idx}

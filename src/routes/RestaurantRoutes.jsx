@@ -20,6 +20,7 @@ import DeliveryBoyList from '../pages/deliveryBoy/DeliverBoyList'
  import EmployeeList from "../pages/employee/EmployeeList";
  import SellerProfile from "../pages/SellerProfile";
  import WhiteHeader from "../Components/headers/WhiteHeader";
+import DeliveryBoyCashCollectionForm from '../Components/form/DeliveryBoyCashCollectionForm';
 
 
 
@@ -53,6 +54,7 @@ const RestaurantRoutes = () => {
         <Route path='employee/add-employee' element={<CreateEmployee/>}/>
         <Route path='order/orders' element={<RestaurantOrders/>}/>
         <Route path='order/order-request' element={<RestaurantOrderRequest/>}/>
+         <Route path='deliveryboy/delivery-boy-cash-collection' element={<DeliveryBoyCashCollectionForm/>}/>
         {/* <Route path='stock-management' element={<RestaurantStockManagement/>}/> */}
         
       

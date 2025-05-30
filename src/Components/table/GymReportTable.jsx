@@ -103,14 +103,21 @@ const GymReportTable = () => {
     }));
 
   // Data for members
-  const memberData = member?.map((item, index) => ({
+ const memberData = member
+  ?.filter((item) => {
+    if (!selectedDate) return true;
+    const itemDate = new Date(item.gym_services.created_at).toISOString().split('T')[0];
+    return itemDate === selectedDate;
+  })
+  .map((item, index) => ({
     serialNo: index + 1,
-    id:item.id,
+    id: item.id.slice(0,8),
     name: item.orders.users.name,
     service: item.gym_services.name,
     price: item.price,
     date: new Date(item.gym_services.created_at).toISOString().split('T')[0],
   }));
+
 
   return (
     <div className="w-[calc(100%-300px)] ml-[300px] pt-[120px]">

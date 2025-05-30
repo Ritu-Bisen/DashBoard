@@ -5,7 +5,7 @@ export const fetchGymCompletedOrdersApi=async (sellerDetails) =>{
          const { data, error } = await supabase
     .from("orders")
     .select('*,users(*)')
-    .eq("order_type",sellerDetails.segment)
+    .eq("order_type","gym_products")
     .eq("seller_id",sellerDetails.id)
     .eq("order_status","completed")
         if (!error) {
@@ -27,7 +27,7 @@ export const fetchGymProcessingOrdersApi=async (sellerDetails) =>{
          const { data, error } = await supabase
     .from("orders")
     .select('*,users(*)')
-    .eq("order_type",sellerDetails.segment)
+    .eq("order_type","gym_products")
     .eq("seller_id",sellerDetails.id)
     .eq("order_status","processing")
         if (!error) {
@@ -50,7 +50,7 @@ export const fetchGymOrderDetailsAPI = async ({orderId,sellerDetails}) => {
     const { data, error } = await supabase
       .from("gym_order_items")
       .select(`*,orders(*,users(*)),gym_products(*)`)
-      .eq('orders.order_type', sellerDetails.segment)  // condition 1
+      .eq('orders.order_type',"gym_products")  // condition 1
      .eq('orders.seller_id',sellerDetails.id)
      .eq('order_id',`${orderId}`)
     if (!error) {

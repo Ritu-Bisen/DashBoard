@@ -24,6 +24,7 @@ import gymBannerReducer from './Slices/gymSlice/gymBannerSlice'
 import restaurantReportReducer from './Slices/restaurantSlice/restaurantReportSlice'
 import gymMemberReducer from './Slices/gymSlice/gymMemberSlice'
 import reportReducer from './Slices/ReportsSlice'
+import CashCollectionReducer from './Slices/cashCollectionSlice'
 
 const store = configureStore({
     reducer:{
@@ -34,7 +35,7 @@ const store = configureStore({
         quantity :quantityReducer,
         service : salonReducer,
        appointment: appointmentReducer,
-     
+     cashCollection:CashCollectionReducer,
        auth : authReducer,
        deliveryBoyData: deliveryBoyReducer,
        gymProducts:gymProductsReducer,
