@@ -84,6 +84,8 @@ console.log(sellerProfileData);
         { title: "Delivery Boy List", path: "/mart/deliveryboy/delivery-boy-list" },
         { title: "Delivery Boy Request", path: "/mart/deliveryboy/delivery-boy-request" },
         { title: "Delivery Boy Management", path: "/mart/deliveryboy/delivery-boy-management" },
+        
+        { title: "Delivery Boy Cash Collection", path: "/mart/deliveryboy/delivery-boy-cash-collection" },
       ],
     },
     {
@@ -140,7 +142,7 @@ console.log(sellerProfileData);
                   </button>
 
                   {openMenu === item.title && (
-                    <ul className="ml-8 space-y-2">
+                    <ul className="ml-5 space-y-2">
                       {item.subroute.map((subItem, subIndex) => (
                         <li key={subIndex}>
                           <Link

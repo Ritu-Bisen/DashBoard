@@ -9,6 +9,8 @@ const GymMembersTable = () => {
   const dispatch = useDispatch();
   const { sellerDetails } = useSelector((state) => state.seller);
   const { member } = useSelector((state) => state.gymMember);
+console.log(member);
+
 
   const [isShowDetails, setIsShowDetails] = useState(false);
   const [showDetails, setShowDetails] = useState(null);
